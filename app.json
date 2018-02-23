@@ -1,0 +1,15 @@
+{
+  "name": "social-network",
+  "description": "Social network for developers",
+  "env": {
+    "REVIEW_DB_PASSWORD": {
+      "required": true
+    },
+    "PROFILE": "review"
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/java"
+    }
+  ]
+}
