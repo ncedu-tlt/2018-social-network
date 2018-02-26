@@ -1,26 +1,21 @@
 <template>
-    <v-app id="app">
-        <v-toolbar color="red darken-4" dark fixed app>
-            <v-toolbar-title>DevComrades</v-toolbar-title>
-            <v-spacer/>
-            <v-avatar class="grey lighten-4">
-                <img src="./assets/logo.png">
-            </v-avatar>
-        </v-toolbar>
-        <v-content>
+    <v-app>
+        <nav-bar>Nav-bar</nav-bar>
+        <v-content class="form-content">
             <router-view/>
         </v-content>
     </v-app>
 </template>
 
 <script>
+import NavBar from './components/NavBar.vue';
 export default {
-    name: 'App'
+    components: {NavBar}
 };
 </script>
 
 <style>
-#app {
+.form-content {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
