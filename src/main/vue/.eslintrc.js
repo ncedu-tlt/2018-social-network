@@ -37,6 +37,12 @@ module.exports = {
             named: 'never',
             asyncArrow: 'always'
         }],
+        'brace-style': ['error', '1tbs', {
+            allowSingleLine: false
+        }],
+        'object-curly-newline': ['error', {
+            consistent: true
+        }],
         'vue/html-indent': ['error', 4],
         'vue/max-attributes-per-line': ['error', {
             singleline: 4,
