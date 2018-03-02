@@ -6,9 +6,11 @@
         <v-btn icon>
             <v-icon>search</v-icon>
         </v-btn>
+        <v-btn :href="login" icon>
+            <v-icon>fab fa-github</v-icon>
+        </v-btn>
     </v-toolbar>
 </template>
-
 <script>
 export default {
     name: 'NavBar'

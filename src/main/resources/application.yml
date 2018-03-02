@@ -1,0 +1,13 @@
+#to move in env vars
+security:
+  oauth2:
+    client:
+      clientId: 481efbe93d82ad35bab3
+      clientSecret: 0293e5058253eb82f22a81091432fe7804a86789
+      accessTokenUri: https://github.com/login/oauth/access_token
+      userAuthorizationUri: https://github.com/login/oauth/authorize
+      tokenName: oauth_token
+      #authenticationScheme: query
+      #clientAuthenticationScheme: form
+    resource:
+      userInfoUri: https://api.github.com/user
