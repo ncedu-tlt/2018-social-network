@@ -14,14 +14,13 @@ spring:
     profiles:
         active: '@springProfile@'
 
-security:
-  oauth2:
+github:
     client:
-      clientId: ${CLIENT_ID}
-      clientSecret: ${CLIENT_SECRET}
-      accessTokenUri: https://github.com/login/oauth/access_token
-      userAuthorizationUri: https://github.com/login/oauth/authorize
-      tokenName: oauth_token
-      clientAuthenticationScheme: form
+        clientId: ${CLIENT_ID}
+        clientSecret: ${CLIENT_SECRET}
+        accessTokenUri: https://github.com/login/oauth/access_token
+        userAuthorizationUri: https://github.com/login/oauth/authorize
+        tokenName: oauth_token
+        clientAuthenticationScheme: form
     resource:
-      userInfoUri: https://api.github.com/user
+        userInfoUri: https://api.github.com/user
