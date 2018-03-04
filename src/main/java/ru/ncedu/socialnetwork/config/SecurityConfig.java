@@ -13,12 +13,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();  // todo: logout need CSRF token
+        //http.cors().disable();
         http.antMatcher("/**")
-            .authorizeRequests()
-                .antMatchers( "/", "/user", "/login", "/index.html", "/app.js", "/static/**", "/h2-console/**")
-                .permitAll()
+                .authorizeRequests()
+                    .antMatchers("/", "/login", "/index.html", "/app.js", "/static/**", "/h2-console/**")
+                    .permitAll()
                 .anyRequest()
-                .authenticated();
+                    .authenticated()
+                .and().logout()
+                    .logoutSuccessUrl("/")
+                    .permitAll();
     }
 }
 

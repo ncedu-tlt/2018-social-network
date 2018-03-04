@@ -6,13 +6,14 @@
         <v-btn icon>
             <v-icon>search</v-icon>
         </v-btn>
-        <v-btn :href="login" icon>
-            <v-icon>fab fa-github</v-icon>
-        </v-btn>
+        <Auth/>
     </v-toolbar>
 </template>
 <script>
-export default {
-    name: 'NavBar'
+    import Auth from '@/components/Auth';
+
+    export default {
+    name: 'NavBar',
+    components: { Auth }
 };
 </script>
