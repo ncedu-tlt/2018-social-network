@@ -5,9 +5,9 @@
     </div>
 </template>
 <script>
-    import * as api from '@/api/rest/user.api';
+import * as api from '@/api/rest/user.api';
 
-    export default {
+export default {
     name: 'Auth',
     data: () => ({
         isAuthorized: {
