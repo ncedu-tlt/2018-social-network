@@ -10,9 +10,9 @@
     </v-toolbar>
 </template>
 <script>
-    import Auth from '@/components/Auth';
+import Auth from '@/components/Auth';
 
-    export default {
+export default {
     name: 'NavBar',
     components: { Auth }
 };
