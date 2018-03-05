@@ -1,36 +1,25 @@
 <template>
     <div>
-        <v-btn v-if="isAuthorized" flat @click="logout" :key="isAuthorized">{{ $t('auth.logout') }}</v-btn>
-        <v-btn v-else flat href="login/github">{{ $t('auth.login') }}</v-btn>
+        <v-btn v-if="authCheck" flat @click="logout" :key="+authCheck">{{ $t('auth.logout') }}</v-btn>
+        <v-btn v-else flat href="/login">{{ $t('auth.login') }}</v-btn>
     </div>
 </template>
 <script>
-import * as api from '@/api/rest/user.api';
+    import {isAuthorized, logout} from '@/api/rest/user.api';
 
-export default {
+    export default {
     name: 'Auth',
     data: () => ({
-        isAuthorized: {
-            type: Boolean,
-            default: false,
-            required: true
-        },
-        errors: []
+        authCheck: false
     }),
-    created() {
-        this.setState();
+    async mounted() {
+        this.authCheck = await isAuthorized();
     },
     methods: {
         logout() {
-            api.logout();
-        },
-        setState() {
-            api.getCurrentUser()
-                .then(this.isAuthorized = true)
-                .catch(e => {
-                    this.isAuthorized = false;
-                    this.errors.push(e);
-                });
+            logout()
+                .then(this.$router.push('/'))
+                .then(this.authCheck = false);
         }
     }
 };
