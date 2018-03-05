@@ -5,9 +5,9 @@
     </div>
 </template>
 <script>
-    import {isAuthorized, logout} from '@/api/rest/user.api';
+import {isAuthorized, logout} from '@/api/rest/user.api';
 
-    export default {
+export default {
     name: 'Auth',
     data: () => ({
         authCheck: false
