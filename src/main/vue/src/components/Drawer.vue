@@ -58,6 +58,7 @@ export default {
 <style>
     .navigation-drawer{
         position: fixed;
-        top: 8.3%;
+        padding-top: 60px;
+        z-index: 0;
     }
 </style>
