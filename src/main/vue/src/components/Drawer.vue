@@ -1,10 +1,10 @@
 <template>
     <v-navigation-drawer
-        stateless
-        hide-overlay
+        fixed
+        :clipped="$vuetify.breakpoint.mdAndUp"
+        app
         :mini-variant.sync="sw"
         v-model="drawer"
-        class="navigation-drawer"
     >
         <v-toolbar flat class="transparent">
             <v-list class="pa-0">
@@ -46,19 +46,15 @@ export default {
         return {
             drawer: true,
             items: [
-                { title: 'Home', icon: 'dashboard' },
-                { title: 'About', icon: 'question_answer' }
+                { title: 'Профиль', icon: 'dashboard' },
+                { title: 'Проекты', icon: 'work' },
+                { title: 'Сообщения', icon: 'message' },
+                { title: 'История', icon: 'history' },
+                { title: 'Настройки', icon: 'settings' },
+                { title: 'Список контактов', icon: 'contacts' }
             ],
             right: null
         };
     }
 };
 </script>
-
-<style>
-    .navigation-drawer{
-        position: fixed;
-        padding-top: 60px;
-        z-index: 0;
-    }
-</style>
