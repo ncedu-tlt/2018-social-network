@@ -9,18 +9,18 @@ import java.security.Principal;
 
 
 @RestController
-public class UserApiController {
+public class UserController {
 
     private RestTemplate restTemplate;
 
     @Autowired
-    public UserApiController(RestTemplate restTemplate){
+    public UserController(RestTemplate restTemplate){
         this.restTemplate = restTemplate;
     }
 
     @RequestMapping("/api/user")
-    public String getUser(){
-        return restTemplate.getForObject("https://api.github.com/user", String.class);
+    public Principal getUser(Principal user){
+        return user;
     }
 
     @RequestMapping("/api/user/authorized")

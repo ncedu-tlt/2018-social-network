@@ -1,5 +1,6 @@
 package ru.ncedu.socialnetwork.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -12,6 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @Profile("review")
 public class ReviewSecurityConfig extends SecurityConfig {
 
+    @Autowired
     public ReviewSecurityConfig(@Qualifier("oauth2ClientContext") OAuth2ClientContext oauth2ClientContext) {
         super(oauth2ClientContext);
     }

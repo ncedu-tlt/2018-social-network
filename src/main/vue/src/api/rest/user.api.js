@@ -6,20 +6,23 @@ import client from '@/api/rest/client';
 const coreUrl = window.location.origin.toString();
 
 /**
- * Returns currently authenticated user info.
+ * Returns indicator whether the user authorized
  * @returns {AxiosPromise<any>}
  */
 export function isAuthorized() {
-    return client.get('/user/authorized')
-        .then(r => {
-            return r.data;
-        });
+    return client.get('/user/authorized');
 }
-
+/**
+ * Returns currently authenticated user info.
+ * @returns {AxiosPromise<any>}
+ */
 export function getCurrentUser() {
     return client.get('/user');
 }
-
+/**
+ * Returns nothing, call for destroying current auth session
+ * @returns {AxiosPromise<any>}
+ */
 export function logout() {
     return client.post(coreUrl + '/logout');
 }

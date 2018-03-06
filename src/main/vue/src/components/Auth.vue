@@ -5,7 +5,7 @@
     </div>
 </template>
 <script>
-import {isAuthorized, logout} from '@/api/rest/user.api';
+import { isAuthorized, logout } from '@/api/rest/user.api';
 
 export default {
     name: 'Auth',
@@ -16,10 +16,10 @@ export default {
         this.authCheck = await isAuthorized();
     },
     methods: {
-        logout() {
-            logout()
-                .then(this.$router.push('/'))
-                .then(this.authCheck = false);
+        async logout() {
+            await logout();
+            this.$router.push('/');
+            this.authCheck = false;
         }
     }
 };

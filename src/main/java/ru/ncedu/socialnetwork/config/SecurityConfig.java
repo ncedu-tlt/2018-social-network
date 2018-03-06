@@ -28,6 +28,13 @@ import javax.servlet.Filter;
 @Profile("!review")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final OAuth2ClientContext oauth2ClientContext;
+
+    @Autowired
+    public SecurityConfig(@Qualifier("oauth2ClientContext") final OAuth2ClientContext oauth2ClientContext) {
+        this.oauth2ClientContext = oauth2ClientContext;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/**")
@@ -59,13 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public RestTemplate restTemplate(){
         return new OAuth2RestTemplate(github(), oauth2ClientContext);
-    }
-
-    private final OAuth2ClientContext oauth2ClientContext;
-
-    @Autowired
-    public SecurityConfig(@Qualifier("oauth2ClientContext") final OAuth2ClientContext oauth2ClientContext) {
-        this.oauth2ClientContext = oauth2ClientContext;
     }
 
     private Filter ssoFilter() {
