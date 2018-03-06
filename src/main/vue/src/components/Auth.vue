@@ -10,10 +10,11 @@ import { isAuthorized, logout } from '@/api/rest/user.api';
 export default {
     name: 'Auth',
     data: () => ({
-        authCheck: false
+        authCheck: Boolean
     }),
     async mounted() {
-        this.authCheck = await isAuthorized();
+        const response = await isAuthorized();
+        this.authCheck = response.data;
     },
     methods: {
         async logout() {
