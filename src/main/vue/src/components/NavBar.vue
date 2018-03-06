@@ -6,11 +6,14 @@
         <v-btn icon>
             <v-icon>search</v-icon>
         </v-btn>
+        <Auth/>
     </v-toolbar>
 </template>
-
 <script>
+import Auth from '@/components/Auth';
+
 export default {
-    name: 'NavBar'
+    name: 'NavBar',
+    components: { Auth }
 };
 </script>

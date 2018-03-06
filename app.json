@@ -5,6 +5,15 @@
     "REVIEW_DB_PASSWORD": {
       "required": true
     },
+    "REVIEW_CLIENT_ID": {
+      "required": true
+    },
+    "REVIEW_CLIENT_SECRET": {
+      "required": true
+    },
+    "REVIEW_OAUTH_SERVER": {
+      "required": true
+    },
     "PROFILE": "review"
   },
   "buildpacks": [

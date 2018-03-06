@@ -3,12 +3,28 @@ import client from '@/api/rest/client';
 // It's an example API file with some fake calls.
 // TODO: Remove, when the project build will start.
 
+const coreUrl = window.location.origin.toString();
+
+/**
+ * Returns indicator whether the user authorized
+ * @returns {AxiosPromise<any>}
+ */
+export function isAuthorized() {
+    return client.get('/user/authorized');
+}
 /**
  * Returns currently authenticated user info.
  * @returns {AxiosPromise<any>}
  */
 export function getCurrentUser() {
     return client.get('/user');
+}
+/**
+ * Returns nothing, call for destroying current auth session
+ * @returns {AxiosPromise<any>}
+ */
+export function logout() {
+    return client.post(coreUrl + '/logout');
 }
 
 /**
