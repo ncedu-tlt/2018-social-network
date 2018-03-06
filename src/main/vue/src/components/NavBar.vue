@@ -5,8 +5,8 @@
         fixed
         app
         :clipped-left="$vuetify.breakpoint.mdAndUp">
-        <v-toolbar-title style="width: 300px">
-            <v-toolbar-side-icon @click="clickHamburgerButton"/>
+        <v-toolbar-title>
+            <v-toolbar-side-icon @click.stop="emitAfterClickOnHamburgerButton"/>
             <span>Dev Comrades</span>
         </v-toolbar-title>
         <v-spacer/>
@@ -20,8 +20,8 @@
 export default {
     name: 'NavBar',
     methods: {
-        clickHamburgerButton() {
-            this.$emit('ClickHamburgerMenu');
+        emitAfterClickOnHamburgerButton() {
+            this.$emit('ClickOnHamburgerButton');
         }
     }
 };

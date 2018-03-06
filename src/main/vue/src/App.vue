@@ -1,7 +1,7 @@
 <template>
     <v-app>
-        <NavBar @ClickHamburgerMenu="switchDrawer"/>
-        <Drawer :sw="swDrawer"/>
+        <NavBar @ClickOnHamburgerButton="changeDrawerVisible"/>
+        <Drawer :is-drawer-visible.sync="drawerVisible"/>
         <v-content>
             <router-view/>
         </v-content>
@@ -19,12 +19,12 @@ export default {
     },
     data() {
         return {
-            swDrawer: true
+            drawerVisible: false
         };
     },
     methods: {
-        switchDrawer() {
-            this.swDrawer = !this.swDrawer;
+        changeDrawerVisible() {
+            this.drawerVisible = !this.drawerVisible;
         }
     }
 };
