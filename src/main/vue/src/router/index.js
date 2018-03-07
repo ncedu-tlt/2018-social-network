@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import HelloWorld from '@/components/HelloWorld';
-import UserInfo from '@/components/UserInfo';
+import ProfileInfoArea from '@/components/ProfileInfoArea';
 
 Vue.use(Router);
 
@@ -15,8 +15,8 @@ export default new Router({
 
         {
             path: '/user/id',
-            name: 'UserInfo',
-            component: UserInfo
+            name: 'ProfileInfoArea',
+            component: ProfileInfoArea
         }
     ]
 });

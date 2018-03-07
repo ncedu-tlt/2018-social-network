@@ -1,26 +1,27 @@
 <template>
     <v-container>
-        <div id="head">
+        <div class="header">
             <h1>{{ userName }}</h1>
             <h1>{{ userSurname }}</h1>
         </div>
-        <div>
+        <div class="link-github-profile">
+            <a>View profile on GitHub</a>
+        </div>
+        <div class="languages-list">
             <h2>Languages:</h2>
             <li v-for="language in languages" :key="language">
                 {{ language.name }}
             </li>
         </div>
-        <div>
+        <div class="list-technologies">
             <h2>Preferred technologies:</h2>
             <li v-for="technology in technologies" :key="technology">
                 {{ technology.name }}
             </li>
         </div>
-        <div>
+        <div class="info-job-block">
             <h2>Place of work:</h2>
             <p>{{ placeOfWork }}</p>
-        </div>
-        <div>
             <h2>Job:</h2>
             <p>{{ job }}</p>
         </div>
@@ -50,3 +51,12 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+h1 {
+    display: inline;
+}
+li {
+    display: inline;
+}
+</style>
