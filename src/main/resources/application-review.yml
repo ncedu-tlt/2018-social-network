@@ -1,0 +1,22 @@
+spring:
+    datasource:
+        driverClassName: org.h2.Driver
+        password: ${REVIEW_DB_PASSWORD}
+        url: jdbc:h2:mem:testdb
+        username: sa
+    h2:
+        console:
+            enabled: true
+            settings:
+                web-allow-others: true
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        hibernate:
+            ddl-auto: create-drop
+
+github:
+    client:
+        clientId: ${REVIEW_CLIENT_ID}
+        clientSecret: ${REVIEW_CLIENT_SECRET}
+        accessTokenUri: ${REVIEW_OAUTH_SERVER}/login/oauth/access_token
+        userAuthorizationUri: ${REVIEW_OAUTH_SERVER}/login/oauth/authorize
