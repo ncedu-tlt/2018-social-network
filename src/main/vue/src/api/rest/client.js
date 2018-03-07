@@ -2,7 +2,10 @@ import axios from 'axios';
 
 const client = axios.create({
     // Put axios common config here
-    baseURL: '/api'
+    baseURL: '/api',
+    xsrfCookieName: 'XSRF-TOKEN',
+    xsrfHeaderName: 'X-XSRF-TOKEN',
+    headers: {'X-XSRF-TOKEN': 'XSRF-TOKEN'}
 });
 
 /**

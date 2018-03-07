@@ -1,0 +1,26 @@
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        tomcat:
+            initial-size: 3
+            max-active: 10
+            max-idle: 5
+            min-idle: 1
+            remove-abandoned: true
+        url: ${DATABASE_URL}
+    jpa:
+        hibernate:
+            ddl-auto: update
+    profiles:
+        active: '@springProfile@'
+
+github:
+    client:
+        clientId: ${CLIENT_ID}
+        clientSecret: ${CLIENT_SECRET}
+        accessTokenUri: https://github.com/login/oauth/access_token
+        userAuthorizationUri: https://github.com/login/oauth/authorize
+        tokenName: oauth_token
+        clientAuthenticationScheme: form
+    resource:
+        userInfoUri: https://api.github.com/user
