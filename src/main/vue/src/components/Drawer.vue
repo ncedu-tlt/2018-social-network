@@ -3,10 +3,11 @@
         fixed
         :clipped="$vuetify.breakpoint.mdAndUp"
         app
-        :mini-variant.sync="drawer-visible"
+        :mini-variant.sync="isDrawerVisibleDesktop"
+        :permanent="isDrawerVisibleMobile"
         @update:miniVariant="updateDrawerVisible"
     >
-        <v-list>
+        <v-list subheader>
             <v-list class="pa-0">
                 <v-list-tile avatar>
                     <v-list-tile-avatar>
@@ -25,7 +26,7 @@
                     <v-icon>dashboard</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>My projects</v-list-tile-title>
+                    <v-list-tile-title>{{ $t('drawer.projects') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
@@ -33,7 +34,7 @@
                     <v-icon>work</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>My messages</v-list-tile-title>
+                    <v-list-tile-title>{{ $t('drawer.messages') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
@@ -41,7 +42,7 @@
                     <v-icon>message</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>My feed</v-list-tile-title>
+                    <v-list-tile-title>{{ $t('drawer.feed') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
@@ -49,7 +50,7 @@
                     <v-icon>history</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>My contacts</v-list-tile-title>
+                    <v-list-tile-title>{{ $t('drawer.contacts') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
@@ -57,7 +58,7 @@
                     <v-icon>settings</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>Preferences</v-list-tile-title>
+                    <v-list-tile-title>{{ $t('drawer.preferences') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
         </v-list>
@@ -68,10 +69,14 @@
 export default {
     name: 'Drawer',
     props: {
-        /* is-drawer-visible: {
+        isDrawerVisibleDesktop: {
             type: Boolean,
             required: true
-        } */
+        },
+        isDrawerVisibleMobile: {
+            type: Boolean,
+            required: true
+        }
     },
     data() {
         return {
@@ -81,7 +86,7 @@ export default {
     },
     methods: {
         updateDrawerVisible() {
-            this.$emit('update:is-drawer-visible', 'this.is-drawer-visible');
+            this.$emit('update:isDrawerVisibleDesktop', this.isDrawerVisibleDesktop);
         }
     }
 };

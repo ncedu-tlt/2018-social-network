@@ -6,7 +6,7 @@
         app
         :clipped-left="$vuetify.breakpoint.mdAndUp">
         <v-toolbar-title>
-            <v-toolbar-side-icon @click.stop="emitAfterClickOnHamburgerButton"/>
+            <v-toolbar-side-icon @click.native.stop="uncoverDrawer"/>
             <span>Dev Comrades</span>
         </v-toolbar-title>
         <v-spacer/>
@@ -20,8 +20,8 @@
 export default {
     name: 'NavBar',
     methods: {
-        emitAfterClickOnHamburgerButton() {
-            this.$emit('ClickOnHamburgerButton');
+        uncoverDrawer() {
+            this.$emit('OpenDrawer');
         }
     }
 };

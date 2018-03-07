@@ -1,7 +1,7 @@
 <template>
     <v-app>
-        <NavBar @ClickOnHamburgerButton="changeDrawerVisible"/>
-        <Drawer :is-drawer-visible.sync="drawerVisible"/>
+        <NavBar @OpenDrawer="switchDrawerVisible"/>
+        <Drawer :is-drawer-visible-desktop.sync="isDrawerVisibleDesktop" :is-drawer-visible-mobile="isDrawerVisibleMobile"/>
         <v-content>
             <router-view/>
         </v-content>
@@ -19,12 +19,20 @@ export default {
     },
     data() {
         return {
-            drawerVisible: false
+            isDrawerVisibleDesktop: true,
+            isDrawerVisibleMobile: false,
+            mobile: window.innerWidth <= 1264
         };
     },
     methods: {
-        changeDrawerVisible() {
-            this.drawerVisible = !this.drawerVisible;
+        switchDrawerVisible() {
+            if (this.mobile === false) {
+                this.isDrawerVisibleMobile = false;
+                this.isDrawerVisibleDesktop = !this.isDrawerVisibleDesktop;
+            } else {
+                this.isDrawerVisibleDesktop = false;
+                this.isDrawerVisibleMobile = !this.isDrawerVisibleMobile;
+            }
         }
     }
 };
