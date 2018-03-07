@@ -1,7 +1,7 @@
 <template>
     <v-navigation-drawer
         fixed
-        :clipped="$vuetify.breakpoint.mdAndUp"
+        clipped
         app
         :mini-variant.sync="isDrawerVisibleDesktop"
         :permanent="isDrawerVisibleMobile"

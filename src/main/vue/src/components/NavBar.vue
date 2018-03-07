@@ -4,7 +4,7 @@
         color="primary"
         fixed
         app
-        :clipped-left="$vuetify.breakpoint.mdAndUp">
+        clipped-left>
         <v-toolbar-title>
             <v-toolbar-side-icon @click.native.stop="uncoverDrawer"/>
             <span>Dev Comrades</span>
