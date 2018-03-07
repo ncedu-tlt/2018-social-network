@@ -12,7 +12,7 @@ Vue.config.productionTip = false;
 Vue.use(Vuetify, {
     theme: {
         primary: colors.deepPurple.base,
-        secondary: colors.purple.lighten2,
+        secondary: colors.purple.lighten5,
         accent: colors.pink.accent2,
         error: colors.red.accent2,
         info: colors.lightBlue.base,
