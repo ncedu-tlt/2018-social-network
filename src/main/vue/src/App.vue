@@ -1,7 +1,7 @@
 <template>
     <v-app>
-        <NavBar @OpenDrawer="switchDrawerVisible"/>
-        <Drawer :is-drawer-visible-desktop.sync="isDrawerVisibleDesktop" :is-drawer-visible-mobile="isDrawerVisibleMobile"/>
+        <NavBar @openDrawer="switchDrawerVisible"/>
+        <Drawer :is-drawer-visible.sync="isDrawerVisible"/>
         <v-content>
             <router-view/>
         </v-content>
@@ -12,9 +12,6 @@
 import NavBar from './components/NavBar.vue';
 import Drawer from './components/Drawer';
 
-function isMobile() {
-    return window.innerWidth < 1264;
-}
 export default {
     name: 'App',
     components: {
@@ -23,20 +20,12 @@ export default {
     },
     data() {
         return {
-            isDrawerVisibleDesktop: true,
-            isDrawerVisibleMobile: false
+            isDrawerVisible: true
         };
     },
     methods: {
         switchDrawerVisible() {
-            let mobileVersion = isMobile();
-            if (!mobileVersion) {
-                this.isDrawerVisibleMobile = false;
-                this.isDrawerVisibleDesktop = !this.isDrawerVisibleDesktop;
-            } else {
-                this.isDrawerVisibleDesktop = false;
-                this.isDrawerVisibleMobile = !this.isDrawerVisibleMobile;
-            }
+            this.isDrawerVisible = !this.isDrawerVisible;
         }
     }
 };
