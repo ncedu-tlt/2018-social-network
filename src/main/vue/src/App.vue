@@ -3,8 +3,6 @@
         <NavBar @OpenDrawer="switchDrawerVisible"/>
         <Drawer :is-drawer-visible-desktop.sync="isDrawerVisibleDesktop" :is-drawer-visible-mobile="isDrawerVisibleMobile"/>
         <v-content>
-            <div>{{ isDrawerVisibleMobile }}</div>
-            <div>{{ isDrawerVisibleDesktop }}</div>
             <router-view/>
         </v-content>
     </v-app>
