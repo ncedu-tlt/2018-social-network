@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <NavBar @openDrawer="switchDrawerVisible"/>
+        <NavBar @clickOnHamburgerButton="switchDrawerVisible"/>
         <Drawer :is-drawer-visible.sync="isDrawerVisible"/>
         <v-content>
             <router-view/>

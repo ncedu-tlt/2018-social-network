@@ -21,7 +21,7 @@ export default {
     name: 'NavBar',
     methods: {
         uncoverDrawer() {
-            this.$emit('openDrawer');
+            this.$emit('clickOnHamburgerButton');
         }
     }
 };

@@ -3,8 +3,8 @@
         fixed
         clipped
         app
-        :mini-variant.sync="isDrawerVisibleDesktop"
-        :permanent="isDrawerVisibleMobile"
+        :mini-variant.sync="isDrawerVisible"
+        :permanent="isDrawerVisibleMobileVersion"
         @update:miniVariant="updateDrawerVisible"
     >
         <v-list subheader>
@@ -69,11 +69,7 @@
 export default {
     name: 'Drawer',
     props: {
-        isDrawerVisibleDesktop: {
-            type: Boolean,
-            required: true
-        },
-        isDrawerVisibleMobile: {
+        isDrawerVisible: {
             type: Boolean,
             required: true
         }
@@ -81,12 +77,20 @@ export default {
     data() {
         return {
             drawer: true,
-            right: null
+            right: null,
+            isDrawerVisibleMobileVersion: false
         };
+    },
+    watch: {
+        isDrawerVisible: function () {
+            if (this.$vuetify.breakpoint.width <= 1264) {
+                this.isDrawerVisibleMobileVersion = !this.isDrawerVisibleMobileVersion;
+            }
+        }
     },
     methods: {
         updateDrawerVisible() {
-            this.$emit('update:isDrawerVisibleDesktop', this.isDrawerVisibleDesktop);
+            this.$emit('update:isDrawerVisible', this.isDrawerVisible);
         }
     }
 };
