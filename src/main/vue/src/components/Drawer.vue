@@ -26,7 +26,7 @@
                     <v-icon>dashboard</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('drawer.projects') }}</v-list-tile-title>
+                    <v-list-tile-title>{{ $t('projects') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
@@ -34,7 +34,7 @@
                     <v-icon>work</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('drawer.messages') }}</v-list-tile-title>
+                    <v-list-tile-title>{{ $t('messages') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
@@ -42,7 +42,7 @@
                     <v-icon>message</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('drawer.feed') }}</v-list-tile-title>
+                    <v-list-tile-title>{{ $t('feed') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
@@ -50,7 +50,7 @@
                     <v-icon>history</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('drawer.contacts') }}</v-list-tile-title>
+                    <v-list-tile-title>{{ $t('contacts') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
@@ -58,7 +58,7 @@
                     <v-icon>settings</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('drawer.preferences') }}</v-list-tile-title>
+                    <v-list-tile-title>{{ $t('preferences') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
         </v-list>
