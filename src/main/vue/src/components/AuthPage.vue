@@ -1,25 +1,25 @@
 <template>
-    <v-container grid-list-md text-xs-center>
+    <v-container grid-list-xl text-xs-center>
         <v-layout row wrap>
-            <v-flex xs6>
+            <v-flex>
                 <div class="welcome logo">
                     <!--TODO logo-->
                     <!--<svg/>-->
                     <img src="../assets/logo.png" alt="Dev Comrades">
                 </div>
             </v-flex>
-            <v-flex xs6>
+            <v-flex>
                 <div class="welcome message">
                     <div class="welcome text">
-                        <p>Welcome to social network <br> for geeks!</p>
+                        <p class="primary--text">Welcome to social network <br> for geeks!</p>
                     </div>
-                    <div v-if="authCheck" class="button logout">
+                    <div v-if="isAuthed" class="button logout">
                         <v-btn
                             large
                             dark
                             color="primary"
                             @click="logout"
-                            :key="+authCheck">{{ $t('auth.logout') }}</v-btn>
+                            :key="+isAuthed">{{ $t('auth.logout') }}</v-btn>
                     </div>
                     <div v-else class="button login">
                         <v-btn
@@ -34,25 +34,30 @@
     </v-container>
 </template>
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
-export default {
-    name: 'AuthPage',
+export default {name: 'AuthPage',
     computed: {
-        ...mapGetters({
-            authCheck: 'auth/getAuthCheck'
-        })
+        ...mapState('auth', [
+            'isAuthed'
+        ])
     },
-    async mounted() {
-        await this.actionAuthCheck();
+    watch: {
+        isAuthed: function () {
+            if (window.localStorage) {
+                localStorage.setItem('isAuthed', this.isAuthed); // type of value - string
+            }
+        }
+    },
+    beforeMount() {
+        this.checkAuth();
     },
     methods: {
-        ...mapActions({
-            actionAuthCheck: 'auth/actionAuthCheck',
-            logout: 'auth/actionLogout'
-        })
-    }
-};
+        ...mapActions('auth', [
+            'checkAuth',
+            'logout'
+        ])
+    }};
 </script>
 <style scoped>
     .welcome{
@@ -60,9 +65,8 @@ export default {
     }
     .text{
         font: bold 2em Roboto, sans-serif;
-        color: mediumpurple;
     }
-    .button, .login, .logout{
+    .button{
         margin-top: 5%;
     }
 </style>

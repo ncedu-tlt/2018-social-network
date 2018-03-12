@@ -2,14 +2,7 @@ import { isAuthorized, logout } from '@/api/rest/user.api';
 import router from '@/router';
 
 const state = {
-    authCheck: Boolean
-};
-
-/**
- * Getters are used when we need some computed values based on the storage.
- */
-const getters = {
-    getAuthCheck: state => state.authCheck
+    isAuthed: false
 };
 
 /**
@@ -17,8 +10,8 @@ const getters = {
  * They should always stay synchronous.
  */
 const mutations = {
-    mutateAuthCheck(state, authCheckValue) {
-        state.authCheck = authCheckValue;
+    setAuthCheck(state, authCheckValue) {
+        state.isAuthed = authCheckValue;
     }
 };
 
@@ -28,13 +21,12 @@ const mutations = {
  * 2. Actions can be asynchronous.
  */
 const actions = {
-    async actionAuthCheck({ commit }, authCheckValue) {
+    async checkAuth({ commit }) {
         // Call some API in order to get current value
         const response = await isAuthorized();
-        authCheckValue = response.data;
-        commit('mutateAuthCheck', authCheckValue);
+        commit('setAuthCheck', response.data);
     },
-    async actionLogout() {
+    async logout() {
         await logout();
         router.push('/');
     }
@@ -43,7 +35,6 @@ const actions = {
 export default {
     namespaced: true,
     state,
-    getters,
     mutations,
     actions
 };

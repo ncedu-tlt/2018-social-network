@@ -1,5 +1,5 @@
 export default {
     'core.docs': 'Core Docs',
-    'auth.login': 'Login through GitHub',
+    'auth.login': 'Log in via GitHub',
     'auth.logout': 'Log out'
 };
