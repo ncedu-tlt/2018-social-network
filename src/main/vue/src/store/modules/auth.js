@@ -24,11 +24,12 @@ const actions = {
         // Call some API in order to get current value
         const response = await isAuthorized();
         localStorage.setItem('authed', response.data);
-        commit('setAuthCheck', localStorage.getItem('authed'));
+        commit('setAuthCheck', response.data);
     },
-    async logout({ dispatch }) {
+    async logout({ commit }) {
         await logout();
-        dispatch('checkAuth');
+        localStorage.setItem('authed', false);
+        commit('setAuthCheck', false);
     }
 };
 

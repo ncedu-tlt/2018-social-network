@@ -10,9 +10,17 @@ const router = new Router({
         {
             path: '/auth',
             name: 'AuthPage',
-            component: AuthPage
+            component: AuthPage,
+            beforeEnter: (to, from, next) => {
+                store.dispatch('auth/checkAuth');
+                next();
+            }
         },
-        { path: '/', redirect: '/feed' }
+        {
+            path: '/',
+            redirect: '/feed',
+            name: 'Root'
+        }
     ]
 });
 

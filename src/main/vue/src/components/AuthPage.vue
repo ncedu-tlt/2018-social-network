@@ -34,26 +34,22 @@
     </v-container>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapState } from 'vuex';
 
-export default {name: 'AuthPage',
+export default {
+    name: 'AuthPage',
     computed: {
         ...mapState('auth', [
             'authed'
         ])
     },
-    beforeMount() {
-        this.checkAuth();
-    },
     methods: {
-        ...mapActions('auth', [
-            'checkAuth'
-        ]),
-        async logout() {
-            await this.$store.dispatch('auth/logout');
+        logout() {
+            this.$store.dispatch('auth/logout');
             this.$router.push('/');
         }
-    }};
+    }
+};
 </script>
 <style scoped>
     .welcome{
