@@ -5,9 +5,9 @@
         fixed
         app
         clipped-left>
-        <v-toolbar-title>
-            <v-toolbar-side-icon @click.stop="uncoverDrawer"/>
-            <span>Dev Comrades</span>
+        <v-toolbar-title class="ml-0 pl-3">
+            <v-toolbar-side-icon @click.stop="hamburgerNotification"/>
+            <span class="hidden-xs-and-down">Dev Comrades</span>
         </v-toolbar-title>
         <v-spacer/>
         <v-btn icon>
@@ -20,8 +20,8 @@
 export default {
     name: 'NavBar',
     methods: {
-        uncoverDrawer() {
-            this.$emit('clickOnHamburgerButton');
+        hamburgerNotification() {
+            this.$emit('hamburgerClick');
         }
     }
 };
