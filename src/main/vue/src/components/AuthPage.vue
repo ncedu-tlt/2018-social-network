@@ -13,13 +13,13 @@
                     <div class="welcome text">
                         <p class="primary--text">Welcome to social network <br> for geeks!</p>
                     </div>
-                    <div v-if="isAuthed" class="button logout">
+                    <div v-if="authed" class="button logout">
                         <v-btn
                             large
                             dark
                             color="primary"
                             @click="logout"
-                            :key="+isAuthed">{{ $t('auth.logout') }}</v-btn>
+                            :key="+authed">{{ $t('auth.logout') }}</v-btn>
                     </div>
                     <div v-else class="button login">
                         <v-btn
@@ -39,24 +39,20 @@ import { mapActions, mapState } from 'vuex';
 export default {name: 'AuthPage',
     computed: {
         ...mapState('auth', [
-            'isAuthed'
+            'authed'
         ])
-    },
-    watch: {
-        isAuthed: function () {
-            if (window.localStorage) {
-                localStorage.setItem('isAuthed', this.isAuthed); // type of value - string
-            }
-        }
     },
     beforeMount() {
         this.checkAuth();
     },
     methods: {
         ...mapActions('auth', [
-            'checkAuth',
-            'logout'
-        ])
+            'checkAuth'
+        ]),
+        async logout() {
+            await this.$store.dispatch('auth/logout');
+            this.$router.push('/');
+        }
     }};
 </script>
 <style scoped>

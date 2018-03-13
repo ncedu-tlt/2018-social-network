@@ -1,8 +1,7 @@
 import { isAuthorized, logout } from '@/api/rest/user.api';
-import router from '@/router';
 
 const state = {
-    isAuthed: false
+    authed: localStorage.getItem('authed')
 };
 
 /**
@@ -11,7 +10,7 @@ const state = {
  */
 const mutations = {
     setAuthCheck(state, authCheckValue) {
-        state.isAuthed = authCheckValue;
+        state.authed = authCheckValue;
     }
 };
 
@@ -24,11 +23,12 @@ const actions = {
     async checkAuth({ commit }) {
         // Call some API in order to get current value
         const response = await isAuthorized();
+        localStorage.setItem('authed', response.data);
         commit('setAuthCheck', response.data);
     },
-    async logout() {
+    async logout({ dispatch }) {
         await logout();
-        router.push('/');
+        dispatch('checkAuth');
     }
 };
 
