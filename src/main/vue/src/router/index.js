@@ -17,7 +17,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-    if (store.state.auth.authed === 'true' || to.name === 'AuthPage') {
+    if (store.state.auth.authed || to.name === 'AuthPage') {
         next();
     } else {
         next('/auth');

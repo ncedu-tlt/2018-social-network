@@ -1,7 +1,7 @@
 import { isAuthorized, logout } from '@/api/rest/user.api';
 
 const state = {
-    authed: localStorage.getItem('authed')
+    authed: JSON.parse(localStorage.getItem('authed'))
 };
 
 /**
@@ -10,7 +10,7 @@ const state = {
  */
 const mutations = {
     setAuthCheck(state, authCheckValue) {
-        state.authed = authCheckValue;
+        state.authed = JSON.parse(authCheckValue);
     }
 };
 
@@ -24,7 +24,7 @@ const actions = {
         // Call some API in order to get current value
         const response = await isAuthorized();
         localStorage.setItem('authed', response.data);
-        commit('setAuthCheck', response.data);
+        commit('setAuthCheck', localStorage.getItem('authed'));
     },
     async logout({ dispatch }) {
         await logout();
