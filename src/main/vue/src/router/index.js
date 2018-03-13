@@ -13,7 +13,11 @@ const router = new Router({
             component: AuthPage,
             beforeEnter: (to, from, next) => {
                 store.dispatch('auth/checkAuth');
-                next();
+                if (store.state.auth.authed) {
+                    next('/feed');
+                } else {
+                    next();
+                }
             }
         },
         {
