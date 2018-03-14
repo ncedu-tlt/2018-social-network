@@ -1,15 +1,39 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Feed from '@/components/Feed';
+import AuthPage from '@/components/AuthPage';
+import store from '@/store';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
     routes: [
         {
+            path: '/auth',
+            name: 'AuthPage',
+            component: AuthPage,
+            beforeEnter: async (to, from, next) => {
+                await store.dispatch('auth/checkAuth');
+                if (store.state.auth.authed) {
+                    next('/feed');
+                } else {
+                    next();
+                }
+            }
+        },
+        {
             path: '/',
-            name: 'Feed',
-            component: Feed
+            redirect: '/feed',
+            name: 'Root'
         }
     ]
 });
+
+router.beforeEach((to, from, next) => {
+    if (store.state.auth.authed || to.name === 'AuthPage') {
+        next();
+    } else {
+        next('/auth');
+    }
+});
+
+export default router;
