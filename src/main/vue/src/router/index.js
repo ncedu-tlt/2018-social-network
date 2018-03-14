@@ -11,8 +11,8 @@ const router = new Router({
             path: '/auth',
             name: 'AuthPage',
             component: AuthPage,
-            beforeEnter: (to, from, next) => {
-                store.dispatch('auth/checkAuth');
+            beforeEnter: async (to, from, next) => {
+                await store.dispatch('auth/checkAuth');
                 if (store.state.auth.authed) {
                     next('/feed');
                 } else {
