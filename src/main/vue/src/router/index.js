@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import AuthPage from '@/components/AuthPage';
+import Feed from '@/components/Feed';
 import store from '@/store';
 
 Vue.use(Router);
@@ -24,6 +25,11 @@ const router = new Router({
             path: '/',
             redirect: '/feed',
             name: 'Root'
+        },
+        {
+            path: '/feed',
+            name: Feed,
+            component: Feed
         }
     ]
 });
