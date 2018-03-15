@@ -1,4 +1,5 @@
 const state = {
+    // Test data
     posts: [
         {
             id_post: 1,
@@ -49,6 +50,7 @@ const getters = {
 const mutations = {
     addComment(state, data) {
         state.comments.push({
+            // Test data
             id_comment: 1,
             id_user: 1,
             img_path: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
