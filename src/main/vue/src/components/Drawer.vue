@@ -9,7 +9,7 @@
     >
         <v-list subheader>
             <v-list class="pa-0">
-                <v-list-tile avatar>
+                <v-list-tile avatar class="secondary">
                     <v-list-tile-avatar>
                         <img src="https://randomuser.me/api/portraits/men/85.jpg">
                     </v-list-tile-avatar>
@@ -23,7 +23,7 @@
             <v-divider/>
             <v-list-tile>
                 <v-list-tile-action>
-                    <v-icon>dashboard</v-icon>
+                    <v-icon>call_merge</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title>{{ $t('projects') }}</v-list-tile-title>
@@ -31,7 +31,7 @@
             </v-list-tile>
             <v-list-tile>
                 <v-list-tile-action>
-                    <v-icon>work</v-icon>
+                    <v-icon>message</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title>{{ $t('messages') }}</v-list-tile-title>
@@ -39,7 +39,7 @@
             </v-list-tile>
             <v-list-tile>
                 <v-list-tile-action>
-                    <v-icon>message</v-icon>
+                    <v-icon>view_headline</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title>{{ $t('feed') }}</v-list-tile-title>
@@ -47,7 +47,7 @@
             </v-list-tile>
             <v-list-tile>
                 <v-list-tile-action>
-                    <v-icon>history</v-icon>
+                    <v-icon>contacts</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title>{{ $t('contacts') }}</v-list-tile-title>
@@ -61,9 +61,11 @@
                     <v-list-tile-title>{{ $t('preferences') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile v-if="!visible" href="/logout">
+        </v-list>
+        <v-list class="logout_form">
+            <v-list-tile href="/logout">
                 <v-list-tile-action>
-                    <v-icon>block</v-icon>
+                    <v-icon>exit_to_app</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title>{{ $t('logout') }}</v-list-tile-title>
@@ -102,3 +104,10 @@ export default {
     }
 };
 </script>
+<style scoped>
+    .logout_form{
+        position: absolute;
+        bottom: 5px;
+        width: 300px;
+    }
+</style>
