@@ -61,9 +61,7 @@
                     <v-list-tile-title>{{ $t('preferences') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-        </v-list>
-        <v-list class="logout_form">
-            <v-list-tile href="/logout">
+            <v-list-tile href="/logout" class="button_logout">
                 <v-list-tile-action>
                     <v-icon>exit_to_app</v-icon>
                 </v-list-tile-action>
@@ -105,7 +103,7 @@ export default {
 };
 </script>
 <style scoped>
-    .logout_form{
+    .button_logout{
         position: absolute;
         bottom: 5px;
         width: 300px;
