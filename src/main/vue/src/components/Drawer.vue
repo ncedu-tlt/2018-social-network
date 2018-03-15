@@ -61,6 +61,14 @@
                     <v-list-tile-title>{{ $t('preferences') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
+            <v-list-tile v-if="!visible" href="/logout">
+                <v-list-tile-action>
+                    <v-icon>block</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                    <v-list-tile-title>{{ $t('logout') }}</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
         </v-list>
     </v-navigation-drawer>
 </template>
@@ -76,7 +84,8 @@ export default {
     },
     data() {
         return {
-            minify: false
+            minify: false,
+            logout: '/logout'
         };
     },
     watch: {

@@ -6,5 +6,6 @@ export default {
     'messages': 'Messages',
     'feed': 'Feed',
     'contacts': 'Contacts',
-    'preferences': 'Preferences'
+    'preferences': 'Preferences',
+    'logout': 'Log out'
 };

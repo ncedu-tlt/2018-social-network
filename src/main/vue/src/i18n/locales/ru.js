@@ -6,5 +6,6 @@ export default {
     'messages': 'Сообщения',
     'feed': 'Лента',
     'contacts': 'Контакты',
-    'preferences': 'Настройки'
+    'preferences': 'Настройки',
+    'logout': 'Выход'
 };
