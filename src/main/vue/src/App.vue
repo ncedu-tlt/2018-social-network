@@ -1,6 +1,7 @@
 <template>
     <v-app>
-        <NavBar/>
+        <NavBar @hamburgerClick="switchDrawerVisible"/>
+        <Drawer :visible.sync="opened"/>
         <v-content>
             <router-view/>
         </v-content>
@@ -9,8 +10,23 @@
 
 <script>
 import NavBar from './components/NavBar.vue';
+import Drawer from './components/Drawer';
+
 export default {
     name: 'App',
-    components: {NavBar}
+    components: {
+        Drawer,
+        NavBar
+    },
+    data() {
+        return {
+            opened: true
+        };
+    },
+    methods: {
+        switchDrawerVisible() {
+            this.opened = !this.opened;
+        }
+    }
 };
 </script>
