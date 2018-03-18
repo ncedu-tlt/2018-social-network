@@ -61,7 +61,7 @@
                     <v-list-tile-title>{{ $t('preferences') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile href="/logout" class="button_logout">
+            <v-list-tile @click="logout" class="button_logout">
                 <v-list-tile-action>
                     <v-icon>exit_to_app</v-icon>
                 </v-list-tile-action>
@@ -84,8 +84,7 @@ export default {
     },
     data() {
         return {
-            minify: false,
-            logout: '/logout'
+            minify: false
         };
     },
     watch: {
@@ -98,6 +97,10 @@ export default {
     methods: {
         updateDrawerVisible() {
             this.$emit('update:visible', this.visible);
+        },
+        logout() {
+            this.$store.dispatch('auth/logout');
+            this.$router.push('/auth');
         }
     }
 };
