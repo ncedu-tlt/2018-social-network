@@ -6,7 +6,7 @@
         :mini-variant="visible"
         :permanent="minify"
         @update:miniVariant="updateDrawerVisible"
-        v-if="checkAuth"
+        v-if="auth"
     >
         <v-list subheader>
             <v-list class="pa-0">
@@ -89,7 +89,7 @@ export default {
         };
     },
     computed: {
-        checkAuth() {
+        auth() {
             return this.$store.state.auth.authed;
         }
     },
