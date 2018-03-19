@@ -76,16 +76,18 @@ export default {
     h1 {
         margin-right: 3px;
         font-size: 30pt;
+        font-family: Arial;
         color: #4A148C;
     }
     h1, li {
         display: inline;
     }
     h2 {
+        font-size: 13pt;
         color: #7B1FA2;
     }
     li, p {
-        font-size: 14pt;
+        font-size: 13pt;
         color: #8E24AA;
     }
     a {
