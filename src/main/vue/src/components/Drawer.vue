@@ -3,9 +3,10 @@
         fixed
         clipped
         app
-        :mini-variant.sync="visible"
+        :mini-variant="visible"
         :permanent="minify"
         @update:miniVariant="updateDrawerVisible"
+        v-if="auth"
     >
         <v-list subheader>
             <v-list class="pa-0">
@@ -86,6 +87,11 @@ export default {
         return {
             minify: false
         };
+    },
+    computed: {
+        auth() {
+            return this.$store.state.auth.authed;
+        }
     },
     watch: {
         visible: function () {
