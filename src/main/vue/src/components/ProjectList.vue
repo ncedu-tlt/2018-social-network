@@ -5,7 +5,7 @@
                 <v-card>
                     <v-toolbar card color="white">
                         <v-toolbar-title class="primary--text">
-                            Projects
+                            {{ $t('projects') }}
                             <span class="secondary--text">({{ projects.length }})</span>
                         </v-toolbar-title>
                         <v-spacer/>
@@ -62,9 +62,7 @@ export default {
     props: {
         userName: {
             type: String,
-            // todo: change for listening parent
-            default: 'ocassio',
-            required: false
+            required: true
         }
     },
     computed: {
@@ -72,8 +70,7 @@ export default {
             'projects'
         ])
     },
-    created() {
-        // delayed
+    mounted() {
         this.updateProjects(this.userName);
     },
     methods: {

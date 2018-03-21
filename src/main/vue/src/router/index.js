@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import AuthPage from '@/components/AuthPage';
-import ProjectList from '@/components/ProjectList';
+import ProjectsPage from '@/components/ProjectsPage';
 import store from '@/store';
 
 Vue.use(Router);
@@ -15,6 +15,7 @@ const router = new Router({
             beforeEnter: async (to, from, next) => {
                 await store.dispatch('auth/checkAuth');
                 if (store.state.auth.authed) {
+                    await store.dispatch('auth/getCurrentUser');
                     next('/feed');
                 } else {
                     next();
@@ -23,8 +24,8 @@ const router = new Router({
         },
         {
             path: '/projects',
-            name: 'ProjectList',
-            component: ProjectList
+            name: 'ProjectsPage',
+            component: ProjectsPage
         },
         {
             path: '/',

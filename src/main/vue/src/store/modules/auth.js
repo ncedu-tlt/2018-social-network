@@ -1,7 +1,8 @@
-import { isAuthorized, logout } from '@/api/rest/user.api';
+import { getCurrentUser, isAuthorized, logout } from '@/api/rest/user.api';
 
 const state = {
-    authed: JSON.parse(localStorage.getItem('authed'))
+    authed: JSON.parse(localStorage.getItem('authed')),
+    userName: localStorage.getItem('userName')
 };
 
 /**
@@ -11,6 +12,9 @@ const state = {
 const mutations = {
     setAuthCheck(state, authCheckValue) {
         state.authed = JSON.parse(authCheckValue);
+    },
+    setUserName(state, name) {
+        state.userName = name;
     }
 };
 
@@ -26,9 +30,14 @@ const actions = {
         localStorage.setItem('authed', response.data);
         commit('setAuthCheck', response.data);
     },
+    async getCurrentUser({ commit }) {
+        const response = await getCurrentUser();
+        localStorage.setItem('userName', response.data.name);
+        commit('setUserName', response.data.name);
+    },
     async logout({ commit }) {
         await logout();
-        localStorage.setItem('authed', false);
+        localStorage.clear();
         commit('setAuthCheck', false);
     }
 };
