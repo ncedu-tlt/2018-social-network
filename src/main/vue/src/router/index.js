@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import AuthPage from '@/components/AuthPage';
+import ProjectList from '@/components/ProjectList';
 import store from '@/store';
 
 Vue.use(Router);
@@ -19,6 +20,11 @@ const router = new Router({
                     next();
                 }
             }
+        },
+        {
+            path: '/projects',
+            name: 'ProjectList',
+            component: ProjectList
         },
         {
             path: '/',

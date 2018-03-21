@@ -12,6 +12,10 @@ const coreUrl = window.location.origin.toString();
 export function isAuthorized() {
     return client.get('/user/authorized');
 }
+
+export function getProjects(userName) {
+    return client.get(`/user/${userName}/repos`);
+}
 /**
  * Returns currently authenticated user info.
  * @returns {AxiosPromise<any>}
