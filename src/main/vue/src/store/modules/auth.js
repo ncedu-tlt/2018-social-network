@@ -10,8 +10,8 @@ const state = {
  * They should always stay synchronous.
  */
 const mutations = {
-    setAuthCheck(state, authCheckValue) {
-        state.authed = JSON.parse(authCheckValue);
+    setAuthCheck(state, authed) {
+        state.authed = authed;
     },
     setUserName(state, name) {
         state.userName = name;
@@ -24,16 +24,19 @@ const mutations = {
  * 2. Actions can be asynchronous.
  */
 const actions = {
-    async checkAuth({ commit }) {
+    async checkAuth({ commit, dispatch }) {
         // Call some API in order to get current value
-        const response = await isAuthorized();
-        localStorage.setItem('authed', response.data);
-        commit('setAuthCheck', response.data);
-    },
-    async getCurrentUser({ commit }) {
-        const response = await getCurrentUser();
-        localStorage.setItem('userName', response.data.name);
-        commit('setUserName', response.data.name);
+        const authResponse = await isAuthorized();
+        localStorage.setItem('authed', authResponse.data);
+        commit('setAuthCheck', authResponse.data);
+
+        if (authResponse.data) {
+            const userResponse = await getCurrentUser();
+            localStorage.setItem('userName', userResponse.data.name);
+            commit('setUserName', userResponse.data.name);
+        } else {
+            commit('setUserName', null);
+        }
     },
     async logout({ commit }) {
         await logout();

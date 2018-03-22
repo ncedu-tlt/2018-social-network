@@ -15,7 +15,6 @@ const router = new Router({
             beforeEnter: async (to, from, next) => {
                 await store.dispatch('auth/checkAuth');
                 if (store.state.auth.authed) {
-                    await store.dispatch('auth/getCurrentUser');
                     next('/feed');
                 } else {
                     next();
