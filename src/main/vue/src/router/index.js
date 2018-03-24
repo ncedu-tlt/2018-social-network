@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import AuthPage from '@/components/AuthPage';
+import Chat from '@/components/Chat';
 import store from '@/store';
 
 Vue.use(Router);
@@ -19,6 +20,11 @@ const router = new Router({
                     next();
                 }
             }
+        },
+        {
+            path: '/chat',
+            name: 'Chat',
+            component: Chat
         },
         {
             path: '/',
