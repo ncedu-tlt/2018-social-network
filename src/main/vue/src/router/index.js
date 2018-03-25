@@ -1,12 +1,24 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import HelloWorld from '@/components/HelloWorld';
-import ProfileInfoArea from '@/components/ProfileInfo';
 
 Vue.use(Router);
 
 export default new Router({
     routes: [
+        {
+            path: '/auth',
+            name: 'AuthPage',
+            component: AuthPage,
+            beforeEnter: async (to, from, next) => {
+                await store.dispatch('auth/checkAuth');
+                if (store.state.auth.authed) {
+                    next('/feed');
+                } else {
+                    next();
+                }
+            }
+        },
         {
             path: '/',
             name: 'HelloWorld',
@@ -20,3 +32,13 @@ export default new Router({
         }
     ]
 });
+
+router.beforeEach((to, from, next) => {
+    if (store.state.auth.authed || to.name === 'AuthPage') {
+        next();
+    } else {
+        next('/auth');
+    }
+});
+
+export default router;

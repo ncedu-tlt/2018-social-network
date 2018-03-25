@@ -1,4 +1,5 @@
 import axios from 'axios';
+import router from '@/router';
 
 const client = axios.create({
     // Put axios common config here
@@ -13,7 +14,7 @@ const client = axios.create({
  */
 client.interceptors.response.use(null, error => {
     if (error.status === 401 || error.status === 403) {
-        window.location.href = '/login';
+        router.push('/auth');
     }
     return Promise.reject(error);
 });

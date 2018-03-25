@@ -1,5 +1,11 @@
 export default {
     'core.docs': 'Основная документация',
     'auth.login': 'Авторизоваться',
-    'auth.logout': 'Выйти'
+    'auth.logout': 'Выйти',
+    'projects': 'Проекты',
+    'messages': 'Сообщения',
+    'feed': 'Лента',
+    'contacts': 'Контакты',
+    'preferences': 'Настройки',
+    'logout': 'Выход'
 };
