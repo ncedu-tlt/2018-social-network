@@ -1,10 +1,12 @@
 <template>
     <div>
-        <img
-            src="https://vuetifyjs.com/static/doc-images/cards/desert.jpg"
-            width="250"
-            height="300"
-        >
+        <v-card>
+            <v-card-media
+                class="white--text"
+                height="400px"
+                src="https://vuetifyjs.com/static/doc-images/cards/docks.jpg"
+            />
+        </v-card>
     </div>
 </template>
 

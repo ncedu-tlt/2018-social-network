@@ -1,50 +1,60 @@
 <template>
-    <div class="user-info-area">
-        <div class="header">
-            <h1>{{ userName }}</h1>
-            <h1>{{ userSurname }}</h1>
-        </div>
-        <div class="link-github-profile">
-            <a>View profile on GitHub</a>
-        </div>
-        <div class="info-area">
-            <div class="list-area">
-                <div class="list-label">
-                    <h2>Languages:</h2>
-                </div>
-                <div class="list">
-                    <li v-for="language in languages" :key="language">
-                        {{ language.name }}
-                    </li>
-                </div>
-            </div>
-            <div class="list-area">
-                <div class="list-label">
-                    <h2>Preferred technologies:</h2>
-                </div>
-                <div class="list">
-                    <li v-for="technology in technologies" :key="technology">
-                        {{ technology.name }}
-                    </li>
-                </div>
-            </div>
-            <div class="info-job-area">
-                <div class="info-job-label">
-                    <h2>Place of work:</h2>
-                </div>
-                <div class="info-job">
-                    <p>{{ placeOfWork }}</p>
-                </div>
-            </div>
-            <div class="info-job-area">
-                <div class="info-job-label">
-                    <h2>Job:</h2>
-                </div>
-                <div class="info-job">
-                    <p>{{ job }}</p>
-                </div>
-            </div>
-        </div>
+    <div>
+        <v-app>
+            <v-card height="400px">
+                <v-card-text>
+                    <div class="header">
+                        <h1>{{ userName }}</h1>
+                        <h1>{{ userSurname }}</h1>
+                    </div>
+                    <div class="link-github-profile">
+                        <a>View profile on GitHub</a>
+                    </div>
+                    <div class="info-area">
+                        <div class="list-area">
+                            <div class="list-label">
+                                <h2>Languages:</h2>
+                            </div>
+                            <div class="list">
+                                <li v-for="language in languages" :key="language">
+                                    {{ language.name }}
+                                </li>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-area">
+                        <div class="list-label">
+                            <h2>Preferred technologies:</h2>
+                        </div>
+                        <div class="list">
+                            <li v-for="technology in technologies" :key="technology">
+                                {{ technology.name }}
+                            </li>
+                        </div>
+                    </div>
+                    <div class="info-job-area">
+                        <div class="info-job-label">
+                            <h2>Place of work:</h2>
+                        </div>
+                        <div class="info-job">
+                            <p>{{ placeOfWork }}</p>
+                        </div>
+                    </div>
+                    <div class="info-job-area">
+                        <div class="info-job-label">
+                            <h2>Job:</h2>
+                        </div>
+                        <div class="info-job">
+                            <p>{{ job }}</p>
+                        </div>
+                    </div>
+                </v-card-text>
+                <v-card-actions class="profile-action-buttons">
+                    <v-btn flat small color="purple darken-4">Follow</v-btn>
+                    <v-btn flat small color="purple darken-4">Add to friends</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-app>
     </div>
 </template>
 
@@ -107,5 +117,9 @@ export default {
     .info-area {
         margin-left: 3px;
         margin-top: 10px;
+    }
+    .profile-action-buttons{
+        margin-left: 90px;
+        margin-top: 50px;
     }
 </style>
