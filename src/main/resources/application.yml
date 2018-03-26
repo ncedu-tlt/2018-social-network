@@ -24,3 +24,8 @@ github:
         clientAuthenticationScheme: form
     resource:
         userInfoUri: https://api.github.com/user
+
+server:
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css

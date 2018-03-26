@@ -3,9 +3,10 @@
         fixed
         clipped
         app
-        :mini-variant.sync="visible"
+        :mini-variant="visible"
         :permanent="minify"
         @update:miniVariant="updateDrawerVisible"
+        v-if="auth"
     >
         <v-list subheader>
             <v-list class="pa-0">
@@ -61,7 +62,7 @@
                     <v-list-tile-title>{{ $t('preferences') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile href="/logout" class="button_logout">
+            <v-list-tile @click="logout" class="button_logout">
                 <v-list-tile-action>
                     <v-icon>exit_to_app</v-icon>
                 </v-list-tile-action>
@@ -84,9 +85,13 @@ export default {
     },
     data() {
         return {
-            minify: false,
-            logout: '/logout'
+            minify: false
         };
+    },
+    computed: {
+        auth() {
+            return this.$store.state.auth.authed;
+        }
     },
     watch: {
         visible: function () {
@@ -98,6 +103,10 @@ export default {
     methods: {
         updateDrawerVisible() {
             this.$emit('update:visible', this.visible);
+        },
+        logout() {
+            this.$store.dispatch('auth/logout');
+            this.$router.push('/auth');
         }
     }
 };
