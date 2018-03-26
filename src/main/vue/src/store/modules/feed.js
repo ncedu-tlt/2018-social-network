@@ -44,41 +44,6 @@ const state = {
         },
         {
             id: 2,
-            date: '22 January 2018 at 12:30 pm',
-            type: 'Post',
-            content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-            user: {
-                id: 3,
-                name: 'Jake Yellow',
-                avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'
-            },
-            comments: [
-                {
-                    id: 1,
-                    postId: 2,
-                    date: '22 January 2018 at 12:31 pm',
-                    user: {
-                        id: 1,
-                        name: 'Jake White',
-                        avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'
-                    },
-                    content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'
-                },
-                {
-                    id: 2,
-                    postId: 2,
-                    date: '22 January 2018 at 12:32 pm',
-                    user: {
-                        id: 3,
-                        name: 'Jake Yellow',
-                        avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'
-                    },
-                    content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'
-                }
-            ]
-        },
-        {
-            id: 3,
             date: '21 January 2018 at 19:30 pm',
             type: 'Commit',
             content: 'New commit [link]',
@@ -90,7 +55,7 @@ const state = {
             comments: [
                 {
                     id: 1,
-                    postId: 3,
+                    postId: 2,
                     date: '21 January 2018 at 20:30 pm',
                     user: {
                         id: 1,
@@ -101,7 +66,7 @@ const state = {
                 },
                 {
                     id: 2,
-                    postId: 3,
+                    postId: 2,
                     date: '21 January 2018 at 20:31 pm',
                     user: {
                         id: 3,
