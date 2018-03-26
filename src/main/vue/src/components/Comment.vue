@@ -1,37 +1,35 @@
 <template>
-    <v-container>
-        <v-layout row wrap align-center>
-            <v-flex xs12 md5 offset-md2>
-                <v-card class="comment" hover>
-                    <v-container class="comment__title">
-                        <v-layout>
-                            <v-flex>
-                                <v-avatar :size="70" class="comment__avatar grey">
-                                    <img :src="comment.img_path">
-                                </v-avatar>
-                            </v-flex>
-                            <v-flex xs12 align-start>
-                                <v-card-title>
-                                    <span class="headline mb-0">{{ comment.name }}</span>
-                                </v-card-title>
-                            </v-flex>
-                        </v-layout>
-                    </v-container>
-                    <v-card-text>{{ comment.content }}</v-card-text>
-                    <v-card-actions>
-                        <v-card-text>
-                            <span>{{ comment.date }}</span>
-                        </v-card-text>
-                        <v-btn flat icon color="black">
-                            <v-icon>favorite</v-icon>
-                        </v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-flex>
-        </v-layout>
-    </v-container>
+    <v-card>
+        <v-flex>
+            <v-layout>
+                <v-flex class="comment__avatar">
+                    <v-avatar :size="70" class="deep-purple">
+                        <img :src="comment.user.avatar">
+                    </v-avatar>
+                </v-flex>
+                <v-flex xs9>
+                    <v-card-title>
+                        <span class="title deep-purple--text headline mb-0">
+                            {{ comment.user.name }}
+                        </span>
+                    </v-card-title>
+                    <v-card-title>
+                        {{ comment.content }}
+                    </v-card-title>
+                </v-flex>
+            </v-layout>
+        </v-flex>
+        <v-card-actions>
+            <v-card-text>
+                <span class="grey--text">{{ comment.date }}</span>
+            </v-card-text>
+            <v-spacer />
+            <v-btn flat icon color="black">
+                <v-icon>favorite</v-icon>
+            </v-btn>
+        </v-card-actions>
+    </v-card>
 </template>
-
 <script>
 export default {
     name: 'Comment',
@@ -46,15 +44,18 @@ export default {
 </script>
 
 <style scoped>
-    .comment {
-        width: 630px;
-    }
-    .comment__title {
-        height: 110px;
+    .card {
+        margin: 2px;
+        max-width: 600px;
+        min-height: 100px;
     }
     .comment__avatar {
-        width: 400px;
-        margin: 20px;
-        justify-content: flex-start;
+        max-width: 100px;
+    }
+    .card__title {
+        padding: 2px;
+    }
+    .card__text {
+        padding: 17px;
     }
 </style>

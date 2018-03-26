@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import AuthPage from '@/components/AuthPage';
-import Feed from '@/components/Feed';
+import FeedPage from '@/components/FeedPage';
 import store from '@/store';
 
 Vue.use(Router);
@@ -28,8 +28,8 @@ const router = new Router({
         },
         {
             path: '/feed',
-            name: Feed,
-            component: Feed
+            name: 'FeedPage',
+            component: FeedPage
         }
     ]
 });
