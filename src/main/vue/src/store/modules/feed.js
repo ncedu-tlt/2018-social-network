@@ -3,7 +3,7 @@ const state = {
     posts: [
         {
             id: 1,
-            date: '21 January 2018 at 9:20 pm',
+            date: '23 January 2018 at 19:30 pm',
             type: 'Post',
             content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry ' +
             's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a ' +
@@ -20,7 +20,7 @@ const state = {
                 {
                     id: 1,
                     postId: 1,
-                    date: '21 January 2018 at 9:20 pm',
+                    date: '23 January 2018 at 20:30 pm',
                     user: {
                         id: 1,
                         name: 'Jake White',
@@ -31,7 +31,7 @@ const state = {
                 {
                     id: 2,
                     postId: 2,
-                    date: '21 January 2018 at 9:20 pm',
+                    date: '23 January 2018 at 21:31 pm',
                     user: {
                         id: 2,
                         name: 'Jake Black',
@@ -44,7 +44,7 @@ const state = {
         },
         {
             id: 2,
-            date: '21 January 2018 at 9:20 pm',
+            date: '22 January 2018 at 12:30 pm',
             type: 'Post',
             content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
             user: {
@@ -56,7 +56,7 @@ const state = {
                 {
                     id: 1,
                     postId: 2,
-                    date: '21 January 2018 at 9:20 pm',
+                    date: '22 January 2018 at 12:31 pm',
                     user: {
                         id: 1,
                         name: 'Jake White',
@@ -67,7 +67,7 @@ const state = {
                 {
                     id: 2,
                     postId: 2,
-                    date: '21 January 2018 at 9:20 pm',
+                    date: '22 January 2018 at 12:32 pm',
                     user: {
                         id: 3,
                         name: 'Jake Yellow',
@@ -79,9 +79,9 @@ const state = {
         },
         {
             id: 3,
-            date: '21 January 2018 at 9:20 pm',
-            type: 'Post',
-            content: 'Lorem Ipsum is simply dummy text',
+            date: '21 January 2018 at 19:30 pm',
+            type: 'Commit',
+            content: 'New commit [link]',
             user: {
                 id: 1,
                 name: 'Jake White',
@@ -91,7 +91,7 @@ const state = {
                 {
                     id: 1,
                     postId: 3,
-                    date: '21 January 2018 at 9:20 pm',
+                    date: '21 January 2018 at 20:30 pm',
                     user: {
                         id: 1,
                         name: 'Jake White',
@@ -102,7 +102,7 @@ const state = {
                 {
                     id: 2,
                     postId: 3,
-                    date: '21 January 2018 at 9:20 pm',
+                    date: '21 January 2018 at 20:31 pm',
                     user: {
                         id: 3,
                         name: 'Jake Yellow',
