@@ -19,7 +19,11 @@ module.exports = {
             '/api': proxyOptions,
             '/login': proxyOptions,
             '/logout': proxyOptions,
-            '/h2-console': proxyOptions
+            '/h2-console': proxyOptions,
+            '/ws': {
+                ...proxyOptions,
+                ws: true
+            }
         },
 
         // Various Dev Server settings
