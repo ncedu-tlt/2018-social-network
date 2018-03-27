@@ -1,24 +1,31 @@
-package ru.ncedu.socialnetwork.controllers;
+package ru.ncedu.socialnetwork.api.services;
 
+import org.apache.commons.text.StringSubstitutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import ru.ncedu.socialnetwork.models.Project;
+import ru.ncedu.socialnetwork.api.models.ProjectGhubMod;
+import ru.ncedu.socialnetwork.consts.GhubApiAddr;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
 
     private RestTemplate restTemplate;
+    private GhubApiAddr ghubApiAddr;
+    private StringSubstitutor sub;
 
     @Autowired
-    public UserController(RestTemplate restTemplate){
+    public UserController(RestTemplate restTemplate) throws IllegalAccessException {
         this.restTemplate = restTemplate;
+        this.ghubApiAddr = new GhubApiAddr();
+        this.sub = new StringSubstitutor(ghubApiAddr.getAddreses());
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -27,12 +34,12 @@ public class UserController {
     }
 
     @RequestMapping("/authorized")
-    public boolean isAuthorized(Principal user){
+    public boolean isAuthorized(Principal user) {
         return user != null;
     }
 
     @RequestMapping("/{userName}/repos")
-    public Project[] getProjects(@PathVariable("userName") String userName){
-        return restTemplate.getForObject("https://api.github.com/users/" + userName + "/repos", Project[].class);
+    public List<ProjectGhubMod> getProjects(@PathVariable("userName") String userName) {
+        return restTemplate.getForObject(sub.replace("${USERS_URL}" + userName + "/repos"), List.class);
     }
 }
