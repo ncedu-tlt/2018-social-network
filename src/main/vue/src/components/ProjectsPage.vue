@@ -2,7 +2,7 @@
     <v-container>
         <v-layout row>
             <v-flex xs12>
-                <ProjectList :user-name="userName"/>
+                <ProjectList :user-name="authed"/>
             </v-flex>
         </v-layout>
     </v-container>
@@ -19,7 +19,7 @@ export default {
     },
     computed: {
         ...mapState('auth', [
-            'userName'
+            'authed'
         ])
     }
 };

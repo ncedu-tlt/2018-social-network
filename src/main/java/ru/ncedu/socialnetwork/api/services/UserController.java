@@ -12,6 +12,7 @@ import ru.ncedu.socialnetwork.consts.GhubApiAddr;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
@@ -34,8 +35,14 @@ public class UserController {
     }
 
     @RequestMapping("/authorized")
-    public boolean isAuthorized(Principal user) {
-        return user != null;
+    public Principal isAuthorized(Principal user) {
+        Optional<Principal> principal = Optional.ofNullable(user);
+        return principal.orElse(new Principal() {
+            @Override
+            public String getName() {
+                return null;
+            }
+        });
     }
 
     @RequestMapping("/{userName}/repos")
