@@ -9,7 +9,7 @@ const state = {
  * They should always stay synchronous.
  */
 const mutations = {
-    setAuthCheck(state, authed) {
+    setAuth(state, authed) {
         state.authed = authed;
     }
 };
@@ -23,15 +23,15 @@ const actions = {
     async checkAuth({ commit, dispatch }) {
         // Call some API in order to get current value
         const authResponse = await isAuthorized();
-        if (authResponse.data.name != null) {
+        if (authResponse.data.name) {
             localStorage.setItem('authed', authResponse.data.name);
-            commit('setAuthCheck', authResponse.data.name);
+            commit('setAuth', authResponse.data.name);
         }
     },
     async logout({ commit }) {
         await logout();
         localStorage.clear();
-        commit('setAuthCheck', null);
+        commit('setAuth', null);
     }
 };
 
