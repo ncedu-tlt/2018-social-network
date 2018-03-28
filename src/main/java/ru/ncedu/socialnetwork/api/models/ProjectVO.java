@@ -3,8 +3,10 @@ package ru.ncedu.socialnetwork.api.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProjectGhubMod {
+public class ProjectVO implements Serializable {
     private long id;
     private String name;
     private String description;

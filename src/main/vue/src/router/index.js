@@ -14,7 +14,7 @@ const router = new Router({
             component: AuthPage,
             beforeEnter: async (to, from, next) => {
                 await store.dispatch('auth/checkAuth');
-                if (store.state.auth.authed) {
+                if (store.state.auth.userName) {
                     next('/feed');
                 } else {
                     next();
@@ -35,7 +35,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-    if (store.state.auth.authed || to.name === 'AuthPage') {
+    if (store.state.auth.userName || to.name === 'AuthPage') {
         next();
     } else {
         next('/auth');

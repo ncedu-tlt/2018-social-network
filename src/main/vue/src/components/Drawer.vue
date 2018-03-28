@@ -90,7 +90,7 @@ export default {
     },
     computed: {
         auth() {
-            return this.$store.state.auth.authed;
+            return this.$store.state.auth.userName;
         }
     },
     watch: {

@@ -62,7 +62,8 @@ export default {
     props: {
         userName: {
             type: String,
-            required: true
+            required: false,
+            default: ''
         }
     },
     computed: {
