@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class GitHubProjectsService {
+public class ProjectsGitHubService {
 
     private RestTemplate restTemplate;
 
     @Autowired
-    public GitHubProjectsService(RestTemplate restTemplate) {
+    public ProjectsGitHubService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 

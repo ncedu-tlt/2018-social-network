@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.ncedu.socialnetwork.api.models.ProjectDTO;
-import ru.ncedu.socialnetwork.api.services.GitHubProjectsService;
+import ru.ncedu.socialnetwork.api.services.ProjectsGitHubService;
 
 import java.security.Principal;
 import java.util.List;
@@ -15,10 +15,10 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
-    private GitHubProjectsService projectsService;
+    private ProjectsGitHubService projectsService;
 
     @Autowired
-    public UserController(GitHubProjectsService projectsService) {
+    public UserController(ProjectsGitHubService projectsService) {
         this.projectsService = projectsService;
     }
 
