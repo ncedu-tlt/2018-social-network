@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import ru.ncedu.socialnetwork.api.models.ProjectVO;
-import ru.ncedu.socialnetwork.api.services.GitHubService;
+import ru.ncedu.socialnetwork.api.models.ProjectDTO;
+import ru.ncedu.socialnetwork.api.services.GitHubProjectsService;
 
 import java.security.Principal;
 import java.util.List;
@@ -15,11 +15,11 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
-    private GitHubService ghService;
+    private GitHubProjectsService projectsService;
 
     @Autowired
-    public UserController(GitHubService ghService) {
-        this.ghService = ghService;
+    public UserController(GitHubProjectsService projectsService) {
+        this.projectsService = projectsService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @RequestMapping("/{userName}/repos")
-    public List<ProjectVO> getProjects(@PathVariable("userName") String userName) {
-        return ghService.getProjects(userName);
+    public List<ProjectDTO> getProjects(@PathVariable("userName") String userName) {
+        return projectsService.getProjects(userName);
     }
 }
