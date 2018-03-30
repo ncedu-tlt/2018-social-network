@@ -1,10 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
+import AuthPage from '@/components/AuthPage';
+import ProfileInfo from '@/components/ProfileInfo';
+import store from '@/store';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
     routes: [
         {
             path: '/auth',
@@ -20,15 +22,14 @@ export default new Router({
             }
         },
         {
-            path: '/',
-            name: 'HelloWorld',
-            component: HelloWorld
+            path: '/user',
+            name: 'ProfileInfo',
+            component: ProfileInfo
         },
-
         {
-            path: '/user/id',
-            name: 'ProfileInfoArea',
-            component: ProfileInfoArea
+            path: '/',
+            redirect: '/feed',
+            name: 'Root'
         }
     ]
 });
