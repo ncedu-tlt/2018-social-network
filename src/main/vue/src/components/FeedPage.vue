@@ -1,8 +1,6 @@
 <template>
     <v-layout>
-        <v-flex offset-md3>
-            <Feed :posts="posts"/>
-        </v-flex>
+        <Feed class="mx-auto"/>
     </v-layout>
 </template>
 
@@ -13,11 +11,6 @@ export default {
     name: 'FeedPage',
     components: {
         Feed
-    },
-    computed: {
-        posts() {
-            return this.$store.state.feed.posts;
-        }
     }
 };
 </script>

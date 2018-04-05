@@ -7,5 +7,7 @@ export default {
     'feed': 'Лента',
     'contacts': 'Контакты',
     'preferences': 'Настройки',
-    'logout': 'Выход'
+    'logout': 'Выход',
+    'clear': 'Очистить',
+    'add comment': 'Отправить'
 };

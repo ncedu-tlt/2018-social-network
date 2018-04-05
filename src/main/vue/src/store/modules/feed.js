@@ -3,7 +3,7 @@ const state = {
     posts: [
         {
             id: 1,
-            date: '23 January 2018 at 19:30 pm',
+            date: new Date(),
             type: 'Post',
             content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry ' +
             's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a ' +
@@ -11,6 +11,7 @@ const state = {
             'remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing ' +
             'Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions ' +
             'of Lorem Ipsum.',
+            isLiked: false,
             user: {
                 id: 1,
                 name: 'Jake White',
@@ -19,24 +20,24 @@ const state = {
             comments: [
                 {
                     id: 1,
-                    postId: 1,
-                    date: '23 January 2018 at 20:30 pm',
+                    date: new Date(),
                     user: {
                         id: 1,
                         name: 'Jake White',
                         avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'
                     },
+                    isLiked: false,
                     content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'
                 },
                 {
                     id: 2,
-                    postId: 2,
-                    date: '23 January 2018 at 21:31 pm',
+                    date: new Date(),
                     user: {
                         id: 2,
                         name: 'Jake Black',
                         avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'
                     },
+                    isLiked: false,
                     content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry ' +
                     's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a'
                 }
@@ -44,9 +45,10 @@ const state = {
         },
         {
             id: 2,
-            date: '21 January 2018 at 19:30 pm',
+            date: new Date(),
             type: 'Commit',
             content: 'New commit [link]',
+            isLiked: false,
             user: {
                 id: 1,
                 name: 'Jake White',
@@ -55,24 +57,24 @@ const state = {
             comments: [
                 {
                     id: 1,
-                    postId: 2,
-                    date: '21 January 2018 at 20:30 pm',
+                    date: new Date(),
                     user: {
                         id: 1,
                         name: 'Jake White',
                         avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'
                     },
+                    isLiked: false,
                     content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'
                 },
                 {
                     id: 2,
-                    postId: 2,
-                    date: '21 January 2018 at 20:31 pm',
+                    date: new Date(),
                     user: {
                         id: 3,
                         name: 'Jake Yellow',
                         avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'
                     },
+                    isLiked: false,
                     content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'
                 }
             ]
@@ -81,15 +83,14 @@ const state = {
 };
 
 /* TODO : remove data for production */
-let ID = 3;
+let id = 3;
 
 const mutations = {
     addComment(state, comment) {
         /* TODO : remove data for production */
         const testComment = {
-            id: ID += 1,
-            postId: comment.postId,
-            date: '21 January 2018 at 9:20 pm',
+            id: id += 1,
+            date: new Date(),
             user: {
                 id: 3,
                 name: 'Jake Yellow',
@@ -102,21 +103,15 @@ const mutations = {
             post.comments.push(testComment);
         }
     },
-    addPost(state, post) {
-        /* TODO : remove data for production */
-        const testPost = {
-            id: ID += 1,
-            date: '21 January 2018 at 9:20 pm',
-            type: 'Post',
-            content: post.content,
-            user: {
-                id: 3,
-                name: 'Jake Yellow',
-                avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'
-            },
-            comments: []
-        };
-        state.posts.push(testPost);
+    setLike(state, like) {
+        const post = state.posts.find(p => p.id === like.postId);
+        const comment = post.comments.find(c => c.id === like.commentId);
+        if (post) {
+            post.isLiked = like.isLiked;
+        }
+        if (comment) {
+            comment.isLiked = like.isLiked;
+        }
     }
 };
 
@@ -124,8 +119,8 @@ const actions = {
     async sendComment({commit}, comment) {
         commit('addComment', comment);
     },
-    async sendPost({commit}, post) {
-        commit('addPost', post);
+    async setLike({commit}, like) {
+        commit('setLike', like);
     }
 };
 

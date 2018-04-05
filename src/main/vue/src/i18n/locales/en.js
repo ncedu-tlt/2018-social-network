@@ -7,5 +7,7 @@ export default {
     'feed': 'Feed',
     'contacts': 'Contacts',
     'preferences': 'Preferences',
-    'logout': 'Log out'
+    'logout': 'Log out',
+    'clear': 'Clear',
+    'add comment': 'Add comment'
 };

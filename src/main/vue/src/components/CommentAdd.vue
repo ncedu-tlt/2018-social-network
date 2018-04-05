@@ -1,41 +1,35 @@
 <template>
-    <v-card>
-        <v-flex>
-            <v-form v-model="valid" ref="form" lazy-validation>
-                <v-text-field
-                    textarea
-                    class="input-group__input"
-                    v-model="text"
-                    :rules="textRules"
-                    :counter="400"
-                    @keyup.enter="addComment"
-                    required
-                />
-            </v-form>
-        </v-flex>
-        <v-card-actions>
-            <v-spacer />
-            <v-btn flat icon color="black">
-                <v-icon>add</v-icon>
-            </v-btn>
-            <v-btn small flat class="deep-purple--text">Cancel</v-btn>
-            <v-btn
-                round
-                small
-                class="white--text deep-purple"
-                :disabled="!valid"
-                @click="addComment"
-            >
-                Add comment
-            </v-btn>
-        </v-card-actions>
+    <v-card class="mx-auto">
+        <v-form @submit.prevent="validateBeforeSubmit">
+            <v-text-field
+                v-model="text"
+                textarea
+                class="input-group__input"
+                :error-messages="errors.collect('text')"
+                v-validate="'required|max:400'"
+                data-vv-name="text"
+                :counter="400"
+                required
+            />
+            <v-card-actions>
+                <v-spacer/>
+                <v-btn flat class="primary--text" @click="clear">{{ $t('clear') }}</v-btn>
+                <v-btn round class="white--text primary" type="submit">
+                    {{ $t('add comment') }}
+                </v-btn>
+            </v-card-actions>
+        </v-form>
     </v-card>
 </template>
+
 <script>
 import {mapActions} from 'vuex';
 
 export default {
     name: 'CommentAdd',
+    $_veeValidate: {
+        validator: 'new'
+    },
     props: {
         postId: {
             type: Number,
@@ -44,23 +38,26 @@ export default {
     },
     data() {
         return {
-            valid: true,
-            comment: Object,
-            text: '',
-            textRules: [
-                v => !!v || 'Comment text is required',
-                v => (v && v.length <= 400) || 'Comment text must be less than 400 characters'
-            ]
+            valid: false,
+            text: ''
         };
     },
     methods: {
-        addComment() {
-            if (this.$refs.form.validate()) {
-                this.comment.content = this.text;
-                this.comment.postId = this.postId;
-                this.sendComment(this.comment);
-                this.$refs.form.reset();
-            }
+        validateBeforeSubmit() {
+            this.$validator.validateAll().then((result) => {
+                if (result) {
+                    const comment = {
+                        postId: this.postId,
+                        content: this.text
+                    };
+                    this.sendComment(comment);
+                    this.clear();
+                }
+            });
+        },
+        clear() {
+            this.text = '';
+            this.$validator.reset();
         },
         ...mapActions('feed', [
             'sendComment'
@@ -75,6 +72,7 @@ export default {
         max-width: 600px;
         min-height: 200px;
     }
+
     .input-group__input {
         padding: 10px;
     }
