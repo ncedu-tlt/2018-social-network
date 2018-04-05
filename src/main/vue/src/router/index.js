@@ -28,11 +28,6 @@ const router = new Router({
             component: ProjectsPage
         },
         {
-            path: '/',
-            redirect: '/feed',
-            name: 'Root'
-        },
-        {
             path: '/feed',
             name: 'FeedPage',
             component: FeedPage

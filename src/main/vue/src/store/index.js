@@ -12,8 +12,7 @@ const debug = process.env.NODE_ENV !== 'production';
 export default new Vuex.Store({
     modules: {
         chat,
-        auth,
-        projects
+        projects,
         auth,
         feed
     },

@@ -22,17 +22,6 @@ const state = {
                     id: 1,
                     date: new Date(),
                     user: {
-                        id: 1,
-                        name: 'Jake White',
-                        avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'
-                    },
-                    isLiked: false,
-                    content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'
-                },
-                {
-                    id: 2,
-                    date: new Date(),
-                    user: {
                         id: 2,
                         name: 'Jake Black',
                         avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'
