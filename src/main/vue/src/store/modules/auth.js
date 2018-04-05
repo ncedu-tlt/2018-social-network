@@ -1,7 +1,7 @@
-import { isAuthorized, logout } from '@/api/rest/user.api';
+import { getCurrentUser, logout } from '@/api/rest/user.api';
 
 const state = {
-    authed: JSON.parse(localStorage.getItem('authed'))
+    userName: localStorage.getItem('userName')
 };
 
 /**
@@ -9,8 +9,8 @@ const state = {
  * They should always stay synchronous.
  */
 const mutations = {
-    setAuthCheck(state, authCheckValue) {
-        state.authed = JSON.parse(authCheckValue);
+    setAuth(state, userName) {
+        state.userName = userName;
     }
 };
 
@@ -20,16 +20,21 @@ const mutations = {
  * 2. Actions can be asynchronous.
  */
 const actions = {
-    async checkAuth({ commit }) {
+    async checkAuth({ commit, dispatch }) {
         // Call some API in order to get current value
-        const response = await isAuthorized();
-        localStorage.setItem('authed', response.data);
-        commit('setAuthCheck', response.data);
+        const authResponse = await getCurrentUser();
+        if (authResponse.data) {
+            localStorage.setItem('userName', authResponse.data.name);
+            commit('setAuth', authResponse.data.name);
+        } else {
+            localStorage.clear();
+            commit('setAuth', null);
+        }
     },
     async logout({ commit }) {
         await logout();
-        localStorage.setItem('authed', false);
-        commit('setAuthCheck', false);
+        localStorage.clear();
+        commit('setAuth', null);
     }
 };
 

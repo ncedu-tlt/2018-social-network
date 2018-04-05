@@ -13,13 +13,13 @@
                     <div class="welcome text">
                         <p class="primary--text">Welcome to social network <br> for geeks!</p>
                     </div>
-                    <div v-if="authed" class="button logout">
+                    <div v-if="userName" class="button logout">
                         <v-btn
                             large
                             dark
                             color="primary"
                             @click="logout"
-                            :key="+authed">{{ $t('auth.logout') }}</v-btn>
+                            :key="+userName">{{ $t('auth.logout') }}</v-btn>
                     </div>
                     <div v-else class="button login">
                         <v-btn
@@ -40,7 +40,7 @@ export default {
     name: 'AuthPage',
     computed: {
         ...mapState('auth', [
-            'authed'
+            'userName'
         ])
     },
     methods: {
