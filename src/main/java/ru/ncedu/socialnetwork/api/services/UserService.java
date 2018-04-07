@@ -2,7 +2,7 @@ package ru.ncedu.socialnetwork.api.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.ncedu.socialnetwork.api.models.UserDTO;
+import ru.ncedu.socialnetwork.api.models.UserDAO;
 import ru.ncedu.socialnetwork.api.models.repos.UserRepository;
 
 @Service
@@ -15,11 +15,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserDTO findByLogin(String login) {
+    public UserDAO findByLogin(String login) {
         return userRepository.findByLogin(login);
     }
 
-    public void saveUser(UserDTO user) {
+    public void saveUser(UserDAO user) {
         userRepository.save(user);
     }
 

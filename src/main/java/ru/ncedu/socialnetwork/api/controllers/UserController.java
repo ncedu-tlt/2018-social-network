@@ -1,14 +1,15 @@
 package ru.ncedu.socialnetwork.api.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.ncedu.socialnetwork.api.models.ProjectDTO;
+import ru.ncedu.socialnetwork.api.models.UserDAO;
 import ru.ncedu.socialnetwork.api.services.ProjectsGitHubService;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Principal getUser(Principal user){
+    public UserDAO getUser(@AuthenticationPrincipal UserDAO user){
         return user;
     }
 

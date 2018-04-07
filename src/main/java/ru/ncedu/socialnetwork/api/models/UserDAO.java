@@ -6,29 +6,33 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "\"user\"")
-public class UserDTO {
+public class UserDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_user")
+    @Column
     private int userId;
 
-    @Column(name = "login", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String login;
 
-    @Column(name = "name")
+    @Column
     @NotEmpty(message = "Please provide your first name")
     private String name;
 
-    @Column(name = "surname")
+    @Column
     @NotEmpty(message = "Please provide your surname")
     private String surname;
 
-    @Column(name = "img_path")
+    @Column
     private String imagePath;
 
-    @Column(name = "organization")
+    @Column
     private String organization;
+
+    public UserDAO(String login){
+        this.login = login;
+    }
 
     public int getUserId() {
         return userId;

@@ -2,6 +2,7 @@ package ru.ncedu.socialnetwork.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -20,6 +21,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.client.RestTemplate;
+import ru.ncedu.socialnetwork.api.models.UserDAO;
+import ru.ncedu.socialnetwork.api.services.UserService;
 
 import javax.servlet.Filter;
 
@@ -29,10 +32,13 @@ import javax.servlet.Filter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final OAuth2ClientContext oauth2ClientContext;
+    private UserService userService;
 
     @Autowired
-    public SecurityConfig(@Qualifier("oauth2ClientContext") final OAuth2ClientContext oauth2ClientContext) {
+    public SecurityConfig(@Qualifier("oauth2ClientContext") final OAuth2ClientContext oauth2ClientContext,
+                          UserService userService) {
         this.oauth2ClientContext = oauth2ClientContext;
+        this.userService = userService;
     }
 
     @Override
@@ -86,6 +92,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         registration.setFilter(filter);
         registration.setOrder(-100);
         return registration;
+    }
+
+    @Bean
+    public PrincipalExtractor principalExtractor(UserService userService) {
+        return map -> {
+            String login = (String) map.get("login");
+            UserDAO user = userService.findByLogin(login);
+            if (user == null) {
+                user = new UserDAO(login);
+            }
+            userService.saveUser(user);
+            return user;
+        };
     }
 }
 
