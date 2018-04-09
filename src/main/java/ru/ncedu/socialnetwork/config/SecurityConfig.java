@@ -21,8 +21,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.client.RestTemplate;
-import ru.ncedu.socialnetwork.api.models.UserDAO;
-import ru.ncedu.socialnetwork.api.services.UserService;
+import ru.ncedu.socialnetwork.domains.UserDAO;
+import ru.ncedu.socialnetwork.domains.repositories.UserRepository;
 
 import javax.servlet.Filter;
 
@@ -32,13 +32,13 @@ import javax.servlet.Filter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final OAuth2ClientContext oauth2ClientContext;
-    private UserService userService;
+    private UserRepository userRepository;
 
     @Autowired
     public SecurityConfig(@Qualifier("oauth2ClientContext") final OAuth2ClientContext oauth2ClientContext,
-                          UserService userService) {
+                          UserRepository userRepository) {
         this.oauth2ClientContext = oauth2ClientContext;
-        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -54,7 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
-
     }
 
     @Bean
@@ -79,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         OAuth2RestTemplate githubTemplate = (OAuth2RestTemplate) restTemplate();
         githubFilter.setRestTemplate(githubTemplate);
         UserInfoTokenServices tokenServices = new UserInfoTokenServices(githubResource().getUserInfoUri(), github().getClientId());
-        tokenServices = new UserInfoTokenServices(githubResource().getUserInfoUri(), github().getClientId());
+        tokenServices.setPrincipalExtractor(principalExtractor());
         tokenServices.setRestTemplate(githubTemplate);
         githubFilter.setTokenServices(tokenServices);
         return githubFilter;
@@ -95,14 +94,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PrincipalExtractor principalExtractor(UserService userService) {
+    public PrincipalExtractor principalExtractor() {
         return map -> {
             String login = (String) map.get("login");
-            UserDAO user = userService.findByLogin(login);
+            UserDAO user = userRepository.findByLogin(login);
             if (user == null) {
-                user = new UserDAO(login);
+                user = new UserDAO();
+                user.setLogin(login);
+                user.setImagePath((String) map.get("avatar_url"));
+                user.setName((String) map.get("name"));
+                user.setOrganization((String) map.get("company"));
+
+                userRepository.save(user);
             }
-            userService.saveUser(user);
             return user;
         };
     }

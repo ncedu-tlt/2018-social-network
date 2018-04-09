@@ -1,11 +1,11 @@
-package ru.ncedu.socialnetwork.api.models;
+package ru.ncedu.socialnetwork.domains;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "users")
 public class UserDAO {
 
     @Id
@@ -17,12 +17,8 @@ public class UserDAO {
     private String login;
 
     @Column
-    @NotEmpty(message = "Please provide your first name")
+    @NotEmpty(message = "Please provide your name")
     private String name;
-
-    @Column
-    @NotEmpty(message = "Please provide your surname")
-    private String surname;
 
     @Column
     private String imagePath;
@@ -30,9 +26,7 @@ public class UserDAO {
     @Column
     private String organization;
 
-    public UserDAO(String login){
-        this.login = login;
-    }
+    public UserDAO() {}
 
     public int getUserId() {
         return userId;
@@ -56,14 +50,6 @@ public class UserDAO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     public String getImagePath() {

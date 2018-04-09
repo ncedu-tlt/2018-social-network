@@ -22,7 +22,7 @@ public class ProjectsGitHubService {
     }
 
     public List<ProjectDTO> getProjects(String userName) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<>();
         params.put("userName", userName);
 
         String path = StringSubstitutor.replace(GitHubEndpoints.USER_REPOS, params);

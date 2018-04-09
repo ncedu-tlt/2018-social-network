@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
-import ru.ncedu.socialnetwork.api.services.UserService;
+import ru.ncedu.socialnetwork.domains.repositories.UserRepository;
 
 @Configuration
 @EnableOAuth2Client
@@ -15,8 +15,8 @@ import ru.ncedu.socialnetwork.api.services.UserService;
 public class ReviewSecurityConfig extends SecurityConfig {
 
     @Autowired
-    public ReviewSecurityConfig(@Qualifier("oauth2ClientContext") OAuth2ClientContext oauth2ClientContext, UserService userService) {
-        super(oauth2ClientContext, userService);
+    public ReviewSecurityConfig(@Qualifier("oauth2ClientContext") OAuth2ClientContext oauth2ClientContext, UserRepository userRepository) {
+        super(oauth2ClientContext, userRepository);
     }
 
     @Override

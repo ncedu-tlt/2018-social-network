@@ -40,4 +40,32 @@ public class ProjectDTO {
     }
 
     public String getHtmlUrl() { return htmlUrl; }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public void setFork(boolean fork) {
+        this.fork = fork;
+    }
+
+    public void setStargazersCount(int stargazersCount) {
+        this.stargazersCount = stargazersCount;
+    }
+
+    public void setHtmlUrl(String htmlUrl) {
+        this.htmlUrl = htmlUrl;
+    }
 }
