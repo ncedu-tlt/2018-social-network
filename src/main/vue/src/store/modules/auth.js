@@ -24,8 +24,8 @@ const actions = {
         // Call some API in order to get current value
         const authResponse = await getCurrentUser();
         if (authResponse.data) {
-            localStorage.setItem('userName', authResponse.data.name);
-            commit('setAuth', authResponse.data.name);
+            localStorage.setItem('userName', authResponse.data.login);
+            commit('setAuth', authResponse.data.login);
         } else {
             localStorage.clear();
             commit('setAuth', null);
