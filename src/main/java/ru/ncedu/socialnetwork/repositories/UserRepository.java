@@ -1,8 +1,8 @@
-package ru.ncedu.socialnetwork.domains.repositories;
+package ru.ncedu.socialnetwork.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import ru.ncedu.socialnetwork.domains.UserDAO;
+import ru.ncedu.socialnetwork.domain.UserDAO;
 
 @Repository
 public interface UserRepository extends CrudRepository<UserDAO, Long> {

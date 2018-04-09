@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.ncedu.socialnetwork.api.models.ProjectDTO;
 import ru.ncedu.socialnetwork.api.services.ProjectsGitHubService;
-import ru.ncedu.socialnetwork.domains.UserDAO;
+import ru.ncedu.socialnetwork.domain.UserDAO;
 
 import java.util.List;
 

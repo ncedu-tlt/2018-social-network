@@ -21,8 +21,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.client.RestTemplate;
-import ru.ncedu.socialnetwork.domains.UserDAO;
-import ru.ncedu.socialnetwork.domains.repositories.UserRepository;
+import ru.ncedu.socialnetwork.domain.UserDAO;
+import ru.ncedu.socialnetwork.repositories.UserRepository;
 
 import javax.servlet.Filter;
 

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
-import ru.ncedu.socialnetwork.domains.repositories.UserRepository;
+import ru.ncedu.socialnetwork.repositories.UserRepository;
 
 @Configuration
 @EnableOAuth2Client

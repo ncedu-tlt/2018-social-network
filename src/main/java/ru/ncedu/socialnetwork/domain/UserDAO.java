@@ -1,4 +1,4 @@
-package ru.ncedu.socialnetwork.domains;
+package ru.ncedu.socialnetwork.domain;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
