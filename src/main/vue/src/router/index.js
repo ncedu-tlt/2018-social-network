@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import AuthPage from '@/components/AuthPage';
 import ProjectsPage from '@/components/ProjectsPage';
 import store from '@/store';
+import Settings from '@/components/Settings';
 
 Vue.use(Router);
 
@@ -30,6 +31,11 @@ const router = new Router({
             path: '/',
             redirect: '/feed',
             name: 'Root'
+        },
+        {
+            path: '/settings',
+            name: 'Settings',
+            component: Settings
         }
     ]
 });

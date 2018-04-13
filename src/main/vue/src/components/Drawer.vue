@@ -54,7 +54,7 @@
                     <v-list-tile-title>{{ $t('contacts') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile>
+            <v-list-tile :to="{name: 'Settings'}">
                 <v-list-tile-action>
                     <v-icon>settings</v-icon>
                 </v-list-tile-action>
