@@ -1,5 +1,5 @@
 <template>
-    <v-container grid-list-sm>
+    <v-container>
         <v-layout column>
             <v-flex v-for="post in posts" :key="post.id">
                 <Post :post="post" />

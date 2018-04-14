@@ -15,7 +15,7 @@
                     <span class="grey--text">{{ $d(comment.date, 'long') }}</span>
                     <v-spacer/>
                     <v-btn @click="likeClicked" flat icon color="black">
-                        <v-icon color="black" v-if="!likeShow">
+                        <v-icon color="black" v-if="!comment.like">
                             favorite_border
                         </v-icon>
                         <v-icon color="primary" v-else>favorite</v-icon>
@@ -35,29 +35,18 @@ export default {
         comment: {
             type: Object,
             required: true
-        },
-        postId: {
-            type: Number,
-            required: true
         }
-    },
-    data() {
-        return {
-            likeShow: false
-        };
     },
     methods: {
         likeClicked() {
-            this.likeShow = !this.likeShow;
             const like = {
-                postId: this.postId,
                 commentId: this.comment.id,
-                isLiked: this.likeShow
+                updateLike: !this.comment.like
             };
-            this.setLike(like);
+            this.setLikeComment(like);
         },
         ...mapActions('feed', [
-            'setLike'
+            'setLikeComment'
         ])
     }
 };

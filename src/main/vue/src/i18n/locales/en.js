@@ -9,5 +9,7 @@ export default {
     'preferences': 'Preferences',
     'logout': 'Log out',
     'clear': 'Clear',
-    'add comment': 'Add comment'
+    'add comment': 'Add comment',
+    'post.type.post': 'Post',
+    'post.type.commit': 'Commit'
 };

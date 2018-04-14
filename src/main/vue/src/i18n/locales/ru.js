@@ -9,5 +9,7 @@ export default {
     'preferences': 'Настройки',
     'logout': 'Выход',
     'clear': 'Очистить',
-    'add comment': 'Отправить'
+    'add comment': 'Отправить',
+    'post.type.post': 'Пост',
+    'post.type.commit': 'Коммит'
 };

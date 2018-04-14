@@ -6,13 +6,26 @@
                     <img :src="post.user.avatar">
                 </v-avatar>
                 <v-flex>
-                    <v-card-title class="post__title">
+                    <div class="post__title">
                         <span class="title primary--text"> {{ post.user.name }} </span>
                         <v-spacer/>
-                        <v-chip color="primary" text-color="white" small>
-                            {{ post.type }}
+                        <v-chip
+                            v-if="post.type === 'Post'"
+                            color="primary"
+                            text-color="white"
+                            small
+                            disabled>
+                            {{ $t('post.type.post') }}
                         </v-chip>
-                    </v-card-title>
+                        <v-chip
+                            v-else
+                            color="primary"
+                            text-color="white"
+                            small
+                            disabled>
+                            {{ $t('post.type.commit') }}
+                        </v-chip>
+                    </div>
                     <v-card-title>
                         <span class="grey--text">{{ $d(post.date, 'long') }}</span>
                     </v-card-title>
@@ -22,7 +35,7 @@
                     <v-card-title>
                         <v-spacer/>
                         <v-btn @click="likeClicked" flat icon color="black">
-                            <v-icon color="black" v-if="!likeShow">
+                            <v-icon color="black" v-if="!post.like">
                                 favorite_border
                             </v-icon>
                             <v-icon color="primary" v-else>favorite</v-icon>
@@ -38,9 +51,9 @@
             </v-layout>
         </v-card>
         <v-slide-y-transition>
-            <div v-if="commentsShow">
+            <div v-if="showComments">
                 <v-flex v-for="comment in post.comments" :key="comment.id">
-                    <Comment :post-id="post.id" :comment="comment"/>
+                    <Comment :comment="comment"/>
                 </v-flex>
                 <CommentAdd :post-id="post.id"/>
             </div>
@@ -67,25 +80,22 @@ export default {
     },
     data() {
         return {
-            likeShow: false,
-            commentsShow: false,
-            date: new Date()
+            showComments: false
         };
     },
     methods: {
         commentClicked() {
-            this.commentsShow = !this.commentsShow;
+            this.showComments = !this.showComments;
         },
         likeClicked() {
-            this.likeShow = !this.likeShow;
             const like = {
                 postId: this.post.id,
-                isLiked: this.likeShow
+                updateLike: !this.post.like
             };
-            this.setLike(like);
+            this.setLikePost(like);
         },
         ...mapActions('feed', [
-            'setLike'
+            'setLikePost'
         ])
     }
 };
@@ -94,6 +104,7 @@ export default {
 <style scoped>
     .card {
         max-width: 600px;
+        min-width: 350px;
         min-height: 100px;
     }
     .avatar {
@@ -104,10 +115,8 @@ export default {
         padding: 2px;
     }
     .post__title {
-        height: 35px;
-        align-items: normal;
-    }
-    .title {
+        align-items: center;
+        display: flex;
         padding-top: 10px;
     }
 </style>
