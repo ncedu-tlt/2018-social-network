@@ -7,5 +7,15 @@ export default {
     'feed': 'Feed',
     'contacts': 'Contacts',
     'preferences': 'Preferences',
-    'logout': 'Log out'
+    'logout': 'Log out',
+    'ru': 'Russian',
+    'en': 'English',
+    'settings.show_hide': 'Show/Hide',
+    'settings.switch_language': 'Switch Language',
+    'settings.delete_account': 'Delete account',
+    'settings.show_language': 'Show setting language',
+    'settings.show_preferred_technologies': 'Show preferred technologies',
+    'settings.show_place_of_work': 'Show place of work',
+    'settings.show_job': 'Show job',
+    'settings.language': 'Show language'
 };
