@@ -4,7 +4,7 @@ const state = {
         {
             id: 1,
             date: new Date(),
-            type: 'Post',
+            type: 'Merge Request',
             content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry ' +
             's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a ' +
             'type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, ' +
@@ -14,7 +14,7 @@ const state = {
             like: false,
             user: {
                 id: 1,
-                name: 'Jack Black',
+                name: 'Carl Black',
                 avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'
             },
             comments: [

@@ -1,17 +1,17 @@
 <template>
-    <v-card class="mx-auto">
+    <v-card class="mx-auto mt-1" flat>
         <v-layout>
-            <v-avatar :size="70" class="primary">
+            <v-avatar :size="70" class="primary ma-2">
                 <img :src="comment.user.avatar">
             </v-avatar>
             <v-flex>
-                <v-card-title>
-                    <span class="title primary--text"> {{ comment.user.name }} </span>
-                </v-card-title>
-                <v-card-title>
+                <div class="pt-2 pr-1">
+                    <span class="title primary--text pt-0 pl-1 pb-0 pr-1"> {{ comment.user.name }} </span>
+                </div>
+                <v-card-title class="pt-0 pl-1 pb-0 pr-1">
                     {{ comment.content }}
                 </v-card-title>
-                <v-card-title class="comment__bottom">
+                <v-card-title class="comment__bottom pt-0 pl-1 pb-0 pr-1">
                     <span class="grey--text">{{ $d(comment.date, 'long') }}</span>
                     <v-spacer/>
                     <v-btn @click="likeClicked" flat icon color="black">
@@ -54,21 +54,14 @@ export default {
 
 <style scoped>
     .card {
-        margin-top: 3px;
         max-width: 600px;
+        min-width: 350px;
         min-height: 100px;
     }
     .avatar {
-        margin: 10px 10px 10px;
         width: 100px;
-    }
-    .card__title {
-        padding: 2px;
     }
     .comment__bottom {
         align-items: center;
-    }
-    .title {
-        padding-top: 10px;
     }
 </style>

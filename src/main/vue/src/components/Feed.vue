@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="pt-2">
         <v-layout column>
             <v-flex v-for="post in posts" :key="post.id">
                 <Post :post="post" />
@@ -22,9 +22,3 @@ export default {
     }
 };
 </script>
-
-<style scoped>
-    .container {
-        padding-top: 10px;
-    }
-</style>

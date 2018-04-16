@@ -1,10 +1,10 @@
 <template>
-    <v-card class="mx-auto">
+    <v-card class="mx-auto mt-1" flat>
         <v-form @submit.prevent="validateBeforeSubmit">
             <v-text-field
                 v-model="text"
                 textarea
-                class="input-group__input"
+                class="input-group__input pa-2"
                 :error-messages="errors.collect('text')"
                 v-validate="'required|max:400'"
                 data-vv-name="text"
@@ -68,12 +68,7 @@ export default {
 
 <style scoped>
     .card {
-        margin-top: 2px;
         max-width: 600px;
         min-height: 200px;
-    }
-
-    .input-group__input {
-        padding: 10px;
     }
 </style>

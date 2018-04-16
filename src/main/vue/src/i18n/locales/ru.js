@@ -11,5 +11,7 @@ export default {
     'clear': 'Очистить',
     'add comment': 'Отправить',
     'post.type.post': 'Пост',
-    'post.type.commit': 'Коммит'
+    'post.type.commit': 'Коммит',
+    'post.type.mergeRequest': 'Запрос слияния',
+    'post.type.issue': 'Проблема'
 };

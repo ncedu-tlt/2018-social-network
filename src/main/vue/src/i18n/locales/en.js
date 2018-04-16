@@ -11,5 +11,7 @@ export default {
     'clear': 'Clear',
     'add comment': 'Add comment',
     'post.type.post': 'Post',
-    'post.type.commit': 'Commit'
+    'post.type.commit': 'Commit',
+    'post.type.mergeRequest': 'Merge Request',
+    'post.type.issue': 'Issue'
 };

@@ -2,37 +2,39 @@
     <v-container>
         <v-card class="mx-auto">
             <v-layout>
-                <v-avatar :size="70" class="primary">
+                <v-avatar :size="70" class="primary ma-2">
                     <img :src="post.user.avatar">
                 </v-avatar>
                 <v-flex>
-                    <div class="post__title">
-                        <span class="title primary--text"> {{ post.user.name }} </span>
+                    <div class="post__title pt-2 pr-1">
+                        <span class="title primary--text pt-0 pl-1 pb-0 pr-1"> {{ post.user.name }} </span>
                         <v-spacer/>
                         <v-chip
-                            v-if="post.type === 'Post'"
                             color="primary"
                             text-color="white"
                             small
                             disabled>
-                            {{ $t('post.type.post') }}
-                        </v-chip>
-                        <v-chip
-                            v-else
-                            color="primary"
-                            text-color="white"
-                            small
-                            disabled>
-                            {{ $t('post.type.commit') }}
+                            <template v-if="post.type === 'Post'">
+                                {{ $t('post.type.post') }}
+                            </template>
+                            <template v-else-if="post.type === 'Commit'">
+                                {{ $t('post.type.commit') }}
+                            </template>
+                            <template v-else-if="post.type === 'Merge Request'">
+                                {{ $t('post.type.mergeRequest') }}
+                            </template>
+                            <template v-else>
+                                {{ $t('post.type.issue') }}
+                            </template>
                         </v-chip>
                     </div>
-                    <v-card-title>
+                    <v-card-title class="pt-0 pl-1 pb-1 pr-1">
                         <span class="grey--text">{{ $d(post.date, 'long') }}</span>
                     </v-card-title>
-                    <v-card-title>
+                    <v-card-title class="pt-0 pl-1 pb-0 pr-1">
                         {{ post.content }}
                     </v-card-title>
-                    <v-card-title>
+                    <v-card-title class="pt-0 pl-1 pb-0 pr-1">
                         <v-spacer/>
                         <v-btn @click="likeClicked" flat icon color="black">
                             <v-icon color="black" v-if="!post.like">
@@ -108,15 +110,10 @@ export default {
         min-height: 100px;
     }
     .avatar {
-        margin: 10px 10px 10px;
         width: 100px;
-    }
-    .card__title {
-        padding: 2px;
     }
     .post__title {
         align-items: center;
         display: flex;
-        padding-top: 10px;
     }
 </style>
