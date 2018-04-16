@@ -38,7 +38,7 @@
                     <v-list-tile-title>{{ $t('messages') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile>
+            <v-list-tile :to="{name: 'FeedPage'}">
                 <v-list-tile-action>
                     <v-icon>view_headline</v-icon>
                 </v-list-tile-action>

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import AuthPage from '@/components/AuthPage';
 import ProjectsPage from '@/components/ProjectsPage';
+import FeedPage from '@/components/FeedPage';
 import store from '@/store';
 
 Vue.use(Router);
@@ -27,9 +28,9 @@ const router = new Router({
             component: ProjectsPage
         },
         {
-            path: '/',
-            redirect: '/feed',
-            name: 'Root'
+            path: '/feed',
+            name: 'FeedPage',
+            component: FeedPage
         }
     ]
 });
