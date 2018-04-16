@@ -21,7 +21,7 @@ export default {
     name: 'NavBar',
     computed: {
         auth() {
-            return this.$store.state.auth.authed;
+            return this.$store.state.auth.userName;
         }
     },
     methods: {
