@@ -29,14 +29,17 @@
                     <v-select
                         v-if="settings != null && settings.availableLanguages != null"
                         @change="switchLanguage"
-                        :items="$t(settings.availableLanguages)"
+                        :items="createLanguagesObject"
                         item-text="name"
+                        item-avatar="img"
                         :label="$t('settings.switch_language')"
-                        max-height="auto"/>
+                        v-model="currentLanguage"/>
                 </v-flex>
             </v-card-actions>
         </v-card>
         <v-card class="mt-3">
+            <div>{{ createLanguagesObject }}</div>
+            <div>{{ test }}</div>
             <v-card-title>
                 <v-flex>
                     <div>{{ $t('settings.delete_account') }}</div>
@@ -51,13 +54,12 @@
                     <v-btn color="primary" @click="showDeleteMessage = !showDeleteMessage" v-if="showDeleteMessage">
                         Cancel
                     </v-btn>
-                    <v-btn color="error" v-if="showDeleteMessage">
+                    <v-btn color="error" v-if="showDeleteMessage" @click="deleteConfirm">
                         Confirm
                     </v-btn>
                 </v-card-actions>
             </v-flex>
         </v-card>
-
     </v-container>
 </template>
 
@@ -68,13 +70,29 @@ export default {
     name: 'Settings',
     data() {
         return {
-            showDeleteMessage: false
+            showDeleteMessage: false,
+            currentLanguage: this.$i18n.locale,
+            showSettings: []
         };
     },
     computed: {
         ...mapState('settings', [
             'settings'
-        ])
+        ]),
+        createLanguagesObject: function () {
+            if (this.settings && this.settings.availableLanguages) {
+                let languagesViewModels = [];
+                this.settings.availableLanguages.forEach((current, currentId) =>
+                    languagesViewModels.push({
+                        name: this.$t('system.language.' + current),
+                        value: current,
+                        id: currentId,
+                        img: '../assets/logo' + current + '.png'
+                    })
+                );
+                return languagesViewModels;
+            }
+        }
     },
     mounted() {
         this.getSettings();
