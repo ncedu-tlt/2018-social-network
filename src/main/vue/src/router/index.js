@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import AuthPage from '@/components/AuthPage';
 import ProjectsPage from '@/components/ProjectsPage';
 import FeedPage from '@/components/FeedPage';
+import ChatPage from '@/components/ChatPage';
 import store from '@/store';
 
 Vue.use(Router);
@@ -31,6 +32,12 @@ const router = new Router({
             path: '/feed',
             name: 'FeedPage',
             component: FeedPage
+        },
+        {
+            path: '/chat/:id?',
+            name: 'ChatPage',
+            component: ChatPage,
+            props: true
         }
     ]
 });
