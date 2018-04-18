@@ -1,13 +1,41 @@
 <template>
-    <v-container>
-        <v-layout row>
-            <v-flex md4 :class="{'hidden-sm-and-down': id}">
-                <ChatList/>
-            </v-flex>
-            <v-flex md8 text-xs-right :class="{'hidden-sm-and-down': !id}">
-                <Chat :chat-id="id"/>
-            </v-flex>
-        </v-layout>
+    <v-container v-if="id">
+        <div v-if="$vuetify.breakpoint.smAndDown">
+            <v-layout row>
+                <v-flex md12>
+                    <Chat :chat-id="id"/>
+                </v-flex>
+            </v-layout>
+        </div>
+        <div v-else>
+            <v-layout row>
+                <v-flex md4>
+                    <ChatList/>
+                </v-flex>
+                <v-flex md8>
+                    <Chat :chat-id="id"/>
+                </v-flex>
+            </v-layout>
+        </div>
+    </v-container>
+    <v-container v-else>
+        <div v-if="$vuetify.breakpoint.smAndDown">
+            <v-layout row>
+                <v-flex md12>
+                    <ChatList/>
+                </v-flex>
+            </v-layout>
+        </div>
+        <div v-else>
+            <v-layout row>
+                <v-flex md4>
+                    <ChatList/>
+                </v-flex>
+                <v-flex md8 text-xs-right>
+                    <Chat :chat-id="id"/>
+                </v-flex>
+            </v-layout>
+        </div>
     </v-container>
 </template>
 
@@ -30,7 +58,3 @@ export default {
     }
 };
 </script>
-
-<style scoped>
-
-</style>
