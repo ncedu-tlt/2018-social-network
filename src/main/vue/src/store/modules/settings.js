@@ -1,7 +1,7 @@
-import {getSettings, setSettings} from '../../api/rest/user.api';
+import {getSettings, setSettings} from '../../api/rest/settings.api';
 
 const state = {
-    settings: []
+    settings: {}
 };
 
 const mutations = {

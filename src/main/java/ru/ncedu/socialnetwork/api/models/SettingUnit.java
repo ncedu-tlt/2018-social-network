@@ -1,7 +1,6 @@
 package ru.ncedu.socialnetwork.api.models;
 
 public class SettingUnit {
-    private long id;
     private long userId;
     private String name;
     private String value;
@@ -12,14 +11,6 @@ public class SettingUnit {
     public SettingUnit(String name, String value) {
         this.name = name;
         this.value = value;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public long getUserId() {

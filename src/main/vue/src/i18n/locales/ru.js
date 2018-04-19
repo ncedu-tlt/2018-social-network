@@ -10,12 +10,11 @@ export default {
     'logout': 'Выход',
     'system.language.ru': 'Русский',
     'system.language.en': 'Английский',
-    'settings.show_hide': 'Показать/Скрыть',
+    'settings.show_hide': 'Показывать или скрывать элементы профиля',
     'settings.switch_language': 'Переключить язык',
     'settings.delete_account': 'Удалить профиль',
-    'settings.show_language': 'Показывать выбранный язык',
+    'settings.show_language': 'Показывать предпочитаемые языки программирования',
     'settings.show_preferred_technologies': 'Показывать предпочитаемые технологии',
     'settings.show_place_of_work': 'Показывать место работы',
-    'settings.show_job': 'Показывать текущую работу',
-    'settings.language': 'Показывать язык'
+    'settings.show_job': 'Показывать должность'
 };

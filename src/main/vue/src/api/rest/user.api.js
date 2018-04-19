@@ -37,12 +37,3 @@ export function logout() {
 export function updateName(id, name) {
     return client.put(`/user/${id}`, { name });
 }
-
-/**
-* Returns user settings
-* @returns {UserSettings<settings>}
-*/
-
-export function getSettings() {
-    return client.get(`/settings`);
-}
