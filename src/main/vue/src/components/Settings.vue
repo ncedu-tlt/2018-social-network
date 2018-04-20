@@ -8,16 +8,17 @@
             </v-card-title>
             <v-card-actions>
                 <v-list>
-                    <v-list-tile v-for="settingUnit in checkboxesViewModel" :key="settingUnit.name">
-                        <v-list-tile-content>
-                            <v-list-tile-title> {{ $t(settingUnit.name) }}</v-list-tile-title>
-                        </v-list-tile-content>
+                    <v-list-tile v-for="setting in computedSettings" :key="setting.name">
+                        <v-list-tile-title>
+                            {{ $t(setting.name) }}
+                        </v-list-tile-title>
                         <v-list-tile-action class="ml-5">
-                            <v-checkbox v-model="settingUnit.value" :checked="settingUnit.value" color="primary"/>
+                            <v-checkbox @change="onCheckboxChange(setting)" v-model="setting.value" color="primary"/>
                         </v-list-tile-action>
                         <v-list-tile-avatar/>
                     </v-list-tile>
-                    <div>{{ checkboxesViewModel }}</div>
+                    <div>{{ computedSettings }}</div>
+                    <div>{{ messages }}</div>
                 </v-list>
             </v-card-actions>
         </v-card>
@@ -53,7 +54,7 @@
                     <v-btn color="primary" @click="showDeleteMessage = !showDeleteMessage" v-if="showDeleteMessage">
                         Cancel
                     </v-btn>
-                    <v-btn color="error" v-if="showDeleteMessage" @click="deleteConfirm">
+                    <v-btn color="error" v-if="showDeleteMessage">
                         Confirm
                     </v-btn>
                 </v-card-actions>
@@ -64,7 +65,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 import { setSettings } from '../api/rest/settings.api';
 
 export default {
@@ -73,11 +74,7 @@ export default {
         return {
             showDeleteMessage: false,
             currentLanguage: this.$store.locale,
-            showSettings: [],
-            checkboxes: [{name: 'vasya', value: true, id: 1},
-                {name: 'petya', value: false, id: 2}
-            ],
-            checkboxesViewModel: []
+            messages: []
         };
     },
     computed: {
@@ -97,11 +94,20 @@ export default {
                 );
                 return languagesViewModels;
             }
+        },
+        computedSettings() {
+            if (this.settings && this.settings.availableLanguages) {
+                return this.settings.settingUnits.map(function (setting) {
+                    return {
+                        name: setting.name,
+                        value: setting.value === 'true'
+                    };
+                });
+            }
         }
     },
     mounted() {
-        this.getSettings();
-        this.checkboxProcessing();
+        this.$store.dispatch('settings/getSettings');
     },
     methods: {
         async getUserSettings() {
@@ -109,26 +115,12 @@ export default {
         switchLanguage() {
             this.$i18n.locale = this.currentLanguage;
         },
-        ...mapActions('settings', [
-            'getSettings'
-        ]),
-        checkboxProcessing() {
-            let hook = this;
-            if (this.settings && this.settings.settingUnits) {
-                this.settings.settingUnits.forEach(function (current) {
-                    switch (current.value) {
-                        case 'true':
-                            hook.checkboxesViewModel.push({name: current.name, value: true});
-                            break;
-                        case 'false':
-                            hook.checkboxesViewModel.push({name: current.name, value: false});
-                            break;
-                    }
-                });
-            }
-        },
         testMethod() {
             setSettings(this.settings);
+        },
+        onCheckboxChange(setting) {
+            this.$store.commit('settings/changeSetting', setting);
+            this.messages.push('Изменена настройка ' + setting.name);
         }
     }
 };
