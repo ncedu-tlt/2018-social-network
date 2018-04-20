@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import AuthPage from '@/components/AuthPage';
-import ProfileInfo from '@/components/ProfileInfo';
+import ProfilePage from '@/components/ProfilePage';
 import store from '@/store';
 
 Vue.use(Router);
@@ -22,9 +22,9 @@ const router = new Router({
             }
         },
         {
-            path: '/user',
-            name: 'ProfileInfo',
-            component: ProfileInfo
+            path: '/user/name',
+            name: 'ProfilePage',
+            component: ProfilePage
         },
         {
             path: '/',

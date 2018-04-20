@@ -1,74 +1,81 @@
 <template>
     <v-container>
-        <v-layout row>
-            <v-flex xs4 order-md2 order-xs1>
-                <v-card>
+        <v-layout align-center column>
+            <v-flex>
+                <v-card class="card-width card-height">
                     <v-card-media
-                        height="400px"
+                        height="180px"
                         src="https://vuetifyjs.com/static/doc-images/cards/docks.jpg"
                     />
+                    <v-layout align-center column class="name-area-position">
+                        <h1 class="display-1" color="deep-purple darken-4">
+                            {{ profile.name }}
+                        </h1>
+                        <a class="subheading" color="deep-purple darken-0">
+                            View profile on GitHub
+                        </a>
+                    </v-layout>
                 </v-card>
-                <v-btn
-                    fab
-                    dark
-                    large
-                    color="purple darken-4"
-                    class="button-send-message">
-                    <v-icon dark>message</v-icon>
-                </v-btn>
             </v-flex>
-            <v-flex xs4 order-md3 order-xs2>
-                <v-card height="400px">
+            <div class="card-width div-position">
+                <v-layout row justify-space-around align-center>
+                    <v-flex xs2 class="ml-5 mb-2">
+                        <v-btn fab dark color="deep-purple darken-4">
+                            <v-icon dark>add</v-icon>
+                        </v-btn>
+                    </v-flex>
+                    <v-flex xs2 algin-center class="avatar-position mb-3">
+                        <v-avatar size="150px">
+                            <img src="https://vuetifyjs.com/static/doc-images/john.jpg">
+                        </v-avatar>
+                    </v-flex>
+                    <v-flex xs2 class="mb-2">
+                        <v-btn fab dark color="deep-purple darken-4">
+                            <v-icon dark>message</v-icon>
+                        </v-btn>
+                    </v-flex>
+                </v-layout>
+            </div>
+            <v-flex>
+                <v-card class="card-width">
+                    <v-list two-line>
+                        <v-list-tile avatar>
+                            <v-list-tile-content>
+                                <v-list-tile-title class="title">
+                                    Languages:
+                                </v-list-tile-title>
+                                <v-list-tile-sub-title
+                                    v-for="language in profile.languages"
+                                    :key="language"
+                                    class="body-2">
+                                    {{ language }}
+                                </v-list-tile-sub-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                        <v-list-tile avatar>
+                            <v-list-tile-content>
+                                <v-list-tile-title class="title">
+                                    Preferred technologies:
+                                </v-list-tile-title>
+                                <v-list-tile-sub-title
+                                    v-for="technology in profile.technologies"
+                                    :key="technology"
+                                    class="body-2">
+                                    {{ technology }}
+                                </v-list-tile-sub-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                    </v-list>
+                </v-card>
+            </v-flex>
+            <v-flex>
+                <v-card class="card-width">
                     <v-card-text>
-                        <div class="header">
-                            <h1>{{ user.name }}</h1>
-                        </div>
-                        <div class="link-github-profile">
-                            <a>View profile on GitHub</a>
-                        </div>
-                        <div class="info-area">
-                            <div class="list-area">
-                                <div class="list-label">
-                                    <h2>Languages:</h2>
-                                </div>
-                                <div class="list">
-                                    <li v-for="language in languages" :key="language">
-                                        {{ language.name }}
-                                    </li>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="list-area">
-                            <div class="list-label">
-                                <h2>Preferred technologies:</h2>
-                            </div>
-                            <div class="list">
-                                <li v-for="technology in technologies" :key="technology">
-                                    {{ technology.name }}
-                                </li>
-                            </div>
-                        </div>
-                        <div class="info-job-area">
-                            <div class="info-job-label">
-                                <h2>Place of work:</h2>
-                            </div>
-                            <div class="info-job">
-                                <p>{{ placeOfWork }}</p>
-                            </div>
-                        </div>
-                        <div class="info-job-area">
-                            <div class="info-job-label">
-                                <h2>Job:</h2>
-                            </div>
-                            <div class="info-job">
-                                <p>{{ job }}</p>
-                            </div>
-                        </div>
+                        <h2 class="title" color="deep-purple darken-3">Place of work</h2>
+                        <p class="body-2">{{ profile.placeOfWork }}</p>
+                        <h2 class="title" color="deep-purple darken-3">Job</h2>
+                        <p class="body-2">{{ profile.job }}</p>
                     </v-card-text>
-                    <v-card-actions class="profile-action-buttons">
-                        <v-btn flat small color="purple darken-4">Follow</v-btn>
-                        <v-btn flat small color="purple darken-4">Add to friends</v-btn>
-                    </v-card-actions>
                 </v-card>
             </v-flex>
         </v-layout>
@@ -79,55 +86,29 @@
 import { mapState } from 'vuex';
 export default {
     name: 'ProfileInfo',
-    computed:
-        mapState({
-            user: state => state.user
-        }),
-    mounted() {
-        this.getAuthorizedUser();
+    computed: {
+        ...mapState('profile', ['profile'])
     }
 };
 </script>
 
 <style scoped>
-    h1 {
-        margin-right: 3px;
-        font-size: 30pt;
-        font-family: Arial;
-        color: #4A148C;
-    }
-    li {
-        display: inline;
-    }
-    h2 {
-        font-size: 13pt;
-        color: #7B1FA2;
-    }
-    li, p {
-        font-size: 13pt;
-        color: #8E24AA;
-    }
-    a {
-        color: #6A1B9A;
-    }
-    .list-label, .list, .info-job-label, .info-job {
-        display: inline-block;
-    }
-    .link-github-profile {
-        margin-left: 20px;
-    }
-    .info-area {
-        margin-left: 3px;
-        margin-top: 10px;
-    }
-    .profile-action-buttons{
-        margin-left: 70px;
-        margin-top: 95px;
-    }
-    .button-send-message {
-        background: transparent;
+    .div-position {
         position: absolute;
-        margin-left: 150px;
-        margin-top: -40px;
+        margin-top: 100px;
+    }
+    .name-area-position {
+        margin-top: 80px;
+    }
+    .avatar-position {
+        margin-right: 80px;
+    }
+    .card-width {
+        width: 700px;
+        max-width: 100%;
+    }
+    .card-height {
+        height: 700px;
+        max-height: 100%;
     }
 </style>

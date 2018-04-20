@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import chat from '@/store/modules/chat';
 import auth from '@/store/modules/auth';
-import user from '@/store/modules/user';
+import profile from '@/store/modules/profile';
 
 Vue.use(Vuex);
 
@@ -12,7 +12,7 @@ export default new Vuex.Store({
     modules: {
         chat,
         auth,
-        user
+        profile
     },
     strict: debug
 });
