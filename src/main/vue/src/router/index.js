@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import AuthPage from '@/components/AuthPage';
+import ProjectsPage from '@/components/ProjectsPage';
+import FeedPage from '@/components/FeedPage';
+import ChatPage from '@/components/ChatPage';
 import ProfilePage from '@/components/ProfilePage';
 import store from '@/store';
 
@@ -22,6 +25,20 @@ const router = new Router({
             }
         },
         {
+            path: '/projects',
+            name: 'ProjectsPage',
+            component: ProjectsPage
+        },
+        {
+            path: '/feed',
+            name: 'FeedPage',
+            component: FeedPage
+        },
+        {
+            path: '/chat/:id?',
+            name: 'ChatPage',
+            component: ChatPage,
+            props: true
             path: '/user/name',
             name: 'ProfilePage',
             component: ProfilePage
@@ -35,7 +52,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-    if (store.state.auth.authed || to.name === 'AuthPage') {
+    if (store.state.auth.userName || to.name === 'AuthPage') {
         next();
     } else {
         next('/auth');

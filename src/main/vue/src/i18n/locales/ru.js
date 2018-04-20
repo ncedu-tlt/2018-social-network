@@ -7,5 +7,11 @@ export default {
     'feed': 'Лента',
     'contacts': 'Контакты',
     'preferences': 'Настройки',
-    'logout': 'Выход'
+    'logout': 'Выход',
+    'clear': 'Очистить',
+    'add comment': 'Отправить',
+    'post.type.post': 'Пост',
+    'post.type.commit': 'Коммит',
+    'post.type.mergeRequest': 'Запрос слияния',
+    'post.type.issue': 'Проблема'
 };

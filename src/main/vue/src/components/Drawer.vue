@@ -22,7 +22,7 @@
                 </v-list-tile>
             </v-list>
             <v-divider/>
-            <v-list-tile>
+            <v-list-tile :to="{ name: 'ProjectsPage' }">
                 <v-list-tile-action>
                     <v-icon>call_merge</v-icon>
                 </v-list-tile-action>
@@ -30,7 +30,7 @@
                     <v-list-tile-title>{{ $t('projects') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile>
+            <v-list-tile :to="{ name: 'ChatPage' }">
                 <v-list-tile-action>
                     <v-icon>message</v-icon>
                 </v-list-tile-action>
@@ -38,7 +38,7 @@
                     <v-list-tile-title>{{ $t('messages') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile>
+            <v-list-tile :to="{name: 'FeedPage'}">
                 <v-list-tile-action>
                     <v-icon>view_headline</v-icon>
                 </v-list-tile-action>
@@ -90,7 +90,7 @@ export default {
     },
     computed: {
         auth() {
-            return this.$store.state.auth.authed;
+            return this.$store.state.auth.userName;
         }
     },
     watch: {

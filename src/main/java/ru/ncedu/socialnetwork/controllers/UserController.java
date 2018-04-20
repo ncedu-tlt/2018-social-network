@@ -1,30 +1,35 @@
 package ru.ncedu.socialnetwork.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+import ru.ncedu.socialnetwork.api.models.ProjectDTO;
+import ru.ncedu.socialnetwork.api.services.ProjectsGitHubService;
+import ru.ncedu.socialnetwork.domain.UserDAO;
 
-import java.security.Principal;
-
+import java.util.List;
 
 @RestController
+@RequestMapping("/api/user")
 public class UserController {
 
-    private RestTemplate restTemplate;
+    private ProjectsGitHubService projectsService;
 
     @Autowired
-    public UserController(RestTemplate restTemplate){
-        this.restTemplate = restTemplate;
+    public UserController(ProjectsGitHubService projectsService) {
+        this.projectsService = projectsService;
     }
 
-    @RequestMapping("/api/user")
-    public Principal getUser(Principal user){
+    @RequestMapping(method = RequestMethod.GET)
+    public UserDAO getUser(@AuthenticationPrincipal UserDAO user){
         return user;
     }
 
-    @RequestMapping("/api/user/authorized")
-    public boolean isAuthorized(Principal user){
-        return user != null;
+    @RequestMapping("/{userName}/repos")
+    public List<ProjectDTO> getProjects(@PathVariable("userName") String userName) {
+        return projectsService.getProjects(userName);
     }
 }

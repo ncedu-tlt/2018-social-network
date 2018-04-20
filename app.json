@@ -14,7 +14,8 @@
     "REVIEW_OAUTH_SERVER": {
       "required": true
     },
-    "PROFILE": "review"
+    "PROFILE": "review",
+    "DATABASE_URL": "jdbc:h2:mem:testdb"
   },
   "buildpacks": [
     {
