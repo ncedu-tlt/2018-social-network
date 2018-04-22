@@ -24,7 +24,7 @@
                                 <v-list-tile-title v-html="friend.name"/>
                             </v-list-tile-content>
                             <v-list-tile-action>
-                                <v-checkbox v-model="selected" :value="friend"/>
+                                <v-checkbox v-model="selectedFriends" :value="friend"/>
                             </v-list-tile-action>
                         </v-list-tile>
                         <v-divider v-if="index + 1 < filteredFriends.length"/>
@@ -38,7 +38,7 @@
                     v-if="!exist"
                     color="primary"
                     flat
-                    :disabled="selected.length === 0"
+                    :disabled="selectedFriends.length === 0"
                     @click.native="createChat">{{ $t('dialog.invite') }}</v-btn>
                 <v-btn v-else color="primary" flat @click.native="openChat">
                     {{ $t('dialog.open') }}
@@ -56,10 +56,10 @@ export default {
     data: function () {
         return {
             search: '',
-            selected: [],
+            selectedFriends: [],
             dialog: false,
             exist: false,
-            selectedLogin: []
+            selectedId: []
         };
     },
     computed: {
@@ -67,7 +67,7 @@ export default {
             'friends'
         ]),
         ...mapGetters('chats', [
-            'getChatByLogin'
+            'getChatById'
         ]),
         filteredFriends() {
             return this.friends.filter(friend => {
@@ -76,17 +76,17 @@ export default {
         }
     },
     watch: {
-        selected: function () {
-            this.selectedLogin = this.selected.map(p => p.login);
-            if (this.selected.length === 1) {
-                this.exist = this.getChatByLogin(this.selectedLogin.toString()).length === 1;
+        selectedFriends: function () {
+            this.selectedId = this.selectedFriends.map(friend => friend.id);
+            if (this.selectedId.length === 1) {
+                this.exist = this.getChatById(this.selectedId).length === 1;
             } else {
                 this.exist = false;
             }
         },
         dialog: function () {
             if (!this.dialog) {
-                this.selected = [];
+                this.selectedFriends = [];
             }
         }
     },
@@ -101,12 +101,12 @@ export default {
             'addChat'
         ]),
         async createChat() {
-            let newChat = await this.addChat(this.selected);
+            let newChat = await this.addChat(this.selectedFriends);
             this.dialog = false;
             this.$router.push(`/chat/${newChat.id}`);
         },
         openChat() {
-            let chatId = this.getChatByLogin(this.selectedLogin).map(chat => chat.id);
+            let chatId = this.getChatById(this.selectedId).map(chat => chat.id);
             this.dialog = false;
             this.$router.push(`/chat/${chatId}`);
         }

@@ -4,8 +4,8 @@ const state = {
 };
 
 const getters = {
-    getChatByLogin: (state) => (login) => {
-        return state.chats.filter(chat => chat.participants.toString() === login.toString());
+    getChatById: (state) => (id) => {
+        return state.chats.filter(chat => chat.participantsId.toString() === id.toString());
     }
 };
 
@@ -30,7 +30,7 @@ const actions = {
             name: people.map(p => p.name).join(', '),
             previewMsg: 'Just created...',
             dateMsg: new Date(),
-            participants: people.map(p => p.login)
+            participantsId: people.map(p => p.id)
         };
         if (people.length > 1) {
             chat.type = 'conference';
@@ -52,7 +52,7 @@ const boilerplate = {
                 previewMsg: 'Some message...',
                 dateMsg: new Date(),
                 type: 'dialog',
-                participants: ['zorin']
+                participantsId: [1]
             },
             {
                 id: 2,
@@ -61,7 +61,7 @@ const boilerplate = {
                 previewMsg: 'Text text text',
                 dateMsg: new Date(),
                 type: 'conference',
-                participants: ['zorin', 'login1']
+                participantsId: [1, 2]
             },
             {
                 id: 3,
@@ -70,7 +70,7 @@ const boilerplate = {
                 previewMsg: 'Another message...',
                 dateMsg: new Date(),
                 type: 'project',
-                participants: ['login2', 'login3']
+                participantsId: [2, 3]
             }
         ];
     }

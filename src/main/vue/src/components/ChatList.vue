@@ -11,8 +11,8 @@
             <v-list
                 two-line
                 class="scroll-y">
-                <template v-for="(chat, index, key) in filteredChats">
-                    <v-list-tile avatar :key="key" @click="$router.push(`/chat/${chat.id}`)">
+                <template v-for="(chat, index) in filteredChats">
+                    <v-list-tile avatar :key="chat.id" @click="$router.push(`/chat/${chat.id}`)">
                         <v-list-tile-avatar>
                             <img :src="chat.avatar">
                         </v-list-tile-avatar>
@@ -22,7 +22,8 @@
                             <v-list-tile-action-text v-html="chat.previewMsg"/>
                         </v-list-tile-content>
                     </v-list-tile>
-                    <v-divider v-if="index + 1 < filteredChats.length" :key="index"/>
+                    <!-- eslint-disable-next-line vue/valid-v-for -->
+                    <v-divider v-if="index + 1 < filteredChats.length"/>
                 </template>
             </v-list>
         </v-card>
