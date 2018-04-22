@@ -1,33 +1,38 @@
 <template>
     <v-container>
         <v-card class="mt-3">
-            <v-card-title>
-                <v-flex align-center>
-                    <div>{{ $t('settings.show_hide') }}</div>
+            <v-card-title class="title">
+                <v-flex xs10 offset-xs1>
+                    {{ $t('settings.show_hide') }}
                 </v-flex>
             </v-card-title>
             <v-card-actions>
                 <v-list>
-                    <v-list-tile v-for="setting in computedSettings" :key="setting.name">
+                    <v-list-tile v-for="setting in computedSettings" :key="setting.name" v-if="setting.value !== null">
                         <v-list-tile-title>
                             {{ $t(setting.name) }}
                         </v-list-tile-title>
-                        <v-list-tile-action class="ml-5">
+                        <v-list-tile-action class="pl-5">
                             <v-checkbox @change="onCheckboxChange(setting)" v-model="setting.value" color="primary"/>
                         </v-list-tile-action>
                         <v-list-tile-avatar/>
                     </v-list-tile>
-                    <div>{{ computedSettings }}</div>
-                    <div>{{ messages }}</div>
+                    <v-btn @click="testButton = !testButton" color="error"> DANGER!!! DONT CLICK THIS!</v-btn>
+                    <v-container v-if="testButton">
+                        <v-flex>{{ computedSettings }}</v-flex>
+                        <v-flex>{{ settings.settingUnits }}</v-flex>>
+                    </v-container>
                 </v-list>
             </v-card-actions>
         </v-card>
         <v-card class="mt-3">
-            <v-card-title>
-                <div>{{ $t('settings.switch_language') }}</div>
-            </v-card-title>
+            <v-card-title class="title">
+                <v-flex xs10 offset-xs1>
+                    {{ $t('settings.switch_language') }}
+                </v-flex>
+            </v-card-title >
             <v-card-actions>
-                <v-flex xs12 sm6 class="text-xs-center">
+                <v-layout xs12 sm6 class="text-xs-center">
                     <v-select
                         v-if="settings != null && settings.availableLanguages != null"
                         @input="switchLanguage"
@@ -36,37 +41,39 @@
                         item-avatar="img"
                         :label="$t('settings.switch_language')"
                         v-model="currentLanguage"/>
-                </v-flex>
+                </v-layout>
             </v-card-actions>
         </v-card>
         <v-card class="mt-3">
-            <v-card-title>
-                <v-flex>
-                    <div>{{ $t('settings.delete_account') }}</div>
+            <v-card-title class="title">
+                <v-flex xs10 offset-xs1>
+                    {{ $t('settings.delete_account') }}
                 </v-flex>
             </v-card-title>
-            <v-flex class="text-xs-center">
-                <v-btn color="error" @click="showDeleteMessage = !showDeleteMessage" v-if="!showDeleteMessage">
-                    <h3> Delete Profile </h3>
-                </v-btn>
-                <v-card-actions>
-                    <v-text-field label="Enter DELETE ACCOUNT to confirm" id="testing" v-show="showDeleteMessage"/>
-                    <v-btn color="primary" @click="showDeleteMessage = !showDeleteMessage" v-if="showDeleteMessage">
+            <v-card-actions>
+                <v-flex class="text-xs-center">
+                    <v-btn color="error" @click="showDeleteMessage = !showDeleteMessage" v-if="!showDeleteMessage">
+                        <h3> Delete Profile </h3>
+                    </v-btn>
+                </v-flex>
+                <v-layout v-if="showDeleteMessage">
+                    <v-text-field label="Enter DELETE ACCOUNT to confirm"/>
+                </v-layout>
+                <v-flex v-if="showDeleteMessage">
+                    <v-btn color="primary" @click="showDeleteMessage = !showDeleteMessage">
                         Cancel
                     </v-btn>
-                    <v-btn color="error" v-if="showDeleteMessage">
+                    <v-btn color="error">
                         Confirm
                     </v-btn>
-                </v-card-actions>
-            </v-flex>
-            <v-btn @click="testMethod"/>
+                </v-flex>
+            </v-card-actions>
         </v-card>
     </v-container>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { setSettings } from '../api/rest/settings.api';
 
 export default {
     name: 'Settings',
@@ -74,7 +81,8 @@ export default {
         return {
             showDeleteMessage: false,
             currentLanguage: this.$store.locale,
-            messages: []
+            messages: [],
+            testButton: false
         };
     },
     computed: {
@@ -97,7 +105,9 @@ export default {
         },
         computedSettings() {
             if (this.settings && this.settings.availableLanguages) {
-                return this.settings.settingUnits.map(function (setting) {
+                return this.settings.settingUnits.filter(function (setting) {
+                    return setting.value === 'true' || setting.value === 'false';
+                }).map(function (setting) {
                     return {
                         name: setting.name,
                         value: setting.value === 'true'
@@ -114,9 +124,6 @@ export default {
         },
         switchLanguage() {
             this.$i18n.locale = this.currentLanguage;
-        },
-        testMethod() {
-            setSettings(this.settings);
         },
         onCheckboxChange(setting) {
             this.$store.commit('settings/changeSetting', setting);
