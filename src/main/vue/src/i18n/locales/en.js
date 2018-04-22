@@ -13,5 +13,11 @@ export default {
     'post.type.post': 'Post',
     'post.type.commit': 'Commit',
     'post.type.mergeRequest': 'Merge Request',
-    'post.type.issue': 'Issue'
+    'post.type.issue': 'Issue',
+    'friend.select': 'Select friends',
+    'dialog.close': 'Close',
+    'dialog.invite': 'Invite',
+    'dialog.open': 'Open',
+    'friend.status.online': 'Online',
+    'friend.status.offline': 'Offline'
 };

@@ -29,7 +29,7 @@ const actions = {
             avatar: 'https://refactorsaurusrex.com/images/rawr-avatar.png',
             name: people.map(p => p.name).join(', '),
             previewMsg: 'Just created...',
-            dateMsg: `${new Date().getHours()}:${new Date().getMinutes()}`,
+            dateMsg: new Date(),
             participants: people.map(p => p.login)
         };
         if (people.length > 1) {
@@ -50,7 +50,7 @@ const boilerplate = {
                 avatar: 'https://refactorsaurusrex.com/images/rawr-avatar.png',
                 name: 'Andrey Zorin',
                 previewMsg: 'Some message...',
-                dateMsg: '21:33',
+                dateMsg: new Date(),
                 type: 'dialog',
                 participants: ['zorin']
             },
@@ -59,7 +59,7 @@ const boilerplate = {
                 avatar: 'https://refactorsaurusrex.com/images/rawr-avatar.png',
                 name: 'Conference name',
                 previewMsg: 'Text text text',
-                dateMsg: '12:10',
+                dateMsg: new Date(),
                 type: 'conference',
                 participants: ['zorin', 'login1']
             },
@@ -68,7 +68,7 @@ const boilerplate = {
                 avatar: 'https://refactorsaurusrex.com/images/rawr-avatar.png',
                 name: 'Project name',
                 previewMsg: 'Another message...',
-                dateMsg: '10:56',
+                dateMsg: new Date(),
                 type: 'project',
                 participants: ['login2', 'login3']
             }

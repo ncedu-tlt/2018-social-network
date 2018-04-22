@@ -10,7 +10,6 @@
         <v-card>
             <v-list
                 two-line
-                style="max-height: 450px"
                 class="scroll-y">
                 <template v-for="(chat, index, key) in filteredChats">
                     <v-list-tile avatar :key="key" @click="$router.push(`/chat/${chat.id}`)">
@@ -18,10 +17,10 @@
                             <img :src="chat.avatar">
                         </v-list-tile-avatar>
                         <v-list-tile-content>
+                            <v-list-tile-sub-title>{{ $d(chat.dateMsg, 'long') }}</v-list-tile-sub-title>
                             <v-list-tile-title v-html="chat.name"/>
-                            <v-list-tile-sub-title v-html="chat.previewMsg"/>
+                            <v-list-tile-action-text v-html="chat.previewMsg"/>
                         </v-list-tile-content>
-                        <v-list-tile-action-text>{{ chat.dateMsg }}</v-list-tile-action-text>
                     </v-list-tile>
                     <v-divider v-if="index + 1 < filteredChats.length" :key="index"/>
                 </template>
@@ -64,3 +63,9 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+    .scroll-y{
+        max-height: 60vh
+    }
+</style>

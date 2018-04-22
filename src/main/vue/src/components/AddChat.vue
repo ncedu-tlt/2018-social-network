@@ -4,7 +4,7 @@
             <v-icon>add</v-icon>
         </v-btn>
         <v-card>
-            <v-card-title>Select friends</v-card-title>
+            <v-card-title>{{ $t('friend.select') }}</v-card-title>
             <v-divider/>
             <v-card-actions>
                 <v-text-field
@@ -12,15 +12,15 @@
                     v-model="search"
                 />
             </v-card-actions>
-            <v-card-text style="height: 300px;">
+            <v-card-text>
                 <template v-for="(friend, index) in filteredFriends">
-                    <v-list :key="index">
+                    <v-list :key="friend.id">
                         <v-list-tile avatar>
                             <v-list-tile-avatar>
                                 <img :src="friend.avatar">
                             </v-list-tile-avatar>
                             <v-list-tile-content>
-                                <v-list-tile-sub-title v-html="friend.status"/>
+                                <v-list-tile-sub-title>{{ friend.online? $t('friend.status.online'):$t('friend.status.offline') }}</v-list-tile-sub-title>
                                 <v-list-tile-title v-html="friend.name"/>
                             </v-list-tile-content>
                             <v-list-tile-action>
@@ -33,15 +33,15 @@
             </v-card-text>
             <v-divider/>
             <v-card-actions>
-                <v-btn flat @click.native="dialog=false">Close</v-btn>
+                <v-btn flat @click.native="dialog=false">{{ $t('dialog.close') }}</v-btn>
                 <v-btn
                     v-if="!exist"
                     color="primary"
                     flat
                     :disabled="selected.length === 0"
-                    @click.native="createChat">Invite</v-btn>
+                    @click.native="createChat">{{ $t('dialog.invite') }}</v-btn>
                 <v-btn v-else color="primary" flat @click.native="openChat">
-                    Open
+                    {{ $t('dialog.open') }}
                 </v-btn>
             </v-card-actions>
         </v-card>
