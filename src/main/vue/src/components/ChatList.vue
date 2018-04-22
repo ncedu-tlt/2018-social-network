@@ -7,7 +7,7 @@
             />
             <AddChat/>
         </v-toolbar>
-        <v-card>
+        <v-card height="72vh">
             <v-list
                 two-line
                 class="scroll-y">
@@ -67,6 +67,6 @@ export default {
 
 <style scoped>
     .scroll-y{
-        max-height: 60vh
+        max-height: 72vh;
     }
 </style>
