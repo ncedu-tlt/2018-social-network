@@ -6,18 +6,20 @@
                     {{ $t('settings.show_hide') }}
                 </v-flex>
             </v-card-title>
+            <v-divider/>
             <v-card-actions>
-                <v-list>
-                    <v-list-tile v-for="setting in computedSettings" :key="setting.name" v-if="setting.value !== null">
-                        <v-list-tile-title>
-                            {{ $t(setting.name) }}
-                        </v-list-tile-title>
-                        <v-list-tile-action class="pl-5">
-                            <v-checkbox @change="onCheckboxChange(setting)" v-model="setting.value" color="primary"/>
-                        </v-list-tile-action>
-                        <v-list-tile-avatar/>
-                    </v-list-tile>
-                </v-list>
+                <v-flex xs12>
+                    <v-list>
+                        <v-list-tile v-for="setting in computedSettings" :key="setting.name" v-if="setting.value !== null">
+                            <v-list-tile-title>
+                                {{ $t(setting.name) }}
+                            </v-list-tile-title>
+                            <v-list-tile-action class="pl-2">
+                                <v-checkbox @change="onCheckboxChange(setting)" v-model="setting.value" color="primary"/>
+                            </v-list-tile-action>
+                        </v-list-tile>
+                    </v-list>
+                </v-flex>
             </v-card-actions>
         </v-card>
         <v-card class="mt-4">
@@ -26,6 +28,7 @@
                     {{ $t('settings.switch_language') }}
                 </v-flex>
             </v-card-title >
+            <v-divider/>
             <v-card-actions>
                 <v-flex xs6>
                     <v-select
@@ -50,6 +53,7 @@
                     {{ $t('settings.delete_account') }}
                 </v-flex>
             </v-card-title>
+            <v-divider/>
             <v-card-actions>
                 <v-container>
                     <v-flex class="text-xs-center">
