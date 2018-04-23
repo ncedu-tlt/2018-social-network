@@ -17,5 +17,8 @@ export default {
     'settings.show_preferred_technologies': 'Show preferred technologies',
     'settings.show_place_of_work': 'Show place of work',
     'settings.show_job': 'Show job',
-    'settings.language': 'Show language'
+    'settings.language': 'Show language',
+    'confirm': 'Confirm',
+    'cancel': 'Cancel',
+    'settings.confirm_delete_account': 'Enter DELETE ACCOUNT for confirm that operation.'
 };

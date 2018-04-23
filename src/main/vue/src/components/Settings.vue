@@ -1,8 +1,8 @@
 <template>
     <v-container>
-        <v-card class="mt-3">
+        <v-card class="mt-4">
             <v-card-title class="title">
-                <v-flex xs10 offset-xs1>
+                <v-flex>
                     {{ $t('settings.show_hide') }}
                 </v-flex>
             </v-card-title>
@@ -17,22 +17,17 @@
                         </v-list-tile-action>
                         <v-list-tile-avatar/>
                     </v-list-tile>
-                    <v-btn @click="testButton = !testButton" color="error"> DANGER!!! DONT CLICK THIS!</v-btn>
-                    <v-container v-if="testButton">
-                        <v-flex>{{ computedSettings }}</v-flex>
-                        <v-flex>{{ settings.settingUnits }}</v-flex>
-                    </v-container>
                 </v-list>
             </v-card-actions>
         </v-card>
-        <v-card class="mt-3">
+        <v-card class="mt-4">
             <v-card-title class="title">
-                <v-flex xs10 offset-xs1>
+                <v-flex>
                     {{ $t('settings.switch_language') }}
                 </v-flex>
             </v-card-title >
             <v-card-actions>
-                <v-layout xs12 sm6 class="text-xs-center">
+                <v-flex xs6>
                     <v-select
                         v-if="settings != null && settings.availableLanguages != null"
                         :items="createLanguagesObject"
@@ -46,32 +41,32 @@
                             <img :src="createLanguagesObject.img">
                         </v-list-tile-avatar>
                     </v-select>
-                </v-layout>
+                </v-flex>
             </v-card-actions>
         </v-card>
-        <v-card class="mt-3">
+        <v-card class="mt-4">
             <v-card-title class="title">
-                <v-flex xs10 offset-xs1>
+                <v-flex>
                     {{ $t('settings.delete_account') }}
                 </v-flex>
             </v-card-title>
             <v-card-actions>
-                <v-flex class="text-xs-center">
-                    <v-btn color="error" @click="showDeleteMessage = !showDeleteMessage" v-if="!showDeleteMessage">
-                        <h3> Delete Profile </h3>
-                    </v-btn>
-                </v-flex>
-                <v-layout v-if="showDeleteMessage">
-                    <v-text-field label="Enter DELETE ACCOUNT to confirm"/>
-                </v-layout>
-                <v-flex v-if="showDeleteMessage">
-                    <v-btn color="primary" @click="showDeleteMessage = !showDeleteMessage">
-                        Cancel
-                    </v-btn>
-                    <v-btn color="error">
-                        Confirm
-                    </v-btn>
-                </v-flex>
+                <v-container>
+                    <v-flex class="text-xs-center">
+                        <v-btn color="error" @click="showDeleteMessage = !showDeleteMessage" v-if="!showDeleteMessage">
+                            <h3>{{ $t('settings.delete_account') }}</h3>
+                        </v-btn>
+                    </v-flex>
+                    <v-flex v-if="showDeleteMessage" xs12 sm6>
+                        <v-text-field :label="$t('settings.confirm_delete_account')"/>
+                        <v-btn color="primary" @click="showDeleteMessage = !showDeleteMessage">
+                            {{ $t('cancel') }}
+                        </v-btn>
+                        <v-btn color="error">
+                            {{ $t('confirm') }}
+                        </v-btn>
+                    </v-flex>
+                </v-container>
             </v-card-actions>
         </v-card>
     </v-container>

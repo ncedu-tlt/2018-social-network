@@ -16,5 +16,8 @@ export default {
     'settings.show_language': 'Показывать предпочитаемые языки программирования',
     'settings.show_preferred_technologies': 'Показывать предпочитаемые технологии',
     'settings.show_place_of_work': 'Показывать место работы',
-    'settings.show_job': 'Показывать должность'
+    'settings.show_job': 'Показывать должность',
+    'confirm': 'Подтвердить',
+    'cancel': 'Отменить',
+    'settings.confirm_delete_account': 'Введите Delete Accout для подтверждения.'
 };
