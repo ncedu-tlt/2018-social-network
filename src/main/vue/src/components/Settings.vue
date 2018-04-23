@@ -20,7 +20,7 @@
                     <v-btn @click="testButton = !testButton" color="error"> DANGER!!! DONT CLICK THIS!</v-btn>
                     <v-container v-if="testButton">
                         <v-flex>{{ computedSettings }}</v-flex>
-                        <v-flex>{{ settings.settingUnits }}</v-flex>>
+                        <v-flex>{{ settings.settingUnits }}</v-flex>
                     </v-container>
                 </v-list>
             </v-card-actions>
@@ -35,12 +35,17 @@
                 <v-layout xs12 sm6 class="text-xs-center">
                     <v-select
                         v-if="settings != null && settings.availableLanguages != null"
-                        @input="switchLanguage"
                         :items="createLanguagesObject"
                         item-text="name"
                         item-avatar="img"
+                        item-value="value"
                         :label="$t('settings.switch_language')"
-                        v-model="currentLanguage"/>
+                        v-model="computedLanguage"
+                        max-height="auto">
+                        <v-list-tile-avatar>
+                            <img :src="createLanguagesObject.img">
+                        </v-list-tile-avatar>
+                    </v-select>
                 </v-layout>
             </v-card-actions>
         </v-card>
@@ -80,9 +85,9 @@ export default {
     data() {
         return {
             showDeleteMessage: false,
-            currentLanguage: this.$store.locale,
             messages: [],
-            testButton: false
+            testButton: false,
+            viewLanguage: null
         };
     },
     computed: {
@@ -97,7 +102,7 @@ export default {
                         name: this.$t('system.language.' + current),
                         value: current,
                         id: currentId,
-                        img: '../assets/logo' + current + '.png'
+                        img: '../assets/logo_' + current + '.png'
                     })
                 );
                 return languagesViewModels;
@@ -114,16 +119,26 @@ export default {
                     };
                 });
             }
+        },
+        computedLanguage: {
+            get() {
+                if (this.settings && this.settings.availableLanguages) {
+                    return this.settings.settingUnits.filter(language => language.name === 'settings.language');
+                }
+            },
+            set(language) {
+                this.$i18n.locale = language;
+                this.$store.commit('settings/setLanguage', language);
+            }
         }
     },
     mounted() {
         this.$store.dispatch('settings/getSettings');
     },
     methods: {
-        async getUserSettings() {
-        },
         switchLanguage() {
             this.$i18n.locale = this.currentLanguage;
+            this.$store.commit('settings/setLanguage', this.currentLanguage);
         },
         onCheckboxChange(setting) {
             this.$store.commit('settings/changeSetting', setting);

@@ -15,6 +15,14 @@ const mutations = {
             }
         }
         setSettings(state.settings);
+    },
+    setLanguage(state, language) {
+        for (let i = 0; i < state.settings.settingUnits.length; i++) {
+            if (state.settings.settingUnits[i].name === 'settings.language') {
+                state.settings.settingUnits[i].value = language;
+            }
+        }
+        setSettings(state.settings);
     }
 };
 
