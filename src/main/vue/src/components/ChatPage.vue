@@ -1,14 +1,14 @@
 <template>
-    <v-container v-if="id">
+    <v-container class="chat-shell" v-if="id">
         <div v-if="$vuetify.breakpoint.smAndDown">
-            <v-layout row>
+            <v-layout row fill-height>
                 <v-flex md12>
                     <Chat :chat-id="id"/>
                 </v-flex>
             </v-layout>
         </div>
         <div v-else>
-            <v-layout row>
+            <v-layout row fill-height>
                 <v-flex md4>
                     <ChatList/>
                 </v-flex>
@@ -18,16 +18,16 @@
             </v-layout>
         </div>
     </v-container>
-    <v-container v-else>
+    <v-container class="chat-shell" v-else>
         <div v-if="$vuetify.breakpoint.smAndDown">
-            <v-layout row>
+            <v-layout row fill-height>
                 <v-flex md12>
                     <ChatList/>
                 </v-flex>
             </v-layout>
         </div>
         <div v-else>
-            <v-layout row>
+            <v-layout row fill-height>
                 <v-flex md4>
                     <ChatList/>
                 </v-flex>
@@ -58,3 +58,12 @@ export default {
     }
 };
 </script>
+<style>
+    .chat-shell,.chat-shell > div{
+        height: 100%;
+        max-height: 100%;
+    }
+    .chat-shell{
+        position: fixed;
+    }
+</style>

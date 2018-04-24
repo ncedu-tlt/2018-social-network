@@ -1,33 +1,29 @@
 <template>
-    <v-container>
-        <v-toolbar color="white" dense>
+    <v-card height="100%">
+        <v-toolbar color="white" card dense>
             <v-text-field
                 prepend-icon="search"
                 v-model="search"
             />
             <AddChat/>
         </v-toolbar>
-        <v-card height="72vh">
-            <v-list
-                two-line
-                class="scroll-y">
-                <template v-for="(chat, index) in filteredChats">
-                    <v-list-tile avatar :key="chat.id" @click="$router.push(`/chat/${chat.id}`)">
-                        <v-list-tile-avatar>
-                            <img :src="chat.avatar">
-                        </v-list-tile-avatar>
-                        <v-list-tile-content>
-                            <v-list-tile-sub-title>{{ $d(chat.dateMsg, 'long') }}</v-list-tile-sub-title>
-                            <v-list-tile-title v-html="chat.name"/>
-                            <v-list-tile-action-text v-html="chat.previewMsg"/>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                    <!-- eslint-disable-next-line vue/valid-v-for -->
-                    <v-divider v-if="index + 1 < filteredChats.length"/>
-                </template>
-            </v-list>
-        </v-card>
-    </v-container>
+        <v-list class="scroll-y" two-line>
+            <template v-for="(chat, index) in filteredChats">
+                <v-list-tile avatar :key="chat.id" @click="$router.push(`/chat/${chat.id}`)">
+                    <v-list-tile-avatar>
+                        <img :src="chat.avatar">
+                    </v-list-tile-avatar>
+                    <v-list-tile-content>
+                        <v-list-tile-sub-title>{{ $d(chat.dateMsg, 'long') }}</v-list-tile-sub-title>
+                        <v-list-tile-title v-html="chat.name"/>
+                        <v-list-tile-action-text v-html="chat.previewMsg"/>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <!-- eslint-disable-next-line vue/valid-v-for -->
+                <v-divider v-if="index + 1 < filteredChats.length"/>
+            </template>
+        </v-list>
+    </v-card>
 </template>
 
 <script>
@@ -64,9 +60,8 @@ export default {
     }
 };
 </script>
-
 <style scoped>
     .scroll-y{
-        max-height: 72vh;
+        max-height: calc(100% - 100px);
     }
 </style>
