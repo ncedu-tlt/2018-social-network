@@ -62,6 +62,6 @@ export default {
 </script>
 <style scoped>
     .scroll-y{
-        max-height: calc(100% - 100px);
+        max-height: calc(100% - 50px);
     }
 </style>

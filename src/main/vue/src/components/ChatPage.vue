@@ -8,7 +8,7 @@
             </v-layout>
         </div>
         <div v-else>
-            <v-layout row fill-height>
+            <v-layout class="list-layout" row fill-height>
                 <v-flex md4>
                     <ChatList/>
                 </v-flex>
@@ -20,14 +20,14 @@
     </v-container>
     <v-container class="chat-shell" v-else>
         <div v-if="$vuetify.breakpoint.smAndDown">
-            <v-layout row fill-height>
+            <v-layout class="list-layout" row fill-height>
                 <v-flex md12>
                     <ChatList/>
                 </v-flex>
             </v-layout>
         </div>
         <div v-else>
-            <v-layout row fill-height>
+            <v-layout class="list-layout" row fill-height>
                 <v-flex md4>
                     <ChatList/>
                 </v-flex>
@@ -58,12 +58,12 @@ export default {
     }
 };
 </script>
-<style>
+<style scoped>
     .chat-shell,.chat-shell > div{
         height: 100%;
         max-height: 100%;
     }
-    .chat-shell{
-        position: fixed;
+    .list-layout{
+        max-height: 85vh;
     }
 </style>
