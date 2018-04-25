@@ -10,6 +10,8 @@ export default {
     'logout': 'Log out',
     'clear': 'Clear',
     'add comment': 'Add comment',
+    'create post': 'Create post',
+    'create new post': 'Create new post',
     'post.type.post': 'Post',
     'post.type.commit': 'Commit',
     'post.type.mergeRequest': 'Merge Request',

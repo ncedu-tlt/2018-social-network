@@ -1,6 +1,6 @@
 <template>
-    <v-container>
-        <v-card class="mx-auto">
+    <div>
+        <v-card class="mx-auto mt-4">
             <v-layout>
                 <v-avatar :size="70" class="primary ma-2">
                     <img :src="post.user.avatar">
@@ -29,7 +29,7 @@
                         </v-chip>
                     </div>
                     <v-card-title class="pt-0 pl-1 pb-1 pr-1">
-                        <span class="grey--text">{{ $d(post.date, 'long') }}</span>
+                        <span class="grey--text">{{ post.date }}</span>
                     </v-card-title>
                     <v-card-title class="pt-0 pl-1 pb-0 pr-1">
                         {{ post.content }}
@@ -60,13 +60,13 @@
                 <CommentAdd :post-id="post.id"/>
             </div>
         </v-slide-y-transition>
-    </v-container>
+    </div>
 </template>
 
 <script>
 import Comment from '@/components/Comment';
 import CommentAdd from '@/components/CommentAdd';
-import {mapActions} from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
     name: 'Post',
@@ -97,7 +97,8 @@ export default {
             this.setLikePost(like);
         },
         ...mapActions('feed', [
-            'setLikePost'
+            'setLikePost',
+            'updatePosts'
         ])
     }
 };
@@ -105,9 +106,8 @@ export default {
 
 <style scoped>
     .card {
-        max-width: 600px;
-        min-width: 350px;
-        min-height: 100px;
+        width: 600px;
+        max-width: 100%;
     }
     .avatar {
         width: 100px;
