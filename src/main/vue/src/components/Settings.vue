@@ -35,11 +35,8 @@
                         v-if="settings != null && settings.availableLanguages != null"
                         :items="createLanguagesObject"
                         item-text="name"
-                        item-avatar="img"
                         item-value="value"
-                        :label="$t('settings.switch_language')"
-                        v-model="computedLanguage"
-                        max-height="auto">
+                        v-model="computedLanguage">
                         <v-list-tile-avatar>
                             <img :src="createLanguagesObject.img">
                         </v-list-tile-avatar>
@@ -86,7 +83,8 @@ export default {
             showDeleteMessage: false,
             messages: [],
             testButton: false,
-            viewLanguage: null
+            viewLanguage: null,
+            test: 'ru'
         };
     },
     computed: {
@@ -121,14 +119,15 @@ export default {
         },
         computedLanguage: {
             get() {
-                if (this.settings && this.settings.availableLanguages) {
-                    return this.settings.settingUnits.filter(language => language.name === 'settings.language');
-                }
+                return this.settings.settingUnits.filter(language => language.name === 'settings.language')[0].value;
             },
             set(language) {
                 this.$i18n.locale = language;
                 this.$store.commit('settings/setLanguage', language);
             }
+        },
+        isEmpty() {
+            return this.settings.settingUnits.filter(language => language.name === 'settings.language');
         }
     },
     mounted() {
