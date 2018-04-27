@@ -1,10 +1,11 @@
 package ru.ncedu.socialnetwork.api.models;
 
-import java.util.ArrayList;
+import ru.ncedu.socialnetwork.domain.Settings;
+
 import java.util.List;
 
-public class UserSettings {
-    private List<SettingUnit> settingUnits;
+public class SettingsDTO {
+    private List<Settings> settingUnits;
     private List<String> availableLanguages;
 
     public List<String> getAvailableLanguages() {
@@ -15,11 +16,11 @@ public class UserSettings {
         this.availableLanguages = availableLanguages;
     }
 
-    public List<SettingUnit> getSettingUnits() {
+    public List<Settings> getSettingUnits() {
         return settingUnits;
     }
 
-    public void setSettingUnits(List<SettingUnit> settingUnits) {
+    public void setSettingUnits(List<Settings> settingUnits) {
         this.settingUnits = settingUnits;
     }
 }

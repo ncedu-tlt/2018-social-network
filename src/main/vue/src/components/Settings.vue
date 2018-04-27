@@ -80,11 +80,7 @@ export default {
     name: 'Settings',
     data() {
         return {
-            showDeleteMessage: false,
-            messages: [],
-            testButton: false,
-            viewLanguage: null,
-            test: 'ru'
+            showDeleteMessage: false
         };
     },
     computed: {
@@ -119,15 +115,13 @@ export default {
         },
         computedLanguage: {
             get() {
-                return this.settings.settingUnits.filter(language => language.name === 'settings.language')[0].value;
+                let language = this.settings.settingUnits.filter(language => language.name === 'settings.language');
+                return language[0].value;
             },
             set(language) {
                 this.$i18n.locale = language;
                 this.$store.commit('settings/setLanguage', language);
             }
-        },
-        isEmpty() {
-            return this.settings.settingUnits.filter(language => language.name === 'settings.language');
         }
     },
     mounted() {
@@ -140,7 +134,6 @@ export default {
         },
         onCheckboxChange(setting) {
             this.$store.commit('settings/changeSetting', setting);
-            this.messages.push('Изменена настройка ' + setting.name);
         }
     }
 };
