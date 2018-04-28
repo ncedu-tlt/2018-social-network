@@ -1,1 +1,1 @@
-web:    java -Dserver.port=$PORT -Dspring.datasource.url=$DATABASE_URL $JAVA_OPTS -jar target/social-network.jar
+web:    java -Dserver.port=$PORT -Dspring.datasource.url=$JDBC_DATABASE_URL $JAVA_OPTS -jar target/social-network.jar
