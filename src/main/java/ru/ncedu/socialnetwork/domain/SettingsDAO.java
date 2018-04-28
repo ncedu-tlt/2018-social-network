@@ -4,44 +4,27 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "settings")
-public class Settings {
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long settingId;
+public class SettingsDAO {
 
-    @OneToOne
+    @Id
     @JoinColumn(name = "user_id")
-    private UserDAO user;
-    @Column
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int settingsId;
+
+    @Column(nullable = false)
     private String name;
-    @Column
+    @Column(nullable = false)
     private String value;
 
 
-    public Settings() {
+    public SettingsDAO() {
     }
 
-    public Settings(String name, String value) {
+    public SettingsDAO(String name, String value) {
         this.name = name;
         this.value = value;
     }
 
-    public long getSettingId() {
-        return settingId;
-    }
-
-    public void setSettingId(long settingId) {
-        this.settingId = settingId;
-    }
-
-    public UserDAO getUser() {
-        return user;
-    }
-
-    public void setUser(UserDAO user) {
-        this.user = user;
-    }
 
     public String getName() {
         return name;
@@ -57,5 +40,13 @@ public class Settings {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public int getSettingsId() {
+        return settingsId;
+    }
+
+    public void setSettingsId(int settingsId) {
+        this.settingsId = settingsId;
     }
 }

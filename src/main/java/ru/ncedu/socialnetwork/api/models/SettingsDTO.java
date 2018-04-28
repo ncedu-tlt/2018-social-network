@@ -1,11 +1,11 @@
 package ru.ncedu.socialnetwork.api.models;
 
-import ru.ncedu.socialnetwork.domain.Settings;
+import ru.ncedu.socialnetwork.domain.SettingsDAO;
 
 import java.util.List;
 
 public class SettingsDTO {
-    private List<Settings> settingUnits;
+    private List<SettingsDAO> settingUnits;
     private List<String> availableLanguages;
 
     public List<String> getAvailableLanguages() {
@@ -16,11 +16,11 @@ public class SettingsDTO {
         this.availableLanguages = availableLanguages;
     }
 
-    public List<Settings> getSettingUnits() {
+    public List<SettingsDAO> getSettingUnits() {
         return settingUnits;
     }
 
-    public void setSettingUnits(List<Settings> settingUnits) {
+    public void setSettingUnits(List<SettingsDAO> settingUnits) {
         this.settingUnits = settingUnits;
     }
 }
