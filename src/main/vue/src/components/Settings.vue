@@ -128,10 +128,6 @@ export default {
         this.$store.dispatch('settings/getSettings');
     },
     methods: {
-        switchLanguage() {
-            this.$i18n.locale = this.currentLanguage;
-            this.$store.commit('settings/setLanguage', this.currentLanguage);
-        },
         onCheckboxChange(setting) {
             this.$store.commit('settings/changeSetting', setting);
         }

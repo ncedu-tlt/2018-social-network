@@ -1,5 +1,6 @@
 import { getCurrentUser, logout } from '@/api/rest/user.api';
-
+import { getSettings } from '@/api/rest/settings.api';
+import index from '../../i18n/index';
 const state = {
     userName: localStorage.getItem('userName')
 };
@@ -26,6 +27,13 @@ const actions = {
         if (authResponse.data) {
             localStorage.setItem('userName', authResponse.data.login);
             commit('setAuth', authResponse.data.login);
+
+            const settingsResponse = await getSettings();
+            const language = settingsResponse.data.settingUnits.filter(language => language.name === 'settings.language');
+            if (language[0]) {
+                index.locale = language[0].value;
+                localStorage.setItem('language', language);
+            }
         } else {
             localStorage.clear();
             commit('setAuth', null);

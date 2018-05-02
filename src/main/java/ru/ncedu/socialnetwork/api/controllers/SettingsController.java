@@ -26,34 +26,47 @@ public class SettingsController {
     public SettingsDTO getSettings(Principal user){
 
         SettingsDTO settingsDTO = new SettingsDTO();
-        List<SettingsDAO> settingUnitList = new ArrayList<>();
 
 
         if(!settingsRepository.findAll().isEmpty()){
-            settingUnitList.addAll(settingsRepository.findAll());
+            settingsDTO.setSettingUnits(settingsRepository.findAll());
         } else {
-            settingUnitList.add(new SettingsDAO("settings.show_language", "true"));
-            settingUnitList.add(new SettingsDAO("settings.show_preferred_technologies", "true"));
-            settingUnitList.add(new SettingsDAO("settings.show_place_of_work", "true"));
-            settingUnitList.add(new SettingsDAO("settings.show_job", "true"));
-            settingUnitList.add(new SettingsDAO("settings.language", "en"));
+            settingsDTO.setSettingUnits(defaultSettings());
+            settingsRepository.save(defaultSettings());
         }
 
-        settingsDTO.setSettingUnits(settingUnitList);
-
-        List<String> availableLanguages = new ArrayList<>();
-        availableLanguages.add("ru");
-        availableLanguages.add("en");
-
-        settingsDTO.setAvailableLanguages(availableLanguages);
+        settingsDTO.setAvailableLanguages(avaliableLanguagesDefault());
 
         return settingsDTO;
     }
+
+    public List<SettingsDAO> defaultSettings() {
+        List<SettingsDAO> settingUnitList = new ArrayList<>();
+
+        settingUnitList.add(new SettingsDAO("settings.show_language", "true"));
+        settingUnitList.add(new SettingsDAO("settings.show_preferred_technologies", "true"));
+        settingUnitList.add(new SettingsDAO("settings.show_place_of_work", "true"));
+        settingUnitList.add(new SettingsDAO("settings.show_job", "true"));
+        settingUnitList.add(new SettingsDAO("settings.language", "en"));
+
+        return settingUnitList;
+    }
+
+    public List<String> avaliableLanguagesDefault() {
+        List<String> availableLanguages = new ArrayList<>();
+
+        availableLanguages.add("ru");
+        availableLanguages.add("en");
+
+        return availableLanguages;
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public void setSettings(@AuthenticationPrincipal UserDAO user, @RequestBody SettingsDTO settingsDTO){
         System.out.println(settingsDTO);
 
        ArrayList<SettingsDAO> settings = new ArrayList<>(settingsDTO.getSettingUnits());
+
 
         if(!settingsRepository.findAll().isEmpty()){
             settingsRepository.deleteAll();
