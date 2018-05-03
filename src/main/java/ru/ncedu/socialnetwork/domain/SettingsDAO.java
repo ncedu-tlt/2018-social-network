@@ -6,13 +6,12 @@ import javax.persistence.*;
 @Table(name = "settings")
 public class SettingsDAO {
 
-    @Id
-    @JoinColumn(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int settingsId;
+    @EmbeddedId
+    private SettingsId SettingsId;
 
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String value;
 
@@ -20,11 +19,19 @@ public class SettingsDAO {
     public SettingsDAO() {
     }
 
-    public SettingsDAO(String name, String value) {
+    public SettingsDAO(SettingsId settingsId, String name, String value) {
+        SettingsId = settingsId;
         this.name = name;
         this.value = value;
     }
 
+    public SettingsDAO(String name, String value) {
+        this.value = value;
+    }
+
+    public SettingsId getSettingsId() {
+        return SettingsId;
+    }
 
     public String getName() {
         return name;
@@ -34,19 +41,15 @@ public class SettingsDAO {
         this.name = name;
     }
 
+    public void setSettingsId(SettingsId settingsId) {
+        this.SettingsId = settingsId;
+    }
+
     public String getValue() {
         return value;
     }
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-    public int getSettingsId() {
-        return settingsId;
-    }
-
-    public void setSettingsId(int settingsId) {
-        this.settingsId = settingsId;
     }
 }
