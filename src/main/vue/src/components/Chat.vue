@@ -1,16 +1,14 @@
 <template>
-    <v-container>
-        <v-card>
-            <v-card-title primary-title>
-                <div v-if="chatId">
-                    {{ chatId }}
-                </div>
-                <div v-else>
-                    Select chat...
-                </div>
-            </v-card-title>
-        </v-card>
-    </v-container>
+    <v-card tile height="100%">
+        <v-card-title primary-title>
+            <div v-if="chatId">
+                {{ chatId }}
+            </div>
+            <div v-else>
+                Select chat...
+            </div>
+        </v-card-title>
+    </v-card>
 </template>
 <script>
 export default {

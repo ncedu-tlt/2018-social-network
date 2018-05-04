@@ -4,6 +4,8 @@ import chat from '@/store/modules/chat';
 import auth from '@/store/modules/auth';
 import projects from '@/store/modules/projects';
 import feed from '@/store/modules/feed';
+import chats from '@/store/modules/chats';
+import friends from '@/store/modules/friends';
 import profile from '@/store/modules/profile';
 
 Vue.use(Vuex);
@@ -16,6 +18,8 @@ export default new Vuex.Store({
         projects,
         auth,
         feed,
+        chats,
+        friends,
         profile
     },
     strict: debug

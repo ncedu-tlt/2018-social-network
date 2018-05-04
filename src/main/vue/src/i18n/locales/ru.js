@@ -13,5 +13,11 @@ export default {
     'post.type.post': 'Пост',
     'post.type.commit': 'Коммит',
     'post.type.mergeRequest': 'Запрос слияния',
-    'post.type.issue': 'Проблема'
+    'post.type.issue': 'Проблема',
+    'chat.select': 'Выберите друзей',
+    'dialog.close': 'Закрыть',
+    'dialog.invite': 'Пригласить',
+    'dialog.open': 'Открыть',
+    'friend.status.online:': 'Онлайн',
+    'friend.status.offline': 'Оффлайн'
 };
