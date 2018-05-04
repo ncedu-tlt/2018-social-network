@@ -10,7 +10,7 @@ const mutations = {
     },
     changeSetting(state, _setting) {
         for (let i = 0; i < state.settings.settingUnits.length; i++) {
-            if (state.settings.settingUnits[i].name === _setting.name) {
+            if (state.settings.settingUnits[i].settingsId.name === _setting.name) {
                 state.settings.settingUnits[i].value = _setting.value ? 'true' : 'false';
             }
         }
@@ -18,7 +18,7 @@ const mutations = {
     },
     setLanguage(state, language) {
         for (let i = 0; i < state.settings.settingUnits.length; i++) {
-            if (state.settings.settingUnits[i].name === 'settings.language') {
+            if (state.settings.settingUnits[i].settingsId.name === 'settings.language') {
                 state.settings.settingUnits[i].value = language;
             }
         }

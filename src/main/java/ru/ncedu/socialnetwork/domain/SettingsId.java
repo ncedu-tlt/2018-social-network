@@ -12,7 +12,7 @@ public class SettingsId implements Serializable {
     @Column(name = "user_id")
     private int UserId;
 
-    @Column(name = "name_id")
+    @Column(name = "name")
     private String name;
 
     public SettingsId(int userId, String name) {
@@ -23,28 +23,20 @@ public class SettingsId implements Serializable {
     public SettingsId() {
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSettingName() {
-        return name;
-    }
-
-    public void setSettingName(String settingName) {
-        this.name = settingName;
-    }
-
     public int getUserId() {
         return UserId;
     }
 
     public void setUserId(int userId) {
         UserId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

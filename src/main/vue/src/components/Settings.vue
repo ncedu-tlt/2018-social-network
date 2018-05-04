@@ -107,7 +107,7 @@ export default {
                     return setting.value === 'true' || setting.value === 'false';
                 }).map(function (setting) {
                     return {
-                        name: setting.name,
+                        name: setting.settingsId.name,
                         value: setting.value === 'true'
                     };
                 });
@@ -115,7 +115,7 @@ export default {
         },
         computedLanguage: {
             get() {
-                let language = this.settings.settingUnits.filter(language => language.name === 'settings.language');
+                let language = this.settings.settingUnits.filter(language => language.settingsId.name === 'settings.language');
                 return language[0].value;
             },
             set(language) {

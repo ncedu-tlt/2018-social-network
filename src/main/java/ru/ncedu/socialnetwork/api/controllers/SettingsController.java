@@ -12,10 +12,13 @@ import ru.ncedu.socialnetwork.domain.SettingsDAO;
 import ru.ncedu.socialnetwork.domain.SettingsId;
 import ru.ncedu.socialnetwork.domain.UserDAO;
 import ru.ncedu.socialnetwork.repositories.SettingsRepository;
+import ru.ncedu.socialnetwork.api.consts.SettingsConst;
 
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+
+import static ru.ncedu.socialnetwork.api.consts.SettingsConst.*;
 
 @RestController
 @RequestMapping("/api/settings")
@@ -25,20 +28,18 @@ public class SettingsController {
 
     @RequestMapping(method = RequestMethod.GET)
     public SettingsDTO getSettings(@AuthenticationPrincipal UserDAO user){
-
         SettingsDTO settingsDTO = new SettingsDTO();
         List<SettingsDAO> settingUnitList = new ArrayList<>();
-        String settings[] = {"settings.show_language", "settings.show_preferred_technologies", "settings.show_place_of_work", "settings.show_job", "settings.language"} ;
 
 
         if(!settingsRepository.findAll().isEmpty()){
             settingUnitList.addAll(settingsRepository.findAll());
         } else {
-            settingUnitList.add(new SettingsDAO(new SettingsId(user.getUserId(), settings[0]), settings[0], "true"));
-            settingUnitList.add(new SettingsDAO(new SettingsId(user.getUserId(), settings[1]), settings[1], "true"));
-            settingUnitList.add(new SettingsDAO(new SettingsId(user.getUserId(), settings[2]), settings[2], "true"));
-            settingUnitList.add(new SettingsDAO(new SettingsId(user.getUserId(), settings[3]), settings[3], "true"));
-            settingUnitList.add(new SettingsDAO(new SettingsId(user.getUserId(), settings[4]), settings[4], "en"));
+            settingUnitList.add(new SettingsDAO(new SettingsId(user.getUserId(), SHOW_LANGUAGE), "true"));
+            settingUnitList.add(new SettingsDAO(new SettingsId(user.getUserId(), SHOW_PREFFERED_TECHNOLOGIES ), "true"));
+            settingUnitList.add(new SettingsDAO(new SettingsId(user.getUserId(), SHOW_PLACE_OF_WORK), "true"));
+            settingUnitList.add(new SettingsDAO(new SettingsId(user.getUserId(), SHOW_JOB), "true"));
+            settingUnitList.add(new SettingsDAO(new SettingsId(user.getUserId(), LANGUAGE), "en"));
         }
 
         settingsDTO.setSettingUnits(settingUnitList);
