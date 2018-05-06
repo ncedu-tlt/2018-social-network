@@ -19,5 +19,10 @@ export default {
     'dialog.invite': 'Invite',
     'dialog.open': 'Open',
     'friend.status.online': 'Online',
-    'friend.status.offline': 'Offline'
+    'friend.status.offline': 'Offline',
+    'chat.welcome': 'Please select a dialog or create a new one',
+    'chat.created': 'Just created...',
+    'chat.title': 'Dialog with ',
+    'chat.label': 'Message',
+    'chat.errors.max': 'Too many letters'
 };

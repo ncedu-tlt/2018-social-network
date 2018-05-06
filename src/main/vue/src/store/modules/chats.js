@@ -1,11 +1,15 @@
+import { getCurrentUser } from '@/api/rest/user.api';
 
 const state = {
     chats: []
 };
 
 const getters = {
-    getChatById: (state) => (id) => {
+    getChatsByParticipantId: (state) => (id) => {
         return state.chats.filter(chat => chat.participantsId.toString() === id.toString());
+    },
+    getChatById: (state) => (id) => {
+        return state.chats.filter(chat => chat.id.toString() === id.toString())[0];
     }
 };
 
@@ -15,6 +19,9 @@ const mutations = {
     },
     addChat(state, chat) {
         state.chats.push(chat);
+    },
+    addMessage(state, payload) {
+        payload.chat.messages.push(payload.msg);
     }
 };
 
@@ -26,9 +33,9 @@ const actions = {
     async addChat({ commit }, people) {
         let chat = {
             id: state.chats.length + 1,
-            avatar: 'https://refactorsaurusrex.com/images/rawr-avatar.png',
+            avatar: 'http://googledino.ru/assets/googe_dino.png',
             name: people.map(p => p.name).join(', '),
-            previewMsg: 'Just created...',
+            messages: [],
             dateMsg: new Date(),
             participantsId: people.map(p => p.id)
         };
@@ -39,40 +46,64 @@ const actions = {
         };
         commit('addChat', chat);
         return chat;
+    },
+    async addMessage({ commit }, payload) {
+        const response = await getCurrentUser();
+        const userId = response.data.userId;
+        let message = {
+            id: payload.chat.messages.length + 1,
+            body: payload.newMsg,
+            dateMsg: new Date(),
+            fromId: userId
+        };
+        commit('addMessage', { chat: payload.chat, msg: message });
     }
 };
 
 const boilerplate = {
+    getMessages(count) {
+        let messages = [];
+        for (let i = 1; i < count; i++) {
+            messages.push({
+                id: i,
+                body: `Message no.${i}`,
+                dateMsg: new Date(),
+                fromId: 1
+            });
+        }
+        return messages;
+    },
     getChats() {
-        return [
+        let chat = [
             {
                 id: 1,
-                avatar: 'https://refactorsaurusrex.com/images/rawr-avatar.png',
+                avatar: 'http://googledino.ru/assets/googe_dino.png',
                 name: 'Andrey Zorin',
-                previewMsg: 'Some message...',
+                messages: boilerplate.getMessages(100),
                 dateMsg: new Date(),
                 type: 'dialog',
                 participantsId: [1]
             },
             {
                 id: 2,
-                avatar: 'https://refactorsaurusrex.com/images/rawr-avatar.png',
+                avatar: 'http://googledino.ru/assets/googe_dino.png',
                 name: 'Conference name',
-                previewMsg: 'Text text text',
+                messages: [],
                 dateMsg: new Date(),
                 type: 'conference',
                 participantsId: [1, 2]
             },
             {
                 id: 3,
-                avatar: 'https://refactorsaurusrex.com/images/rawr-avatar.png',
+                avatar: 'http://googledino.ru/assets/googe_dino.png',
                 name: 'Project name',
-                previewMsg: 'Another message...',
+                messages: [],
                 dateMsg: new Date(),
                 type: 'project',
                 participantsId: [2, 3]
             }
         ];
+        return chat;
     }
 };
 

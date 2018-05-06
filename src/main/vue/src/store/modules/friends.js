@@ -3,6 +3,12 @@ const state = {
     friends: []
 };
 
+const getters = {
+    getUserById: (state) => (id) => {
+        return state.friends.filter(user => user.id.toString() === id.toString())[0];
+    }
+};
+
 const mutations = {
     updateFriends(state, updatedFriends) {
         state.friends = updatedFriends;
@@ -23,49 +29,56 @@ const boilerplate = {
                 id: 1,
                 name: 'Andrey Zorin',
                 login: 'zorin',
-                avatar: 'https://refactorsaurusrex.com/images/rawr-avatar.png',
+                avatar: 'http://googledino.ru/assets/googe_dino.png',
                 online: true
             },
             {
                 id: 2,
-                name: 'Michail Fedoseev',
-                login: 'fedoseev',
-                avatar: 'https://refactorsaurusrex.com/images/rawr-avatar.png',
-                online: false
-            },
-            {
-                id: 3,
-                name: 'Nikolai Petrov',
-                login: 'login1',
-                avatar: 'https://refactorsaurusrex.com/images/rawr-avatar.png',
+                name: 'Artem Kozlov',
+                login: 'tadoma',
+                avatar: 'http://googledino.ru/assets/googe_dino.png',
                 online: true
             },
             {
+                id: 3,
+                name: 'Michail Fedoseev',
+                login: 'fedoseev',
+                avatar: 'http://googledino.ru/assets/googe_dino.png',
+                online: false
+            },
+            {
                 id: 4,
-                name: 'Alexandra Sotnikova',
-                login: 'login2',
-                avatar: 'https://refactorsaurusrex.com/images/rawr-avatar.png',
+                name: 'Nikolai Petrov',
+                login: 'login1',
+                avatar: 'http://googledino.ru/assets/googe_dino.png',
                 online: true
             },
             {
                 id: 5,
-                name: 'Ilya Bokov',
-                login: 'login3',
-                avatar: 'https://refactorsaurusrex.com/images/rawr-avatar.png',
+                name: 'Alexandra Sotnikova',
+                login: 'login2',
+                avatar: 'http://googledino.ru/assets/googe_dino.png',
                 online: true
             },
             {
                 id: 6,
-                name: 'Ira Raush',
-                login: 'login4',
-                avatar: 'https://refactorsaurusrex.com/images/rawr-avatar.png',
+                name: 'Ilya Bokov',
+                login: 'login3',
+                avatar: 'http://googledino.ru/assets/googe_dino.png',
                 online: true
             },
             {
                 id: 7,
+                name: 'Ira Raush',
+                login: 'login4',
+                avatar: 'http://googledino.ru/assets/googe_dino.png',
+                online: true
+            },
+            {
+                id: 8,
                 name: 'Katya Eliseeva',
                 login: 'login5',
-                avatar: 'https://refactorsaurusrex.com/images/rawr-avatar.png',
+                avatar: 'http://googledino.ru/assets/googe_dino.png',
                 online: true
             }
         ];
@@ -74,6 +87,7 @@ const boilerplate = {
 
 export default {
     namespaced: true,
+    getters,
     state,
     mutations,
     actions
