@@ -49,7 +49,11 @@ public class UserDAO {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if(name == null){
+            this.name = login;
+        } else {
+            this.name = name;
+        }
     }
 
     public String getImagePath() {
