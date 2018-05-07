@@ -5,7 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "settings")
 public class SettingsDAO {
-
     @EmbeddedId
     private SettingsId settingsId;
 
