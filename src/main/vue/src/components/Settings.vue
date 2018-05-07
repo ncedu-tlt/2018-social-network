@@ -59,11 +59,15 @@
                         </v-btn>
                     </v-flex>
                     <v-flex v-if="showDeleteMessage" xs12 sm6>
-                        <v-text-field :label="$t('settings.confirm_delete_account')"/>
-                        <v-btn color="primary" @click="showDeleteMessage = !showDeleteMessage">
+                        <v-text-field
+                            :label="$t('settings.confirm_delete_account')"
+                            v-model="confirmDeleteAccount"
+                            :rules="[rules.confirm(confirmDeleteAccount)]"
+                        />
+                        <v-btn color="success" @click="showDeleteMessage = !showDeleteMessage">
                             {{ $t('cancel') }}
                         </v-btn>
-                        <v-btn color="error">
+                        <v-btn color="error" v-if="confirmDeleteAccount === 'DELETE ACCOUNT'" @click="deleteAccount">
                             {{ $t('confirm') }}
                         </v-btn>
                     </v-flex>
@@ -80,7 +84,13 @@ export default {
     name: 'Settings',
     data() {
         return {
-            showDeleteMessage: false
+            showDeleteMessage: false,
+            confirmDeleteAccount: '',
+            rules: {
+                confirm: (value) => {
+                    return !value.includes('DELETE ACCOUNT') || this.$t('immersible action');
+                }
+            }
         };
     },
     computed: {
@@ -134,6 +144,11 @@ export default {
     methods: {
         onCheckboxChange(setting) {
             this.$store.commit('settings/changeSetting', setting);
+        },
+        async deleteAccount() {
+            await this.$store.dispatch('settings/deleteAccount');
+            this.$store.dispatch('auth/logout');
+            this.$router.push('/auth');
         }
     }
 };

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.ncedu.socialnetwork.api.models.ProjectDTO;
 import ru.ncedu.socialnetwork.api.services.ProjectsGitHubService;
 import ru.ncedu.socialnetwork.domain.UserDAO;
+import ru.ncedu.socialnetwork.repositories.SettingsRepository;
+import ru.ncedu.socialnetwork.repositories.UserRepository;
 
 import java.util.List;
 
@@ -17,6 +19,11 @@ import java.util.List;
 public class UserController {
 
     private ProjectsGitHubService projectsService;
+
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private SettingsRepository settingsRepository;
 
     @Autowired
     public UserController(ProjectsGitHubService projectsService) {
@@ -31,5 +38,11 @@ public class UserController {
     @RequestMapping("/{userName}/repos")
     public List<ProjectDTO> getProjects(@PathVariable("userName") String userName) {
         return projectsService.getProjects(userName);
+    }
+
+    @RequestMapping("/deleteUser")
+    public void deleteUser(@AuthenticationPrincipal UserDAO user) {
+        settingsRepository.deleteAll();
+        userRepository.delete(user);
     }
 }

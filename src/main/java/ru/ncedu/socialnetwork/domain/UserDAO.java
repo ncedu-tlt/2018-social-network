@@ -28,7 +28,7 @@ public class UserDAO {
     private String organization;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "settingsId.userId")
-    private List<SettingsDAO> settings;
+    private List<SettingsDAO> settingsDAO;
 
     public UserDAO() {}
 

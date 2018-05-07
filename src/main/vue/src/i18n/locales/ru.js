@@ -19,5 +19,6 @@ export default {
     'settings.show_job': 'Должность',
     'confirm': 'Подтвердить',
     'cancel': 'Отменить',
-    'settings.confirm_delete_account': 'Введите Delete Accout для подтверждения.'
+    'settings.confirm_delete_account': 'Введите DELETE ACCOUNT для подтверждения.',
+    'immersible action': 'Данное действие необратимо'
 };

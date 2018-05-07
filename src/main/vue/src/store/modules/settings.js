@@ -1,4 +1,5 @@
 import {getSettings, setSettings} from '../../api/rest/settings.api';
+import { deleteUser } from '../../api/rest/user.api';
 
 const state = {
     settings: {}
@@ -35,6 +36,9 @@ const actions = {
     },
     async setSettings({ commit }) {
         await setSettings(state.settings);
+    },
+    async deleteAccount({commit, dispatch}) {
+        await deleteUser();
     }
 };
 
