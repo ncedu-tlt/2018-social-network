@@ -22,6 +22,7 @@ const mutations = {
                 state.settings.settingUnits[i].value = language;
             }
         }
+        localStorage.setItem('language', language);
         setSettings(state.settings);
     }
 };

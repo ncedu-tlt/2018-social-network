@@ -110,6 +110,10 @@ export default {
                         name: setting.settingsId.name,
                         value: setting.value === 'true'
                     };
+                }).sort(function (first, second) {
+                    if (first.name < second.name) return -1;
+                    if (first.name > second.name) return 1;
+                    return 0;
                 });
             }
         },
