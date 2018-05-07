@@ -39,6 +39,8 @@ const router = new Router({
             name: 'ChatPage',
             component: ChatPage,
             props: true
+        },
+        {
             path: '/user/name',
             name: 'ProfilePage',
             component: ProfilePage

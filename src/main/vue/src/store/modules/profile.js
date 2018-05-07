@@ -1,6 +1,6 @@
 const state = {
     profile: {
-        name: 'Temp temp',
+        name: 'IngerGodal',
         languages: ['Java', 'PHP', 'Ruby'],
         technologies: ['Spring', 'Hibernate'],
         placeOfWork: 'Some company',

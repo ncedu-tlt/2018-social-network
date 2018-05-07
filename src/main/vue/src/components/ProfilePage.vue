@@ -1,8 +1,6 @@
 <template>
     <v-container>
-        <v-layout>
-            <ProfileInfo/>
-        </v-layout>
+        <ProfileInfo/>
     </v-container>
 </template>
 

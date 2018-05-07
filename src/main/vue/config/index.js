@@ -21,7 +21,7 @@ module.exports = {
             '/logout': proxyOptions,
             '/h2-console': proxyOptions,
             '/ws': {
-                ...proxyOptions,
+                proxyOptions,
                 ws: true
             }
         },
