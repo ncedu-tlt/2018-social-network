@@ -12,9 +12,6 @@ import ru.ncedu.socialnetwork.domain.SettingsDAO;
 import ru.ncedu.socialnetwork.domain.SettingsId;
 import ru.ncedu.socialnetwork.domain.UserDAO;
 import ru.ncedu.socialnetwork.repositories.SettingsRepository;
-import ru.ncedu.socialnetwork.api.consts.SettingsConst;
-
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +30,7 @@ public class SettingsController {
 
 
         if(!settingsRepository.findAll().isEmpty()){
-            settingUnitList.addAll(settingsRepository.findAll());
+            settingUnitList.addAll(settingsRepository.findBySettingsIdUserId(user.getUserId()));
         } else {
             settingUnitList.add(new SettingsDAO(new SettingsId(user.getUserId(), SHOW_LANGUAGE), "true"));
             settingUnitList.add(new SettingsDAO(new SettingsId(user.getUserId(), SHOW_PREFFERED_TECHNOLOGIES ), "true"));
@@ -57,12 +54,7 @@ public class SettingsController {
     public void setSettings(@AuthenticationPrincipal UserDAO user, @RequestBody SettingsDTO settingsDTO){
         System.out.println(settingsDTO);
 
-       ArrayList<SettingsDAO> settings = new ArrayList<>(settingsDTO.getSettingUnits());
-
-
-        if(!settingsRepository.findAll().isEmpty()){
-            settingsRepository.deleteAll();
-        }
+        ArrayList<SettingsDAO> settings = new ArrayList<>(settingsDTO.getSettingUnits());
 
         settingsRepository.save(settings);
     }

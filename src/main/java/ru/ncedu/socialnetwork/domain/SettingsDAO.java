@@ -7,26 +7,25 @@ import javax.persistence.*;
 public class SettingsDAO {
 
     @EmbeddedId
-    private SettingsId SettingsId;
+    private SettingsId settingsId;
 
-    @Column(nullable = false)
+    @Column
     private String value;
-
-
-    public SettingsDAO(SettingsId settingsId, String value) {
-        SettingsId = settingsId;
-        this.value = value;
-    }
 
     public SettingsDAO() {
     }
 
+    public SettingsDAO(SettingsId settingsId, String value) {
+        this.settingsId = settingsId;
+        this.value = value;
+    }
+
     public SettingsId getSettingsId() {
-        return SettingsId;
+        return settingsId;
     }
 
     public void setSettingsId(SettingsId settingsId) {
-        this.SettingsId = settingsId;
+        this.settingsId = settingsId;
     }
 
     public String getValue() {

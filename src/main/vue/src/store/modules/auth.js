@@ -29,10 +29,10 @@ const actions = {
             commit('setAuth', authResponse.data.login);
 
             const settingsResponse = await getSettings();
-            const language = settingsResponse.data.settingUnits.filter(language => language.name === 'settings.language');
-            if (language[0]) {
+            const language = settingsResponse.data.settingUnits.filter(language => language.settingsId.name === 'settings.language');
+            if (language[0].value) {
                 index.locale = language[0].value;
-                localStorage.setItem('language', language);
+                localStorage.setItem('language', language[0].value);
             }
         } else {
             localStorage.clear();

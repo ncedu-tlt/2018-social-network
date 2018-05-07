@@ -3,6 +3,7 @@ package ru.ncedu.socialnetwork.domain;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -25,6 +26,9 @@ public class UserDAO {
 
     @Column
     private String organization;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<SettingsDAO> settings;
 
     public UserDAO() {}
 
