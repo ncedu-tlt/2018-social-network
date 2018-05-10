@@ -92,8 +92,7 @@ export default {
     name: 'ProfileInfo',
     computed: {
         ...mapState('profile', ['profile']),
-        ...mapState('auth', ['userName']),
-
+        ...mapState('auth', ['userName'])
     }
 };
 </script>
