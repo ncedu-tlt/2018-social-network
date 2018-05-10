@@ -50,8 +50,9 @@
                 <v-layout row align-end>
                     <v-flex>
                         <v-btn icon><v-icon>attach_file</v-icon></v-btn>
+                        <v-btn v-if="innerWidth <= 350" icon @click="addMessageNClear"><v-icon>send</v-icon></v-btn>
                     </v-flex>
-                    <v-flex xs10>
+                    <v-flex xs12>
                         <v-text-field
                             :label="$t('chat.label')"
                             class="chat-textarea"
@@ -66,7 +67,7 @@
                             v-validate="{ required: true }"
                         />
                     </v-flex>
-                    <v-flex>
+                    <v-flex v-if="innerWidth > 350">
                         <v-btn icon @click="addMessageNClear"><v-icon>send</v-icon></v-btn>
                     </v-flex>
                 </v-layout>
@@ -104,7 +105,8 @@ export default {
             start: 0,
             offset: 0,
             size: 100,
-            remain: 4
+            remain: 4,
+            innerWidth: innerWidth
         };
     },
     computed: {
