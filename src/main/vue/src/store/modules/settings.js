@@ -37,8 +37,9 @@ const actions = {
     async setSettings({ commit }) {
         await setSettings(state.settings);
     },
-    async deleteAccount({commit, dispatch}) {
-        await deleteUser();
+    async deleteUser({commit}, userName) {
+        await deleteUser(userName);
+        commit('updateSettings', null);
     }
 };
 

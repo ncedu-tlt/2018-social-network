@@ -24,23 +24,19 @@
         </v-card>
         <v-card class="mt-4">
             <v-card-title class="title">
-                <v-flex>
-                    {{ $t('settings.switch_language') }}
-                </v-flex>
-            </v-card-title >
+                {{ $t('settings.switch_language') }}
+            </v-card-title>
             <v-divider/>
             <v-card-actions>
-                <v-flex xs6>
+                <v-flex class="ml-3" xs5>
                     <v-select
                         v-if="settings != null && settings.availableLanguages != null"
                         :items="createLanguagesObject"
                         item-text="name"
                         item-value="value"
-                        v-model="computedLanguage">
-                        <v-list-tile-avatar>
-                            <img :src="createLanguagesObject.img">
-                        </v-list-tile-avatar>
-                    </v-select>
+                        color="primary"
+                        v-model="computedLanguage"
+                        auto/>
                 </v-flex>
             </v-card-actions>
         </v-card>
@@ -51,27 +47,28 @@
                 </v-flex>
             </v-card-title>
             <v-divider/>
-            <v-card-actions>
-                <v-container>
-                    <v-flex class="text-xs-center">
-                        <v-btn color="error" @click="showDeleteMessage = !showDeleteMessage" v-if="!showDeleteMessage">
-                            <h3>{{ $t('settings.delete_account') }}</h3>
-                        </v-btn>
-                    </v-flex>
-                    <v-flex v-if="showDeleteMessage" xs12 sm6>
-                        <v-text-field
-                            :label="$t('settings.confirm_delete_account')"
-                            v-model="confirmDeleteAccount"
-                            :rules="[rules.confirm(confirmDeleteAccount)]"
-                        />
-                        <v-btn color="success" @click="showDeleteMessage = !showDeleteMessage">
-                            {{ $t('cancel') }}
-                        </v-btn>
-                        <v-btn color="error" v-if="confirmDeleteAccount === 'DELETE ACCOUNT'" @click="deleteAccount">
-                            {{ $t('confirm') }}
-                        </v-btn>
-                    </v-flex>
-                </v-container>
+            <v-card-actions class="pb-4 pt-4">
+                <v-flex class="text-xs-center">
+                    <v-btn color="error" @click="showDeleteMessage = !showDeleteMessage" v-if="!showDeleteMessage">
+                        <h3>{{ $t('settings.delete_account') }}</h3>
+                    </v-btn>
+                </v-flex>
+                <v-flex v-if="showDeleteMessage" xs10>
+                    <v-text-field
+                        :label="$t('settings.confirm_delete_account')"
+                        v-model="confirmDeleteAccount"
+                        :rules="[rules.confirm(confirmDeleteAccount)]"
+                        color="primary"
+                    />
+                </v-flex>
+                <v-flex v-if="showDeleteMessage" xs6>
+                    <v-btn color="primary" @click="showDeleteMessage = !showDeleteMessage">
+                        {{ $t('cancel') }}
+                    </v-btn>
+                    <v-btn color="error" v-if="confirmDeleteAccount === 'DELETE ACCOUNT'" @click="deleteAccount">
+                        {{ $t('confirm') }}
+                    </v-btn>
+                </v-flex>
             </v-card-actions>
         </v-card>
     </v-container>
@@ -88,9 +85,10 @@ export default {
             confirmDeleteAccount: '',
             rules: {
                 confirm: (value) => {
-                    return !value.includes('DELETE ACCOUNT') || this.$t('immersible action');
+                    return !value.includes('DELETE ACCOUNT') || this.$t('immersible_action');
                 }
-            }
+            },
+            userName: this.$store.state.auth.userName
         };
     },
     computed: {
@@ -104,8 +102,7 @@ export default {
                     languagesViewModels.push({
                         name: this.$t('system.language.' + current),
                         value: current,
-                        id: currentId,
-                        img: '../assets/logo_' + current + '.png'
+                        id: currentId
                     })
                 );
                 return languagesViewModels;
@@ -145,10 +142,12 @@ export default {
         onCheckboxChange(setting) {
             this.$store.commit('settings/changeSetting', setting);
         },
-        async deleteAccount() {
-            await this.$store.dispatch('settings/deleteAccount');
-            this.$store.dispatch('auth/logout');
-            this.$router.push('/auth');
+        deleteAccount() {
+            this.$store.dispatch('settings/deleteUser', this.userName).then(() => {
+                this.$store.dispatch('auth/logout');
+                this.$store.commit('auth/setRemove');
+                this.$router.push('/auth');
+            });
         }
     }
 };

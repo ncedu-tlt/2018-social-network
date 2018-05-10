@@ -51,11 +51,10 @@ public class SettingsController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void setSettings(@AuthenticationPrincipal UserDAO user, @RequestBody SettingsDTO settingsDTO){
-        System.out.println(settingsDTO);
+    public List<SettingsDAO> setSettings(@RequestBody SettingsDTO settingsDTO){
 
         ArrayList<SettingsDAO> settings = new ArrayList<>(settingsDTO.getSettingUnits());
 
-        settingsRepository.save(settings);
+        return settingsRepository.save(settings);
     }
 }

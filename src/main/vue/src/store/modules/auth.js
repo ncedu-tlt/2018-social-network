@@ -2,7 +2,8 @@ import { getCurrentUser, logout } from '@/api/rest/user.api';
 import { getSettings } from '@/api/rest/settings.api';
 import index from '../../i18n/index';
 const state = {
-    userName: localStorage.getItem('userName')
+    userName: localStorage.getItem('userName'),
+    removeUser: false
 };
 
 /**
@@ -12,6 +13,9 @@ const state = {
 const mutations = {
     setAuth(state, userName) {
         state.userName = userName;
+    },
+    setRemove(state) {
+        state.removeUser = true;
     }
 };
 

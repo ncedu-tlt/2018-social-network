@@ -8,7 +8,7 @@ public class SettingsDAO {
     @EmbeddedId
     private SettingsId settingsId;
 
-    @Column
+    @Column(nullable = false)
     private String value;
 
     public SettingsDAO() {

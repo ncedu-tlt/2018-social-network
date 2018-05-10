@@ -21,5 +21,6 @@ export default {
     'confirm': 'Confirm',
     'cancel': 'Cancel',
     'settings.confirm_delete_account': 'Enter DELETE ACCOUNT for confirm that operation.',
-    'immersible action': 'This action is immersible!'
+    'immersible_action': 'This action is immersible!',
+    'account_remove': 'Account successfully removed!'
 };

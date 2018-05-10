@@ -23,9 +23,6 @@ export default {
             opened: true
         };
     },
-    mounted() {
-        this.$i18n.locale = localStorage.getItem('language');
-    },
     methods: {
         switchDrawerVisible() {
             this.opened = !this.opened;

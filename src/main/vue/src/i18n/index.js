@@ -8,7 +8,7 @@ import ruDateFormat from '@/i18n/dateformats/date-format.ru';
 Vue.use(VueI18n);
 
 export default new VueI18n({
-    locale: 'en',
+    locale: localStorage.getItem('language') ? localStorage.getItem('language') : 'en',
     messages: {
         en,
         ru

@@ -10,5 +10,4 @@ import java.util.List;
 public interface UserRepository extends CrudRepository<UserDAO, Long> {
     UserDAO findByLogin(String login);
 
-    UserDAO deleteByUserId(int userId);
 }

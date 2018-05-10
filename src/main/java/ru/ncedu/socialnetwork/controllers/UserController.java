@@ -22,6 +22,7 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private SettingsRepository settingsRepository;
 
@@ -40,9 +41,8 @@ public class UserController {
         return projectsService.getProjects(userName);
     }
 
-    @RequestMapping("/deleteUser")
+    @RequestMapping("/{userName}/delete")
     public void deleteUser(@AuthenticationPrincipal UserDAO user) {
-        settingsRepository.deleteAll();
         userRepository.delete(user);
     }
 }

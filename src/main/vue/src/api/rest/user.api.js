@@ -38,6 +38,6 @@ export function updateName(id, name) {
     return client.put(`/user/${id}`, { name });
 }
 
-export function deleteUser() {
-    return client.post('/user/deleteUser');
+export function deleteUser(userName) {
+    return client.post(`/user/${userName}/delete`);
 }
