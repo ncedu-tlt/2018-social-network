@@ -1,8 +1,8 @@
 <template>
     <v-card tile height="100%">
-        <div v-if="chatId" class="chat-body">
+        <div v-if="chat" class="chat-body">
             <v-toolbar color="white" card dense>
-                <v-toolbar-title class="chat-title primary--text text--lighten-2">
+                <v-toolbar-title class="subheading primary--text text--lighten-2">
                     {{ chat.type === 'dialog' ?
                         $t('chat.title') + chat.name :
                         chat.name
@@ -14,25 +14,40 @@
                 </v-btn>
             </v-toolbar>
             <v-divider/>
-
-            <v-list two-line>
-                <virtual-list :size="60" :remain="6" :bench="5">
-                    <template v-for="message of chat.messages">
-                        <v-list-tile avatar :key="message.id">
-                            <v-list-tile-avatar>
-                                <img :src="getUserById(message.fromId).avatar">
-                            </v-list-tile-avatar>
-                            <v-list-tile-content>
-                                <v-list-tile-action-text>{{ $d(message.dateMsg, 'long') }}</v-list-tile-action-text>
-                                <v-list-tile-sub-title v-html="getUserById(message.fromId).name"/>
-                                <v-list-tile-title v-html="message.body"/>
-                            </v-list-tile-content>
-                        </v-list-tile>
-                    </template>
-                </virtual-list>
-            </v-list>
+            <div v-resize="onResize" class="content" ref="content">
+                <v-list two-line>
+                    <virtual-list :size="size" :remain="remain" :start="start" :offset="offset">
+                        <template v-for="message of chat.messages">
+                            <div v-if="userId == message.fromId" :key="message.id">
+                                <v-list-tile avatar>
+                                    <v-list-tile-content>
+                                        <v-list-tile-sub-title class="caption your-message">{{ $d(message.dateMsg, 'long') }}</v-list-tile-sub-title>
+                                        <v-list-tile-sub-title class="your-message" v-html="getParticipantById(message.fromId).name"/>
+                                        <v-list-tile-title class="your-message" v-html="message.body"/>
+                                    </v-list-tile-content>
+                                    <v-list-tile-avatar>
+                                        <img :src="getParticipantById(message.fromId).avatar">
+                                    </v-list-tile-avatar>
+                                </v-list-tile>
+                            </div>
+                            <div v-else :key="message.id">
+                                <v-list-tile avatar :key="message.id">
+                                    <v-list-tile-avatar>
+                                        <img :src="getParticipantById(message.fromId).avatar">
+                                    </v-list-tile-avatar>
+                                    <v-list-tile-content>
+                                        <v-list-tile-sub-title class="caption">{{ $d(message.dateMsg, 'long') }}</v-list-tile-sub-title>
+                                        <v-list-tile-sub-title v-html="getParticipantById(message.fromId).name"/>
+                                        <v-list-tile-title v-html="message.body"/>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                            </div>
+                        </template>
+                    </virtual-list>
+                </v-list>
+            </div>
             <v-card-actions>
-                <v-layout class="chat-actions" align-end justify-space-around>
+                <v-layout row align-end>
                     <v-flex>
                         <v-btn icon><v-icon>attach_file</v-icon></v-btn>
                     </v-flex>
@@ -47,10 +62,8 @@
                             full-width
                             clearable
                             v-model="newMsg"
-                            @keyup.enter="addMessageNClear"
-                            :rules="[(v) => v.length <= 150 || $t('chat.errors.max')]"
-                            :counter="150"
-                            v-validate="{ required: true, max: 150 }"
+                            @keypress.enter.prevent="addMessageNClear"
+                            v-validate="{ required: true }"
                         />
                     </v-flex>
                     <v-flex>
@@ -71,7 +84,7 @@
 </template>
 <script>
 import virtualList from 'vue-virtual-scroll-list';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {
     name: 'Chat',
@@ -85,30 +98,50 @@ export default {
     },
     data: function () {
         return {
-            chat: {},
-            newMsg: ''
+            chat: null,
+            newMsg: '',
+            selfId: '',
+            start: 0,
+            offset: 0,
+            size: 100,
+            remain: 4
         };
     },
     computed: {
         ...mapGetters({
             getChatById: 'chats/getChatById',
-            getUserById: 'friends/getUserById'
-        })
+            getParticipantById: 'chats/getParticipantById'
+        }),
+        ...mapState('auth', [
+            'userId'
+        ])
     },
-    async beforeMount() {
-        if (this.chatId !== '') {
-            this.chat = await this.getChatById(this.chatId);
+    watch: {
+        chatId: function () {
+            if (this.chatId === '') this.chat = null;
+            else this.updateChatData();
         }
     },
-    async beforeUpdate() {
-        if (this.chatId !== '') {
-            this.chat = await this.getChatById(this.chatId);
-        }
+    async mounted() {
+        this.updateParticipants();
+        await this.updateChatData();
+    },
+    async updated() {
+        if (this.chat) this.offset = this.chat.messages.length * 100;
     },
     methods: {
         ...mapActions('chats', [
-            'addMessage'
+            'addMessage',
+            'updateParticipants'
         ]),
+        onResize() {
+            this.remain = Math.round(this.$refs.content.clientHeight / this.size);
+        },
+        async updateChatData() {
+            if (this.chatId !== '') {
+                this.chat = await this.getChatById(this.chatId);
+            }
+        },
         addMessageNClear() {
             this.$validator.validateAll().then((result) => {
                 if (result) {
@@ -120,6 +153,7 @@ export default {
                         });
                     this.newMsg = '';
                     this.$validator.reset();
+                    this.updateChatData();
                 }
             });
         }
@@ -127,14 +161,23 @@ export default {
 };
 </script>
 <style scoped>
-    .chat-title{
-        font: normal 1.2em Tahoma, sans-serif;
-    }
-    .chat-body{
-        height: 100%;
-    }
     .chat-textarea{
         height: 5em;
         border: 1px solid rgba(0,0,0,.12);
+    }
+    .chat-body, .card__actions {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    .content{
+        height: 75%;
+        flex-direction: column;
+    }
+    .layout{
+        width: 100%;
+    }
+    .your-message{
+        text-align: end;
     }
 </style>

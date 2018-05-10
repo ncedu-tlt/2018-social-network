@@ -1,7 +1,8 @@
 import { getCurrentUser } from '@/api/rest/user.api';
 
 const state = {
-    chats: []
+    chats: [],
+    participants: []
 };
 
 const getters = {
@@ -9,13 +10,19 @@ const getters = {
         return state.chats.filter(chat => chat.participantsId.toString() === id.toString());
     },
     getChatById: (state) => (id) => {
-        return state.chats.filter(chat => chat.id.toString() === id.toString())[0];
+        return state.chats.find(chat => chat.id.toString() === id);
+    },
+    getParticipantById: (state) => (id) => {
+        return state.participants.find(p => p.id === id);
     }
 };
 
 const mutations = {
     updateChats(state, updatedChats) {
         state.chats = updatedChats;
+    },
+    updateParticipants(state, updatedParticipants) {
+        state.participants = updatedParticipants;
     },
     addChat(state, chat) {
         state.chats.push(chat);
@@ -33,7 +40,7 @@ const actions = {
     async addChat({ commit }, people) {
         let chat = {
             id: state.chats.length + 1,
-            avatar: 'http://googledino.ru/assets/googe_dino.png',
+            avatar: 'https://octodex.github.com/images/electrocat.png',
             name: people.map(p => p.name).join(', '),
             messages: [],
             dateMsg: new Date(),
@@ -57,6 +64,10 @@ const actions = {
             fromId: userId
         };
         commit('addMessage', { chat: payload.chat, msg: message });
+    },
+    async updateParticipants({ commit }) {
+        const updatedParticipants = boilerplate.getParticipants();
+        commit('updateParticipants', updatedParticipants);
     }
 };
 
@@ -77,7 +88,7 @@ const boilerplate = {
         let chat = [
             {
                 id: 1,
-                avatar: 'http://googledino.ru/assets/googe_dino.png',
+                avatar: 'https://octodex.github.com/images/electrocat.png',
                 name: 'Andrey Zorin',
                 messages: boilerplate.getMessages(100),
                 dateMsg: new Date(),
@@ -86,7 +97,7 @@ const boilerplate = {
             },
             {
                 id: 2,
-                avatar: 'http://googledino.ru/assets/googe_dino.png',
+                avatar: 'https://octodex.github.com/images/electrocat.png',
                 name: 'Conference name',
                 messages: [],
                 dateMsg: new Date(),
@@ -95,7 +106,7 @@ const boilerplate = {
             },
             {
                 id: 3,
-                avatar: 'http://googledino.ru/assets/googe_dino.png',
+                avatar: 'https://octodex.github.com/images/Robotocat.png',
                 name: 'Project name',
                 messages: [],
                 dateMsg: new Date(),
@@ -104,6 +115,66 @@ const boilerplate = {
             }
         ];
         return chat;
+    },
+    getParticipants() {
+        return [
+            {
+                id: 1,
+                name: 'Andrey Zorin',
+                login: 'zorin',
+                avatar: 'https://octodex.github.com/images/electrocat.png',
+                online: true
+            },
+            {
+                id: 9,
+                name: 'Artem Kozlov',
+                login: 'tadoma',
+                avatar: 'https://octodex.github.com/images/electrocat.png',
+                online: true
+            },
+            {
+                id: 3,
+                name: 'Michail Fedoseev',
+                login: 'fedoseev',
+                avatar: 'https://octodex.github.com/images/electrocat.png',
+                online: false
+            },
+            {
+                id: 4,
+                name: 'Nikolai Petrov',
+                login: 'login1',
+                avatar: 'https://octodex.github.com/images/electrocat.png',
+                online: true
+            },
+            {
+                id: 5,
+                name: 'Alexandra Sotnikova',
+                login: 'login2',
+                avatar: 'https://octodex.github.com/images/electrocat.png',
+                online: true
+            },
+            {
+                id: 6,
+                name: 'Ilya Bokov',
+                login: 'login3',
+                avatar: 'https://octodex.github.com/images/electrocat.png',
+                online: true
+            },
+            {
+                id: 7,
+                name: 'Ira Raush',
+                login: 'login4',
+                avatar: 'https://octodex.github.com/images/electrocat.png',
+                online: true
+            },
+            {
+                id: 8,
+                name: 'Katya Eliseeva',
+                login: 'login5',
+                avatar: 'https://octodex.github.com/images/electrocat.png',
+                online: true
+            }
+        ];
     }
 };
 

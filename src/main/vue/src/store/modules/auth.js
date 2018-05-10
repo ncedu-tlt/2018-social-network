@@ -1,7 +1,8 @@
 import { getCurrentUser, logout } from '@/api/rest/user.api';
 
 const state = {
-    userName: localStorage.getItem('userName')
+    userName: localStorage.getItem('userName'),
+    userId: localStorage.getItem('userId')
 };
 
 /**
@@ -9,8 +10,14 @@ const state = {
  * They should always stay synchronous.
  */
 const mutations = {
-    setAuth(state, userName) {
-        state.userName = userName;
+    setAuth(state, payload) {
+        if (payload !== null) {
+            state.userName = payload.userName;
+            state.userId = payload.userId;
+        } else {
+            state.userName = null;
+            state.userId = null;
+        }
     }
 };
 
@@ -25,7 +32,8 @@ const actions = {
         const authResponse = await getCurrentUser();
         if (authResponse.data) {
             localStorage.setItem('userName', authResponse.data.login);
-            commit('setAuth', authResponse.data.login);
+            localStorage.setItem('userId', authResponse.data.userId);
+            commit('setAuth', { userName: authResponse.data.login, userId: authResponse.data.userId });
         } else {
             localStorage.clear();
             commit('setAuth', null);
