@@ -39,5 +39,5 @@ export function updateName(id, name) {
 }
 
 export function deleteUser(userName) {
-    return client.post(`/user/${userName}/delete`);
+    return client.delete(`/user/${userName}/delete`);
 }

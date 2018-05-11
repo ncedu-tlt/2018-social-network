@@ -41,7 +41,7 @@ public class UserController {
         return projectsService.getProjects(userName);
     }
 
-    @RequestMapping("/{userName}/delete")
+    @RequestMapping(value = "/{userName}/delete", method = RequestMethod.DELETE)
     public void deleteUser(@AuthenticationPrincipal UserDAO user) {
         userRepository.delete(user);
     }
