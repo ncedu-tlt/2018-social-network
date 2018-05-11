@@ -18,7 +18,7 @@ export default {
     'dialog.close': 'Закрыть',
     'dialog.invite': 'Пригласить',
     'dialog.open': 'Открыть',
-    'friend.status.online:': 'Онлайн',
+    'friend.status.online': 'Онлайн',
     'friend.status.offline': 'Оффлайн',
     'chat.welcome': 'Пожалуйста выберите диалог или создайте новый',
     'chat.created': 'Только что создан...',
