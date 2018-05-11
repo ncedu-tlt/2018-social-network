@@ -24,5 +24,19 @@ export default {
     'chat.created': 'Только что создан...',
     'chat.title': 'Диалог с ',
     'chat.label': 'Сообщение',
-    'chat.errors.max': 'Сообщение слишком длинное'
+    'chat.errors.max': 'Сообщение слишком длинное',
+    'system.language.ru': 'Русский',
+    'system.language.en': 'Английский',
+    'settings.show_hide': 'Показывать или скрывать элементы профиля',
+    'settings.switch_language': 'Переключить язык',
+    'settings.delete_account': 'Удалить профиль',
+    'settings.show_language': 'Языки программирования',
+    'settings.show_preferred_technologies': 'Предпочитаемые технологии',
+    'settings.show_place_of_work': 'Место работы',
+    'settings.show_job': 'Должность',
+    'confirm': 'Подтвердить',
+    'cancel': 'Отменить',
+    'settings.confirm_delete_account': 'Введите DELETE ACCOUNT для подтверждения.',
+    'immersible_action': 'Данное действие необратимо',
+    'account_remove': 'Ваш аккаунт успешно удален!'
 };
