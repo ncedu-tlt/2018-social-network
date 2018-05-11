@@ -12,8 +12,8 @@ const mutations = {
 
 const actions = {
     async updateProjects({ commit }, userName) {
-        const responce = await getProjects(userName);
-        const updatedProjects = responce.data;
+        const response = await getProjects(userName);
+        const updatedProjects = response.data;
         commit('updateProjects', updatedProjects);
     }
 };

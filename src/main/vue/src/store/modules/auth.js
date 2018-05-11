@@ -3,6 +3,7 @@ import { getSettings } from '@/api/rest/settings.api';
 import index from '../../i18n/index';
 const state = {
     userName: localStorage.getItem('userName'),
+    userId: localStorage.getItem('userId'),
     removeUser: false
 };
 
@@ -11,8 +12,14 @@ const state = {
  * They should always stay synchronous.
  */
 const mutations = {
-    setAuth(state, userName) {
-        state.userName = userName;
+    setAuth(state, payload) {
+        if (payload !== null) {
+            state.userName = payload.userName;
+            state.userId = payload.userId;
+        } else {
+            state.userName = null;
+            state.userId = null;
+        }
     },
     setRemove(state) {
         state.removeUser = true;
@@ -30,7 +37,8 @@ const actions = {
         const authResponse = await getCurrentUser();
         if (authResponse.data) {
             localStorage.setItem('userName', authResponse.data.login);
-            commit('setAuth', authResponse.data.login);
+            localStorage.setItem('userId', authResponse.data.userId);
+            commit('setAuth', { userName: authResponse.data.login, userId: authResponse.data.userId });
 
             const settingsResponse = await getSettings();
             const language = settingsResponse.data.settingUnits.filter(language => language.settingsId.name === 'settings.language');

@@ -67,7 +67,7 @@ export default {
             'friends'
         ]),
         ...mapGetters('chats', [
-            'getChatById'
+            'getChatsByParticipantId'
         ]),
         filteredFriends() {
             return this.friends.filter(friend => {
@@ -79,7 +79,7 @@ export default {
         selectedFriends: function () {
             this.selectedId = this.selectedFriends.map(friend => friend.id);
             if (this.selectedId.length === 1) {
-                this.exist = this.getChatById(this.selectedId).length === 1;
+                this.exist = this.getChatsByParticipantId(this.selectedId).length === 1;
             } else {
                 this.exist = false;
             }
@@ -106,7 +106,7 @@ export default {
             this.$router.push(`/chat/${newChat.id}`);
         },
         openChat() {
-            let chatId = this.getChatById(this.selectedId).map(chat => chat.id);
+            let chatId = this.getChatsByParticipantId(this.selectedId).map(chat => chat.id);
             this.dialog = false;
             this.$router.push(`/chat/${chatId}`);
         }
