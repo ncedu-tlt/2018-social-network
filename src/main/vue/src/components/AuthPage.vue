@@ -30,14 +30,33 @@
                     </div>
                 </div>
             </v-flex>
+            <v-snackbar
+                v-if="userDelete"
+                :timeout="10000"
+                v-model="userDelete"
+                right
+                color="error">
+                <strong class="body-2">
+                    {{ $t('account_remove') }}
+                </strong>
+                <v-icon class="material-icons">
+                    done
+                </v-icon>
+            </v-snackbar>
         </v-layout>
     </v-container>
+
 </template>
 <script>
 import { mapState } from 'vuex';
 
 export default {
     name: 'AuthPage',
+    data() {
+        return {
+            userDelete: this.$store.state.auth.removeUser
+        };
+    },
     computed: {
         ...mapState('auth', [
             'userName'
