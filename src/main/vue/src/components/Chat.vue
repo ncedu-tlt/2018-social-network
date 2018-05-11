@@ -13,7 +13,9 @@
                     <v-icon>settings</v-icon>
                 </v-btn>
             </v-toolbar>
-            <v-divider/>
+            <div>
+                <v-divider/>
+            </div>
             <div v-resize="onResize" class="content" ref="content">
                 <v-list two-line>
                     <virtual-list :size="size" :remain="remain" :start="start" :offset="offset">
@@ -167,13 +169,12 @@ export default {
         height: 5em;
         border: 1px solid rgba(0,0,0,.12);
     }
-    .chat-body, .card__actions {
+    .chat-body{
         display: flex;
         flex-direction: column;
         height: 100%;
     }
     .content{
-        height: 75%;
         flex-direction: column;
     }
     .layout{
