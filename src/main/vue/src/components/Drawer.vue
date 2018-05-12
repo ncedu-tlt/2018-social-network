@@ -12,11 +12,11 @@
             <v-list class="pa-0">
                 <v-list-tile avatar class="secondary">
                     <v-list-tile-avatar>
-                        <img src="https://randomuser.me/api/portraits/men/85.jpg">
+                        <img :src="userData.avatar">
                     </v-list-tile-avatar>
                     <v-list-tile-content>
-                        <v-list-tile-title>John Leider</v-list-tile-title>
-                        <v-list-tile-sub-title>Leader dev</v-list-tile-sub-title>
+                        <v-list-tile-title>{{ userData.realName }}</v-list-tile-title>
+                        <v-list-tile-sub-title>dev</v-list-tile-sub-title>
                     </v-list-tile-content>
                     <v-list-tile-action/>
                 </v-list-tile>
@@ -91,6 +91,12 @@ export default {
     computed: {
         auth() {
             return this.$store.state.auth.userName;
+        },
+        userData() {
+            return {
+                realName: this.$store.state.auth.userRealName ? this.$store.state.auth.userRealName : 'Unnamed Person',
+                avatar: this.$store.state.auth.userAvatar ? this.$store.state.auth.userAvatar : 'https://randomuser.me/api/portraits/men/85.jpg'
+            };
         }
     },
     watch: {
