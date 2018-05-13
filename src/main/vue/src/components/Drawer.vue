@@ -16,7 +16,7 @@
                     </v-list-tile-avatar>
                     <v-list-tile-content>
                         <v-list-tile-title>{{ userData.realName }}</v-list-tile-title>
-                        <v-list-tile-sub-title>dev</v-list-tile-sub-title>
+                        <v-list-tile-sub-title>{{ userData.organization }}</v-list-tile-sub-title>
                     </v-list-tile-content>
                     <v-list-tile-action/>
                 </v-list-tile>
@@ -94,8 +94,9 @@ export default {
         },
         userData() {
             return {
-                realName: this.$store.state.auth.userRealName ? this.$store.state.auth.userRealName : 'Unnamed Person',
-                avatar: this.$store.state.auth.userAvatar ? this.$store.state.auth.userAvatar : 'https://randomuser.me/api/portraits/men/85.jpg'
+                realName: this.$store.state.auth.userRealName ? this.$store.state.auth.userRealName : this.$store.state.auth.userName,
+                avatar: this.$store.state.auth.userAvatar ? this.$store.state.auth.userAvatar : 'https://pbs.twimg.com/profile_images/787106179482869760/CwwG2e2M_400x400.jpg',
+                organization: this.$store.state.auth.userOrganisation ? this.$store.state.auth.userOrganisation : null
             };
         }
     },
