@@ -3,8 +3,9 @@
         fixed
         clipped
         app
-        :mini-variant="!visible.desktop"
-        :permanent="visible.mobile"
+        :mini-variant="visible"
+        :permanent="minify"
+        @update:miniVariant="updateDrawerVisible"
         v-if="auth"
     >
         <v-list subheader>
@@ -21,7 +22,7 @@
                 </v-list-tile>
             </v-list>
             <v-divider/>
-            <v-list-tile :to="{ name: 'ProjectsPage' }" @click="mobileRedirect">
+            <v-list-tile :to="{ name: 'ProjectsPage' }" @click="disableVisible">
                 <v-list-tile-action>
                     <v-icon>call_merge</v-icon>
                 </v-list-tile-action>
@@ -29,7 +30,7 @@
                     <v-list-tile-title>{{ $t('projects') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile :to="{ name: 'ChatPage' }" @click="mobileRedirect">
+            <v-list-tile :to="{ name: 'ChatPage' }" @click="disableVisible">
                 <v-list-tile-action>
                     <v-icon>message</v-icon>
                 </v-list-tile-action>
@@ -37,7 +38,7 @@
                     <v-list-tile-title>{{ $t('messages') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile :to="{name: 'FeedPage'}" @click="mobileRedirect">
+            <v-list-tile :to="{name: 'FeedPage'}" @click="disableVisible">
                 <v-list-tile-action>
                     <v-icon>view_headline</v-icon>
                 </v-list-tile-action>
@@ -45,7 +46,7 @@
                     <v-list-tile-title>{{ $t('feed') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile @click="mobileRedirect">
+            <v-list-tile @click="disableVisible">
                 <v-list-tile-action>
                     <v-icon>contacts</v-icon>
                 </v-list-tile-action>
@@ -53,7 +54,7 @@
                     <v-list-tile-title>{{ $t('contacts') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile :to="{name: 'Settings'}" @click="mobileRedirect">
+            <v-list-tile :to="{name: 'Settings'}" @click="disableVisible">
                 <v-list-tile-action>
                     <v-icon>settings</v-icon>
                 </v-list-tile-action>
@@ -78,12 +79,15 @@ export default {
     name: 'Drawer',
     props: {
         visible: {
-            type: Object,
-            default() {
-                this.visible.desktop = false;
-                this.visible.mobile = false;
-            }
+            type: Boolean,
+            default: true
         }
+    },
+    data() {
+        return {
+            minify: false,
+            isVisible: this.visible
+        };
     },
     computed: {
         auth() {
@@ -97,14 +101,24 @@ export default {
             };
         }
     },
+    watch: {
+        visible: function () {
+            if (this.$vuetify.breakpoint.mdAndDown) {
+                this.minify = !this.minify;
+            }
+        }
+    },
     methods: {
+        updateDrawerVisible() {
+            this.$emit('update:visible', this.visible);
+        },
         logout() {
             this.$store.dispatch('auth/logout');
             this.$router.push('/auth');
         },
-        mobileRedirect() {
+        disableVisible() {
             if (this.$vuetify.breakpoint.mdAndDown) {
-                this.visible.mobile = false;
+                this.$emit('update:disableVisible');
             }
         }
     }

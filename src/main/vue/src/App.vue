@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <NavBar @hamburgerClick="switchDrawerVisible"/>
-        <Drawer :visible.sync="opened"/>
+        <Drawer :visible.sync="opened" @update:disableVisible="switchDrawerVisible"/>
         <v-content>
             <router-view/>
         </v-content>
@@ -20,19 +20,12 @@ export default {
     },
     data() {
         return {
-            opened: {
-                desktop: false,
-                mobile: false
-            }
+            opened: true
         };
     },
     methods: {
         switchDrawerVisible() {
-            if (!this.$vuetify.breakpoint.mdAndDown) {
-                this.opened.desktop = !this.opened.desktop;
-            } else {
-                this.opened.mobile = !this.opened.mobile;
-            }
+            this.opened = !this.opened;
         }
     }
 };
