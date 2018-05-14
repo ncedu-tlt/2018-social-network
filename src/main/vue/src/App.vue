@@ -20,12 +20,19 @@ export default {
     },
     data() {
         return {
-            opened: true
+            opened: {
+                desktop: false,
+                mobile: false
+            }
         };
     },
     methods: {
         switchDrawerVisible() {
-            this.opened = !this.opened;
+            if (!this.$vuetify.breakpoint.mdAndDown) {
+                this.opened.desktop = !this.opened.desktop;
+            } else {
+                this.opened.mobile = !this.opened.mobile;
+            }
         }
     }
 };
