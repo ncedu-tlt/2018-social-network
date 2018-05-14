@@ -6,7 +6,7 @@ const state = {
     userId: localStorage.getItem('userId'),
     userAvatar: localStorage.getItem('userAvatar'),
     userRealName: localStorage.getItem('userRealName'),
-    userOrganisation: null,
+    userOrganisation: localStorage.getItem('userOrganization'),
     removeUser: false
 };
 
@@ -49,10 +49,8 @@ const actions = {
             localStorage.setItem('userId', authResponse.data.userId);
             localStorage.setItem('userAvatar', authResponse.data.imagePath);
             localStorage.setItem('userRealName', authResponse.data.name);
-            if (authResponse.data.organization !== null) {
-                localStorage.setItem('userOrganization', authResponse.data.organization);
-            }
-            commit('setAuth', { userName: authResponse.data.login, userId: authResponse.data.userId, userRealName: authResponse.data.name, userAvatar: authResponse.data.imagePath, userOrganization: authResponse.data.organization });
+            localStorage.setItem('userOrganization', authResponse.data.organization);
+            commit('setAuth', { userName: authResponse.data.login, userId: authResponse.data.userId, userRealName: authResponse.data.name, userAvatar: authResponse.data.imagePath, userOrganisation: authResponse.data.organization });
 
             const settingsResponse = await getSettings();
             const language = settingsResponse.data.settingUnits.filter(language => language.settingsId.name === 'settings.language');

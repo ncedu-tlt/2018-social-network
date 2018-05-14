@@ -16,7 +16,7 @@
                     </v-list-tile-avatar>
                     <v-list-tile-content>
                         <v-list-tile-title>{{ userData.realName }}</v-list-tile-title>
-                        <v-list-tile-sub-title>{{ userData.organization }}</v-list-tile-sub-title>
+                        <v-list-tile-sub-title v-if="userData.organization !== null">{{ userData.organization }}</v-list-tile-sub-title>
                     </v-list-tile-content>
                     <v-list-tile-action/>
                 </v-list-tile>
