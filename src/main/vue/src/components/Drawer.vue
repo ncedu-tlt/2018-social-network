@@ -7,7 +7,7 @@
         :temporary="temporary"
         :mini-variant="minify"
         v-model="drawer"
-        @update:miniVariant="updateDrawerVisible(visible)"
+        @update:miniVariant="updateDrawerVisible"
         v-if="auth"
     >
         <v-list subheader>
@@ -24,7 +24,7 @@
                 </v-list-tile>
             </v-list>
             <v-divider/>
-            <v-list-tile :to="{ name: 'ProjectsPage' }" @click="updateDrawerVisible(false)">
+            <v-list-tile :to="{ name: 'ProjectsPage' }" @click="updateDrawerVisible">
                 <v-list-tile-action>
                     <v-icon>call_merge</v-icon>
                 </v-list-tile-action>
@@ -32,7 +32,7 @@
                     <v-list-tile-title>{{ $t('projects') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile :to="{ name: 'ChatPage' }" @click="updateDrawerVisible(false)">
+            <v-list-tile :to="{ name: 'ChatPage' }" @click="updateDrawerVisible">
                 <v-list-tile-action>
                     <v-icon>message</v-icon>
                 </v-list-tile-action>
@@ -40,7 +40,7 @@
                     <v-list-tile-title>{{ $t('messages') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile :to="{name: 'FeedPage'}" @click="updateDrawerVisible(false)">
+            <v-list-tile :to="{name: 'FeedPage'}" @click="updateDrawerVisible">
                 <v-list-tile-action>
                     <v-icon>view_headline</v-icon>
                 </v-list-tile-action>
@@ -56,7 +56,7 @@
                     <v-list-tile-title>{{ $t('contacts') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile :to="{name: 'Settings'}" @click="updateDrawerVisible(false)">
+            <v-list-tile :to="{name: 'Settings'}" @click="updateDrawerVisible">
                 <v-list-tile-action>
                     <v-icon>settings</v-icon>
                 </v-list-tile-action>
@@ -116,8 +116,12 @@ export default {
         }
     },
     methods: {
-        updateDrawerVisible(visible) {
-            this.$emit('update:visible', visible);
+        updateDrawerVisible() {
+            if (!this.$vuetify.breakpoint.mdAndDown) {
+                this.$emit('update:visible', this.visible);
+            } else {
+                this.$emit('update:visible', true);
+            }
         },
         logout() {
             this.$store.dispatch('auth/logout');
