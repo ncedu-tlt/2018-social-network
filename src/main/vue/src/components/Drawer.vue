@@ -3,8 +3,10 @@
         fixed
         clipped
         app
-        :mini-variant="visible"
-        :permanent="minify"
+        persistent
+        :temporary="temporary"
+        :mini-variant="minify"
+        v-model="drawer"
         @update:miniVariant="updateDrawerVisible"
         v-if="auth"
     >
@@ -22,7 +24,7 @@
                 </v-list-tile>
             </v-list>
             <v-divider/>
-            <v-list-tile :to="{ name: 'ProjectsPage' }" @click="updateDrawerVisible">
+            <v-list-tile :to="{ name: 'ProjectsPage' }" @click="disableVisible">
                 <v-list-tile-action>
                     <v-icon>call_merge</v-icon>
                 </v-list-tile-action>
@@ -30,7 +32,7 @@
                     <v-list-tile-title>{{ $t('projects') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile :to="{ name: 'ChatPage' }" @click="updateDrawerVisible">
+            <v-list-tile :to="{ name: 'ChatPage' }" @click="disableVisible">
                 <v-list-tile-action>
                     <v-icon>message</v-icon>
                 </v-list-tile-action>
@@ -38,7 +40,7 @@
                     <v-list-tile-title>{{ $t('messages') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile :to="{name: 'FeedPage'}" @click="updateDrawerVisible">
+            <v-list-tile :to="{name: 'FeedPage'}" @click="disableVisible">
                 <v-list-tile-action>
                     <v-icon>view_headline</v-icon>
                 </v-list-tile-action>
@@ -46,7 +48,7 @@
                     <v-list-tile-title>{{ $t('feed') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile @click="updateDrawerVisible">
+            <v-list-tile @click="disableVisible">
                 <v-list-tile-action>
                     <v-icon>contacts</v-icon>
                 </v-list-tile-action>
@@ -54,7 +56,7 @@
                     <v-list-tile-title>{{ $t('contacts') }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile :to="{name: 'Settings'}" @click="updateDrawerVisible">
+            <v-list-tile :to="{name: 'Settings'}" @click="disableVisible">
                 <v-list-tile-action>
                     <v-icon>settings</v-icon>
                 </v-list-tile-action>
@@ -85,7 +87,9 @@ export default {
     },
     data() {
         return {
-            minify: false
+            minify: false,
+            drawer: true,
+            temporary: false
         };
     },
     computed: {
@@ -102,22 +106,27 @@ export default {
     },
     watch: {
         visible: function () {
-            if (this.$vuetify.breakpoint.mdAndDown) {
+            if (!this.$vuetify.breakpoint.mdAndDown) {
                 this.minify = !this.minify;
+                this.drawer = true;
+            } else {
+                this.minify = false;
+                this.drawer = !this.drawer;
             }
         }
     },
     methods: {
         updateDrawerVisible() {
-            if (this.$vuetify.breakpoint.mdAndDown) {
-                this.$emit('update:visible', true);
-            } else {
-                this.$emit('update:visible', this.visible);
-            }
+            this.$emit('update:visible', this.visible);
         },
         logout() {
             this.$store.dispatch('auth/logout');
             this.$router.push('/auth');
+        },
+        disableVisible() {
+            if (this.$vuetify.breakpoint.mdAndDown) {
+                this.$emit('update:disableVisible');
+            }
         }
     }
 };
