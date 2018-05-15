@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <NavBar @hamburgerClick="switchDrawerVisible"/>
-        <Drawer :visible.sync="opened" @update:disableVisible="switchDrawerVisible"/>
+        <Drawer :visible.sync="opened"/>
         <v-content>
             <router-view/>
         </v-content>
