@@ -1,11 +1,9 @@
 <template>
     <v-navigation-drawer
         fixed
-        clipped
+        :clipped="!isMobile"
         app
-        persistent
-        :temporary="temporary"
-        :mini-variant="minify"
+        :mini-variant="!minify"
         v-model="drawer"
         @update:miniVariant="updateDrawerVisible"
         v-if="auth"
@@ -87,9 +85,8 @@ export default {
     },
     data() {
         return {
-            minify: false,
-            drawer: true,
-            temporary: false
+            minify: '',
+            drawer: this.isMobile
         };
     },
     computed: {
@@ -102,16 +99,19 @@ export default {
                 avatar: this.$store.state.auth.userAvatar ? this.$store.state.auth.userAvatar : 'https://pbs.twimg.com/profile_images/787106179482869760/CwwG2e2M_400x400.jpg',
                 organization: this.$store.state.auth.userOrganisation ? this.$store.state.auth.userOrganisation : null
             };
+        },
+        isMobile() {
+            return this.$vuetify.breakpoint.mdAndDown;
         }
     },
     watch: {
         visible: function () {
-            if (!this.$vuetify.breakpoint.mdAndDown) {
-                this.minify = !this.minify;
-                this.drawer = true;
-            } else {
-                this.minify = false;
+            if (this.isMobile) {
+                this.minify = true;
                 this.drawer = !this.drawer;
+            } else {
+                this.drawer = true;
+                this.minify = !this.minify;
             }
         }
     },
