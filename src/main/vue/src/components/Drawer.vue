@@ -16,60 +16,79 @@
                     </v-list-tile-avatar>
                     <v-list-tile-content>
                         <v-list-tile-title>{{ userData.realName }}</v-list-tile-title>
-                        <v-list-tile-sub-title v-if="userData.organization !== null">{{ userData.organization }}</v-list-tile-sub-title>
+                        <v-list-tile-sub-title v-if="userData.organization !== null">{{ userData.organization }}
+                        </v-list-tile-sub-title>
                     </v-list-tile-content>
                     <v-list-tile-action/>
                 </v-list-tile>
             </v-list>
             <v-divider/>
-            <v-list-tile :to="{ name: 'ProjectsPage' }" @click="updateDrawerVisible">
-                <v-list-tile-action>
-                    <v-icon>call_merge</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('projects') }}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile :to="{ name: 'ChatPage' }" @click="updateDrawerVisible">
-                <v-list-tile-action>
-                    <v-icon>message</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('messages') }}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile :to="{name: 'FeedPage'}" @click="updateDrawerVisible">
-                <v-list-tile-action>
-                    <v-icon>view_headline</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('feed') }}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile @click="updateDrawerVisible(false)">
-                <v-list-tile-action>
-                    <v-icon>contacts</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('contacts') }}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile :to="{name: 'Settings'}" @click="updateDrawerVisible">
-                <v-list-tile-action>
-                    <v-icon>settings</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('preferences') }}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile @click="logout" class="button_logout">
-                <v-list-tile-action>
-                    <v-icon>exit_to_app</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('logout') }}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
+            <v-layout column>
+                <v-flex>
+                    <v-list-tile :to="{ name: 'ProjectsPage' }" @click="updateDrawerVisible">
+                        <v-list-tile-action>
+                            <v-icon>call_merge</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ $t('projects') }}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-flex>
+                <v-flex>
+                    <v-list-tile :to="{ name: 'ChatPage' }" @click="updateDrawerVisible">
+                        <v-list-tile-action>
+                            <v-icon>message</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ $t('messages') }}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-flex>
+                <v-flex>
+                    <v-list-tile :to="{name: 'FeedPage'}" @click="updateDrawerVisible">
+                        <v-list-tile-action>
+                            <v-icon>view_headline</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ $t('feed') }}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-flex>
+                <v-flex>
+                    <v-list-tile @click="updateDrawerVisible(false)">
+                        <v-list-tile-action>
+                            <v-icon>contacts</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ $t('contacts') }}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-flex>
+                <v-flex>
+                    <v-list-tile :to="{name: 'Settings'}" @click="updateDrawerVisible">
+                        <v-list-tile-action>
+                            <v-icon>settings</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ $t('preferences') }}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-flex>
+            </v-layout>
+            <v-layout class="logout_box" column>
+                <v-flex>
+                    <v-list>
+                        <v-list-tile @click="logout">
+                            <v-list-tile-action>
+                                <v-icon>exit_to_app</v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-list-tile-title>{{ $t('logout') }}</v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                    </v-list>
+                </v-flex>
+            </v-layout>
         </v-list>
     </v-navigation-drawer>
 </template>
@@ -131,9 +150,9 @@ export default {
 };
 </script>
 <style scoped>
-    .button_logout{
+    .logout_box{
         position: absolute;
-        bottom: 5px;
-        width: 300px;
+        bottom: 0.1%;
+        width: 100%;
     }
 </style>
