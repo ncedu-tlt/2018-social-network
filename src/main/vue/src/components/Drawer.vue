@@ -1,10 +1,10 @@
 <template>
     <v-navigation-drawer
         fixed
-        clipped
+        :clipped="!isMobile"
         app
-        :mini-variant="visible"
-        :permanent="minify"
+        :mini-variant="!minify"
+        v-model="drawer"
         @update:miniVariant="updateDrawerVisible"
         v-if="auth"
     >
@@ -12,64 +12,83 @@
             <v-list class="pa-0">
                 <v-list-tile avatar class="secondary">
                     <v-list-tile-avatar>
-                        <img src="https://randomuser.me/api/portraits/men/85.jpg">
+                        <img :src="userData.avatar">
                     </v-list-tile-avatar>
                     <v-list-tile-content>
-                        <v-list-tile-title>John Leider</v-list-tile-title>
-                        <v-list-tile-sub-title>Leader dev</v-list-tile-sub-title>
+                        <v-list-tile-title>{{ userData.realName }}</v-list-tile-title>
+                        <v-list-tile-sub-title v-if="userData.organization !== null">{{ userData.organization }}
+                        </v-list-tile-sub-title>
                     </v-list-tile-content>
                     <v-list-tile-action/>
                 </v-list-tile>
             </v-list>
             <v-divider/>
-            <v-list-tile :to="{ name: 'ProjectsPage' }">
-                <v-list-tile-action>
-                    <v-icon>call_merge</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('projects') }}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile :to="{ name: 'ChatPage' }">
-                <v-list-tile-action>
-                    <v-icon>message</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('messages') }}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile :to="{name: 'FeedPage'}">
-                <v-list-tile-action>
-                    <v-icon>view_headline</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('feed') }}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile>
-                <v-list-tile-action>
-                    <v-icon>contacts</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('contacts') }}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile :to="{name: 'Settings'}">
-                <v-list-tile-action>
-                    <v-icon>settings</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('preferences') }}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile @click="logout" class="button_logout">
-                <v-list-tile-action>
-                    <v-icon>exit_to_app</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ $t('logout') }}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
+            <v-layout column>
+                <v-flex>
+                    <v-list-tile :to="{ name: 'ProjectsPage' }" @click="updateDrawerVisible">
+                        <v-list-tile-action>
+                            <v-icon>call_merge</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ $t('projects') }}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-flex>
+                <v-flex>
+                    <v-list-tile :to="{ name: 'ChatPage' }" @click="updateDrawerVisible">
+                        <v-list-tile-action>
+                            <v-icon>message</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ $t('messages') }}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-flex>
+                <v-flex>
+                    <v-list-tile :to="{name: 'FeedPage'}" @click="updateDrawerVisible">
+                        <v-list-tile-action>
+                            <v-icon>view_headline</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ $t('feed') }}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-flex>
+                <v-flex>
+                    <v-list-tile @click="updateDrawerVisible(false)">
+                        <v-list-tile-action>
+                            <v-icon>contacts</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ $t('contacts') }}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-flex>
+                <v-flex>
+                    <v-list-tile :to="{name: 'Settings'}" @click="updateDrawerVisible">
+                        <v-list-tile-action>
+                            <v-icon>settings</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ $t('preferences') }}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-flex>
+            </v-layout>
+            <v-layout class="logout_box" column>
+                <v-flex>
+                    <v-list>
+                        <v-list-tile @click="logout">
+                            <v-list-tile-action>
+                                <v-icon>exit_to_app</v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-list-tile-title>{{ $t('logout') }}</v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                    </v-list>
+                </v-flex>
+            </v-layout>
         </v-list>
     </v-navigation-drawer>
 </template>
@@ -85,24 +104,43 @@ export default {
     },
     data() {
         return {
-            minify: false
+            minify: '',
+            drawer: this.isMobile
         };
     },
     computed: {
         auth() {
             return this.$store.state.auth.userName;
+        },
+        userData() {
+            return {
+                realName: this.$store.state.auth.userRealName ? this.$store.state.auth.userRealName : this.$store.state.auth.userName,
+                avatar: this.$store.state.auth.userAvatar ? this.$store.state.auth.userAvatar : 'https://pbs.twimg.com/profile_images/787106179482869760/CwwG2e2M_400x400.jpg',
+                organization: this.$store.state.auth.userOrganisation ? this.$store.state.auth.userOrganisation : null
+            };
+        },
+        isMobile() {
+            return this.$vuetify.breakpoint.mdAndDown;
         }
     },
     watch: {
         visible: function () {
-            if (this.$vuetify.breakpoint.mdAndDown) {
+            if (this.isMobile) {
+                this.minify = true;
+                this.drawer = !this.drawer;
+            } else {
+                this.drawer = true;
                 this.minify = !this.minify;
             }
         }
     },
     methods: {
         updateDrawerVisible() {
-            this.$emit('update:visible', this.visible);
+            if (!this.$vuetify.breakpoint.mdAndDown) {
+                this.$emit('update:visible', this.visible);
+            } else {
+                this.$emit('update:visible', true);
+            }
         },
         logout() {
             this.$store.dispatch('auth/logout');
@@ -112,9 +150,9 @@ export default {
 };
 </script>
 <style scoped>
-    .button_logout{
+    .logout_box{
         position: absolute;
-        bottom: 5px;
-        width: 300px;
+        bottom: 0.1%;
+        width: 100%;
     }
 </style>
