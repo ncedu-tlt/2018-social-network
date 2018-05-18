@@ -13,7 +13,7 @@ const client = axios.create({
  * Redirecting to login page, when trying to perform unauthorized call.
  */
 client.interceptors.response.use(null, error => {
-    if (error.status === 401 || error.status === 403) {
+    if (error.response.status === 401 || error.response.status === 403) {
         router.push('/auth');
     }
     return Promise.reject(error);
