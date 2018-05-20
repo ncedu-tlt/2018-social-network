@@ -6,6 +6,7 @@ import store from '@/store';
 import Settings from '@/components/Settings';
 import ChatPage from '@/components/ChatPage';
 import FeedPage from '@/components/FeedPage';
+import FriendsPage from '@/components/FriendsPage';
 
 Vue.use(Router);
 
@@ -49,6 +50,11 @@ const router = new Router({
             path: '/feed',
             name: 'FeedPage',
             component: FeedPage
+        },
+        {
+            path: '/friends',
+            name: 'FriendsPage',
+            component: FriendsPage
         }
     ]
 });
