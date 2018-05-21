@@ -6,7 +6,7 @@ const state = {
     userId: localStorage.getItem('userId'),
     userAvatar: localStorage.getItem('userAvatar'),
     userRealName: localStorage.getItem('userRealName'),
-    userOrganisation: localStorage.getItem('userOrganization'),
+    userOrganisation: null,
     removeUser: false
 };
 
@@ -49,7 +49,6 @@ const actions = {
             localStorage.setItem('userId', authResponse.data.userId);
             localStorage.setItem('userAvatar', authResponse.data.imagePath);
             localStorage.setItem('userRealName', authResponse.data.name);
-            localStorage.setItem('userOrganization', authResponse.data.organization);
             commit('setAuth', { userName: authResponse.data.login, userId: authResponse.data.userId, userRealName: authResponse.data.name, userAvatar: authResponse.data.imagePath, userOrganisation: authResponse.data.organization });
 
             const settingsResponse = await getSettings();
