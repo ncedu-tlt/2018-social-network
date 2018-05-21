@@ -49,7 +49,7 @@ const actions = {
             localStorage.setItem('userId', authResponse.data.userId);
             localStorage.setItem('userAvatar', authResponse.data.imagePath);
             localStorage.setItem('userRealName', authResponse.data.name);
-            if (!authResponse.data.organization) {
+            if (authResponse.data.organization) {
                 localStorage.setItem('userOrganisation', authResponse.data.organization);
             }
             commit('setAuth', { userName: authResponse.data.login, userId: authResponse.data.userId, userRealName: authResponse.data.name, userAvatar: authResponse.data.imagePath, userOrganization: authResponse.data.organization });
