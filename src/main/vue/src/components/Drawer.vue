@@ -117,7 +117,7 @@ export default {
             return {
                 realName: this.$store.state.auth.userRealName ? this.$store.state.auth.userRealName : this.$store.state.auth.userName,
                 avatar: this.$store.state.auth.userAvatar ? this.$store.state.auth.userAvatar : 'https://pbs.twimg.com/profile_images/787106179482869760/CwwG2e2M_400x400.jpg',
-                organization: this.$store.state.auth.userOrganisation ? this.$store.state.auth.userOrganisation : null
+                organization: this.$store.state.auth.userOrganization ? this.$store.state.auth.userOrganization : null
             };
         },
         isMobile() {
