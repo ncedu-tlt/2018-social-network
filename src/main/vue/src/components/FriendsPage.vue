@@ -1,14 +1,14 @@
 <template>
-    <friends/>
+    <friend/>
 </template>
 
 <script>
 
-import Friends from './FriendsList';
+import Friend from './FriendsList';
 
 export default {
     name: 'FriendsPage',
-    components: {Friends}
+    components: {Friend}
 };
 </script>
 
