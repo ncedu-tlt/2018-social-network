@@ -6,7 +6,7 @@ const state = {
     userId: localStorage.getItem('userId'),
     userAvatar: localStorage.getItem('userAvatar'),
     userRealName: localStorage.getItem('userRealName'),
-    userOrganisation: localStorage.getItem('userOrganization'),
+    userOrganization: localStorage.getItem('userOrganisation'),
     removeUser: false
 };
 
@@ -21,13 +21,13 @@ const mutations = {
             state.userId = payload.userId;
             state.userRealName = payload.userRealName;
             state.userAvatar = payload.userAvatar;
-            state.userOrganisation = payload.userOrganisation;
+            state.userOrganization = payload.userOrganization;
         } else {
             state.userName = null;
             state.userId = null;
             state.userRealName = null;
             state.userAvatar = null;
-            state.userOrganisation = null;
+            state.userOrganization = null;
         }
     },
     setRemove(state) {
@@ -49,8 +49,10 @@ const actions = {
             localStorage.setItem('userId', authResponse.data.userId);
             localStorage.setItem('userAvatar', authResponse.data.imagePath);
             localStorage.setItem('userRealName', authResponse.data.name);
-            localStorage.setItem('userOrganization', authResponse.data.organization);
-            commit('setAuth', { userName: authResponse.data.login, userId: authResponse.data.userId, userRealName: authResponse.data.name, userAvatar: authResponse.data.imagePath, userOrganisation: authResponse.data.organization });
+            if (authResponse.data.organization) {
+                localStorage.setItem('userOrganisation', authResponse.data.organization);
+            }
+            commit('setAuth', { userName: authResponse.data.login, userId: authResponse.data.userId, userRealName: authResponse.data.name, userAvatar: authResponse.data.imagePath, userOrganization: authResponse.data.organization });
 
             const settingsResponse = await getSettings();
             const language = settingsResponse.data.settingUnits.filter(language => language.settingsId.name === 'settings.language');
