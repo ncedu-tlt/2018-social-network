@@ -2,7 +2,7 @@
     <v-card class="mx-auto mt-1" flat>
         <v-layout>
             <v-avatar :size="70" class="primary ma-2">
-                <img :src="comment.user.avatar">
+                <img :src="comment.user.imagePath">
             </v-avatar>
             <v-flex>
                 <div class="pt-2 pr-1">
@@ -15,7 +15,7 @@
                     <span class="grey--text">{{ comment.date }}</span>
                     <v-spacer/>
                     <v-btn @click="likeClicked" flat icon color="black">
-                        <v-icon color="black" v-if="!comment.like">
+                        <v-icon color="black" v-if="!comment.likeComment">
                             favorite_border
                         </v-icon>
                         <v-icon color="primary" v-else>favorite</v-icon>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import {mapActions} from 'vuex';
 
 export default {
     name: 'Comment',
@@ -41,7 +41,7 @@ export default {
         likeClicked() {
             const like = {
                 commentId: this.comment.id,
-                updateLike: !this.comment.like
+                updateLike: !this.comment.likeComment
             };
             this.setLikeComment(like);
         },

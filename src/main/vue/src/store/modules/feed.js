@@ -1,57 +1,42 @@
-import { addPost, getPosts } from '../../api/rest/user.api';
+import {addComment, createPost, getPosts, updateCommentLike, updatePostLike} from '../../api/rest/feed.api';
 
 const state = {
     posts: []
 };
 
-/* TODO : remove data for production */
-let id = 3;
-
 const mutations = {
-    sendComment(state, {testComment, comment}) {
+    sendComment(state, comment) {
         const post = state.posts.find(p => p.id === comment.postId);
         if (post) {
-            post.comments.push(testComment);
+            addComment(comment);
         }
     },
     setLikePost(state, like) {
-        const post = state.posts.find(p => p.id === like.postId);
-        if (post) {
-            post.like = like.updateLike;
+        const updateLike = state.posts.find(p => p.id === like.postId);
+        if (updateLike) {
+            updateLike.likeValue = like.updateLike;
+            updateLike.postId = like.postId;
+            updatePostLike(updateLike);
         }
     },
     setLikeComment(state, like) {
         state.posts.forEach(function (item) {
             item.comments.forEach(function (c) {
                 if (c.id === like.commentId) {
-                    c.like = like.updateLike;
+                    c.likeComment = like.updateLike;
+                    updateCommentLike(c);
                 }
             });
         });
     },
     updatePosts(state, post) {
         state.posts = post;
-    },
-    addPost(state, post) {
-        addPost(post);
     }
 };
 
 const actions = {
     sendComment({commit}, comment) {
-        /* TODO : remove data for production */
-        const testComment = {
-            id: id += 1,
-            date: new Date(),
-            user: {
-                id: 3,
-                name: 'Jake Yellow',
-                avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'
-            },
-            like: false,
-            content: comment.content
-        };
-        commit('sendComment', {testComment, comment});
+        commit('sendComment', comment);
     },
     setLikePost({commit}, like) {
         commit('setLikePost', like);
@@ -63,6 +48,9 @@ const actions = {
         const response = await getPosts();
         const updatePosts = response.data;
         commit('updatePosts', updatePosts);
+    },
+    async createPost({commit}, post) {
+        await createPost(post);
     }
 };
 

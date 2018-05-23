@@ -16,6 +16,7 @@ export default {
     'post.type.commit': 'Commit',
     'post.type.mergeRequest': 'Merge Request',
     'post.type.issue': 'Issue',
+    'cancel': 'Cancel',
     'friend.select': 'Select friends',
     'dialog.close': 'Close',
     'dialog.invite': 'Invite',

@@ -34,24 +34,18 @@ export default {
     data() {
         return {
             valid: false,
-            text: '',
-            idNext: 1
+            text: ''
         };
     },
     methods: {
         validateBeforeSubmit() {
             this.$validator.validateAll().then((result) => {
                 if (result) {
-                    this.idNext++;
                     const post = {
-                        id: this.idNext,
-                        userId: 1,
-                        date: new Date(),
-                        content: this.text,
                         type: 'Post',
-                        like: false
+                        content: this.text
                     };
-                    this.$store.commit('feed/addPost', post);
+                    this.$store.dispatch('feed/createPost', post);
                     this.cancel();
                 }
             });

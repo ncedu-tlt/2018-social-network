@@ -2,20 +2,14 @@ package ru.ncedu.socialnetwork.api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CommentDTO {
-    private static final SimpleDateFormat dateFormat
-            = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
     private long id;
+    private long postId;
     private String date;
     private Object user;
     private String content;
+    private boolean likeComment;
 
     public CommentDTO() {
 
@@ -29,22 +23,20 @@ public class CommentDTO {
         this.id = id;
     }
 
+    public long getPostId() {
+        return postId;
+    }
+
+    public void setPostId(long postId) {
+        this.postId = postId;
+    }
+
     public String getDate() {
         return date;
     }
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public Date getSubmissionDateConverted(String timezone) throws ParseException {
-        dateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
-        return dateFormat.parse(this.date);
-    }
-
-    public void setSubmissionDate(Date date, String timezone) {
-        dateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
-        this.date = dateFormat.format(date);
     }
 
     public Object getUser() {
@@ -61,5 +53,13 @@ public class CommentDTO {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public boolean isLikeComment() {
+        return likeComment;
+    }
+
+    public void setLikeComment(boolean likeComment) {
+        this.likeComment = likeComment;
     }
 }

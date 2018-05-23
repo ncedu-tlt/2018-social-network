@@ -16,6 +16,7 @@ export default {
     'post.type.commit': 'Коммит',
     'post.type.mergeRequest': 'Запрос слияния',
     'post.type.issue': 'Проблема',
+    'cancel': 'Отменить',
     'chat.select': 'Выберите друзей',
     'dialog.close': 'Закрыть',
     'dialog.invite': 'Пригласить',

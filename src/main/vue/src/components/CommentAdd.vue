@@ -48,7 +48,8 @@ export default {
                 if (result) {
                     const comment = {
                         postId: this.postId,
-                        content: this.text
+                        content: this.text,
+                        likeComment: false
                     };
                     this.sendComment(comment);
                     this.clear();

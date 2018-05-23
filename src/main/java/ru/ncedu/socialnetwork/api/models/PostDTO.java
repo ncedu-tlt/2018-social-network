@@ -1,22 +1,35 @@
 package ru.ncedu.socialnetwork.api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import ru.ncedu.socialnetwork.domain.CommentDAO;
+import ru.ncedu.socialnetwork.domain.LikePostDAO;
 
+import java.util.Date;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PostDTO {
     private long id;
-    private long userId;
-    private long commentId;
-    private String content;
-    private String date;
+
+    private Date date;
     private String type;
+    private String content;
     private Object user;
-    private List<CommentDTO> comments;
+
+    private boolean like;
+    private List<LikePostDAO> likes;
+    private List<CommentDAO> comments;
 
     public PostDTO() {
 
+    }
+
+    public boolean isLike() {
+        return like;
+    }
+
+    public void setLike(boolean like) {
+        this.like = like;
     }
 
     public long getId() {
@@ -27,36 +40,12 @@ public class PostDTO {
         this.id = id;
     }
 
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public long getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(long commentId) {
-        this.commentId = commentId;
-    }
-
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public String getType() {
@@ -67,6 +56,22 @@ public class PostDTO {
         this.type = type;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public List<LikePostDAO> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<LikePostDAO> likes) {
+        this.likes = likes;
+    }
+
     public Object getUser() {
         return user;
     }
@@ -75,11 +80,11 @@ public class PostDTO {
         this.user = user;
     }
 
-    public List<CommentDTO> getComments() {
+    public List<CommentDAO> getComments() {
         return comments;
     }
 
-    public void setComments(List<CommentDTO> comments) {
+    public void setComments(List<CommentDAO> comments) {
         this.comments = comments;
     }
 }

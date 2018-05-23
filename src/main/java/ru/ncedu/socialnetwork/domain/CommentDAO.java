@@ -1,40 +1,52 @@
 package ru.ncedu.socialnetwork.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "comments")
+@JsonIgnoreProperties(
+        value = {"date"},
+        allowGetters = true
+)
 public class CommentDAO {
     @Id
-    @Column
+    @Column(name = "comment_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int commentId;
+    private long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private UserDAO user;
-
-    @ManyToOne
-    @JoinColumn(name = "post_id")
-    private PostDAO post;
 
     @Column
     private String content;
 
-    @ManyToOne
-    @JoinColumn(name = "like_comment_id")
-    private LikeCommentDAO like;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date", nullable = false)
+    @CreatedDate
+    private Date date;
+
+    @Column(name = "like_comment")
+    private boolean likeComment;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinColumn(name = "post_id")
+    private PostDAO post;
 
     public CommentDAO() {
 
     }
 
-    public int getCommentId() {
-        return commentId;
+    public long getId() {
+        return id;
     }
 
-    public void setCommentId(int commentId) {
-        this.commentId = commentId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public UserDAO getUser() {
@@ -45,14 +57,6 @@ public class CommentDAO {
         this.user = user;
     }
 
-    public PostDAO getPost() {
-        return post;
-    }
-
-    public void setPost(PostDAO post) {
-        this.post = post;
-    }
-
     public String getContent() {
         return content;
     }
@@ -61,11 +65,27 @@ public class CommentDAO {
         this.content = content;
     }
 
-    public LikeCommentDAO getLike() {
-        return like;
+    public Date getDate() {
+        return date;
     }
 
-    public void setLike(LikeCommentDAO like) {
-        this.like = like;
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public boolean isLikeComment() {
+        return likeComment;
+    }
+
+    public void setLikeComment(boolean likeComment) {
+        this.likeComment = likeComment;
+    }
+
+    public PostDAO getPost() {
+        return post;
+    }
+
+    public void setPost(PostDAO post) {
+        this.post = post;
     }
 }

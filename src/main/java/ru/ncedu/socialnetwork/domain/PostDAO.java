@@ -1,46 +1,84 @@
 package ru.ncedu.socialnetwork.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "posts")
 public class PostDAO {
     @Id
-    @Column
+    @Column(name = "post_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int postId;
+    private long postId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private UserDAO user;
 
-    @ManyToOne
-    @JoinColumn(name = "comment_id")
-    private CommentDAO comment;
+    @JsonIgnore
+    //@OnDelete
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CommentDAO> comments;
 
-    @Column
-    private String date;
+    @Column(name = "date", nullable = false)
+    private Date date;
 
-    @Column
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_type_id", nullable = false)
+    private PostTypeDAO type;
+
+    @Column(name = "content")
     private String content;
 
-    @ManyToOne
-    @JoinColumn(name = "post_type")
-    private PostTypeDAO postType;
+    @JsonIgnore
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(name = "like_post")
+//    private List<LikePostDAO> likes;
+//    @ManyToMany(fetch = FetchType.LAZY,
+//            cascade = {
+//                CascadeType.PERSIST,
+//                CascadeType.MERGE
+//            }
+//    )
+//    @JoinTable(name = "post_likes",
+//            joinColumns = { @JoinColumn(name = "post_id") },
+//            inverseJoinColumns = { @JoinColumn(name = "like_post_id") }
+//    )
+    private List<LikePostDAO> likes = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "like_post_id")
-    private LikePostDAO like;
+    public void addLike(LikePostDAO like) {
+        this.getLikes().add(like);
+    }
+
+    public void removeLike(LikePostDAO like) {
+        this.getLikes().remove(like);
+    }
 
     public PostDAO() {
 
     }
 
-    public int getPostId() {
+    public PostDAO(UserDAO user, List<CommentDAO> comments, Date date,
+                   PostTypeDAO type, String content, List<LikePostDAO> likes) {
+        this.user = user;
+        this.comments = comments;
+        this.date = date;
+        this.type = type;
+        this.content = content;
+        this.likes = likes;
+    }
+
+    public long getPostId() {
         return postId;
     }
 
-    public void setPostId(int postId) {
+    public void setPostId(long postId) {
         this.postId = postId;
     }
 
@@ -52,20 +90,28 @@ public class PostDAO {
         this.user = user;
     }
 
-    public CommentDAO getComment() {
-        return comment;
+    public List<CommentDAO> getComments() {
+        return comments;
     }
 
-    public void setComment(CommentDAO comment) {
-        this.comment = comment;
+    public void setComments(List<CommentDAO> comments) {
+        this.comments = comments;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
+    }
+
+    public PostTypeDAO getType() {
+        return type;
+    }
+
+    public void setType(PostTypeDAO type) {
+        this.type = type;
     }
 
     public String getContent() {
@@ -76,19 +122,30 @@ public class PostDAO {
         this.content = content;
     }
 
-    public PostTypeDAO getPostType() {
-        return postType;
+    public List<LikePostDAO> getLikes() {
+        return likes;
     }
 
-    public void setPostType(PostTypeDAO postType) {
-        this.postType = postType;
+    public void setLikes(List<LikePostDAO> likes) {
+        this.likes = likes;
     }
 
-    public LikePostDAO getLike() {
-        return like;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PostDAO)) return false;
+        PostDAO postDAO = (PostDAO) o;
+        return getPostId() == postDAO.getPostId() &&
+                Objects.equals(getUser(), postDAO.getUser()) &&
+                Objects.equals(getComments(), postDAO.getComments()) &&
+                Objects.equals(getDate(), postDAO.getDate()) &&
+                Objects.equals(getType(), postDAO.getType()) &&
+                Objects.equals(getContent(), postDAO.getContent()) &&
+                Objects.equals(getLikes(), postDAO.getLikes());
     }
 
-    public void setLike(LikePostDAO like) {
-        this.like = like;
+    @Override
+    public int hashCode() {
+        return 31;
     }
 }

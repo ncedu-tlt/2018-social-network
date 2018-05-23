@@ -8,7 +8,7 @@ public class LikePostDAO {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int likePostId;
+    private long likePostId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -18,18 +18,26 @@ public class LikePostDAO {
     @JoinColumn(name = "post_id")
     private PostDAO post;
 
-    @Column
-    private String likeValue;
+//    @NaturalId
+//    private boolean likeValue;
+
+//    @ManyToMany(fetch = FetchType.LAZY,
+//            cascade = {
+//                    CascadeType.PERSIST,
+//                    CascadeType.MERGE
+//            },
+//            mappedBy = "likes")
+//    private List<PostDAO> posts = new ArrayList<>();
 
     public LikePostDAO() {
 
     }
 
-    public int getLikePostId() {
+    public long getLikePostId() {
         return likePostId;
     }
 
-    public void setLikePostId(int likePostId) {
+    public void setLikePostId(long likePostId) {
         this.likePostId = likePostId;
     }
 
@@ -47,13 +55,5 @@ public class LikePostDAO {
 
     public void setPost(PostDAO post) {
         this.post = post;
-    }
-
-    public String getLikeValue() {
-        return likeValue;
-    }
-
-    public void setLikeValue(String likeValue) {
-        this.likeValue = likeValue;
     }
 }

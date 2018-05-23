@@ -1,27 +1,30 @@
 package ru.ncedu.socialnetwork.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "post_type")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PostTypeDAO {
     @Id
-    @Column
+    @Column(name = "post_type_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int postTypeId;
+    private long postTypeId;
 
-    @Column
+    @Column(name = "type")
     private String type;
 
     public PostTypeDAO() {
 
     }
 
-    public int getPostTypeId() {
+    public long getPostTypeId() {
         return postTypeId;
     }
 
-    public void setPostTypeId(int postTypeId) {
+    public void setPostTypeId(long postTypeId) {
         this.postTypeId = postTypeId;
     }
 

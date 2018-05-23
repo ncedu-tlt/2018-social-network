@@ -7,7 +7,7 @@ public class LikePostDTO {
     private long id;
     private long userId;
     private long postId;
-    private Boolean like;
+    private boolean likeValue;
 
     public LikePostDTO() {
 
@@ -37,11 +37,11 @@ public class LikePostDTO {
         this.postId = postId;
     }
 
-    public Boolean getLike() {
-        return like;
+    public boolean getLikeValue() {
+        return likeValue;
     }
 
-    public void setLike(Boolean like) {
-        this.like = like;
+    public void setLikeValue(boolean likeValue) {
+        this.likeValue = likeValue;
     }
 }
