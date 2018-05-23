@@ -31,7 +31,7 @@
                 <v-flex md4>
                     <ChatList/>
                 </v-flex>
-                <v-flex md8 text-xs-right>
+                <v-flex md8>
                     <Chat :chat-id="id"/>
                 </v-flex>
             </v-layout>
