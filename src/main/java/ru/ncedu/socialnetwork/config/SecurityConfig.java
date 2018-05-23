@@ -102,7 +102,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 user = new UserDAO();
                 user.setLogin(login);
                 user.setImagePath((String) map.get("avatar_url"));
-                user.setName((String) map.get("name"));
+                String name = (String) map.get("name");
+                if (name == null) user.setName(login);
+                else user.setName(name);
                 user.setOrganization((String) map.get("company"));
 
                 userRepository.save(user);

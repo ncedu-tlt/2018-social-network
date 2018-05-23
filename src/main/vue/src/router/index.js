@@ -2,9 +2,10 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import AuthPage from '@/components/AuthPage';
 import ProjectsPage from '@/components/ProjectsPage';
-import FeedPage from '@/components/FeedPage';
-import ChatPage from '@/components/ChatPage';
 import store from '@/store';
+import Settings from '@/components/Settings';
+import ChatPage from '@/components/ChatPage';
+import FeedPage from '@/components/FeedPage';
 
 Vue.use(Router);
 
@@ -29,15 +30,25 @@ const router = new Router({
             component: ProjectsPage
         },
         {
-            path: '/feed',
-            name: 'FeedPage',
-            component: FeedPage
+            path: '/',
+            redirect: '/feed',
+            name: 'Root'
+        },
+        {
+            path: '/settings',
+            name: 'Settings',
+            component: Settings
         },
         {
             path: '/chat/:id?',
             name: 'ChatPage',
             component: ChatPage,
             props: true
+        },
+        {
+            path: '/feed',
+            name: 'FeedPage',
+            component: FeedPage
         }
     ]
 });

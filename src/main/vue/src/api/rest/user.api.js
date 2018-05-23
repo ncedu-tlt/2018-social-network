@@ -37,3 +37,15 @@ export function logout() {
 export function updateName(id, name) {
     return client.put(`/user/${id}`, { name });
 }
+
+export function deleteUser(userName) {
+    return client.delete(`/user/${userName}/delete`);
+}
+
+export function getPosts() {
+    return client.get('/posts');
+}
+
+export function addPost(post) {
+    return client.post('/posts', post);
+}
