@@ -24,32 +24,34 @@ import java.util.List;
 @RequestMapping("api/posts")
 public class PostController {
 
-    @Autowired
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
+    private final PostTypeRepository postTypeRepository;
+    private final LikePostRepository likePostRepository;
 
     @Autowired
-    private PostTypeRepository postTypeRepository;
-
-    @Autowired
-    private LikePostRepository likePostRepository;
+    public PostController(PostRepository postRepository, PostTypeRepository postTypeRepository,
+                          LikePostRepository likePostRepository) {
+        this.postRepository = postRepository;
+        this.postTypeRepository = postTypeRepository;
+        this.likePostRepository = likePostRepository;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<PostDTO> getPosts() {
         List<PostDAO> posts = postRepository.findAll();
         List<PostDTO> postDTOList = new ArrayList<>();
-
         PostDTO postDTO;
 
-        for (int i = 0; i < postRepository.findAll().size(); i++) {
+
+        for (PostDAO post : posts) {
             postDTO = new PostDTO();
 
-            postDTO.setId(posts.get(i).getPostId());
-            postDTO.setUser(posts.get(i).getUser());
-            postDTO.setDate(posts.get(i).getDate());
-            postDTO.setType(posts.get(i).getType().getType());
-            postDTO.setContent(posts.get(i).getContent());
-            postDTO.setComments(posts.get(i).getComments());
-            postDTO.setLikes(posts.get(i).getLikes());
+            postDTO.setId(post.getPostId());
+            postDTO.setUser(post.getUser());
+            postDTO.setDate(post.getDate());
+            postDTO.setType(post.getType().getType());
+            postDTO.setContent(post.getContent());
+            postDTO.setLikes(post.getLikes());
 
             postDTOList.add(postDTO);
         }
@@ -82,9 +84,9 @@ public class PostController {
         PostDAO post = postRepository.findPostDAOByPostIdAndUser(likePostDTO.getPostId(), user);
         LikePostDAO like = likePostRepository.findLikePostDAOByPostAndUser(post, user);
 
-        if (like != null && !likePostDTO.getLikeValue()) {
+        if (like != null && !likePostDTO.isLikeValue()) {
             likePostRepository.delete(like);
-        } else if ((likePostRepository.findAll().isEmpty() || like == null) && likePostDTO.getLikeValue()) {
+        } else if ((likePostRepository.findAll().isEmpty() || like == null) && likePostDTO.isLikeValue()) {
             like = new LikePostDAO();
             like.setUser(user);
             like.setPost(post);

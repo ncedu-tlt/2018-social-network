@@ -62,8 +62,8 @@
         </v-card>
         <v-slide-y-transition>
             <div v-if="showComments">
-                <v-flex v-for="comment in post.comments" :key="comment.id">
-                    <Comment :comment="comment"/>
+                <v-flex v-for="comment in comments" :key="comment.id">
+                    <Comment v-if="comment.postId === post.id" :comment="comment"/>
                 </v-flex>
                 <CommentAdd :post-id="post.id"/>
             </div>
@@ -85,13 +85,16 @@ export default {
         post: {
             type: Object,
             required: true
+        },
+        comments: {
+            type: Array,
+            required: true
         }
     },
     data() {
         return {
             showComments: false,
-            userName: this.$store.state.auth.userName,
-            newLike: false
+            userName: this.$store.state.auth.userName
         };
     },
     computed: {
@@ -103,13 +106,6 @@ export default {
                     }
                 });
                 return !!foundLike;
-            },
-            set(newLike) {
-                const like = {
-                    postId: this.post.id,
-                    updateLike: !newLike
-                };
-                this.$store.dispatch('feed/setLikePost', like);
             }
         }
     },

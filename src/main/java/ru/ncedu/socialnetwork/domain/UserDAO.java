@@ -14,7 +14,7 @@ public class UserDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
-    private long userId;
+    private int userId;
 
     @Column(nullable = false, unique = true)
     private String login;
@@ -40,11 +40,11 @@ public class UserDAO {
 
     public UserDAO() {}
 
-    public long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

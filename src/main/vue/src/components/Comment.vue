@@ -12,13 +12,19 @@
                     {{ comment.content }}
                 </v-card-title>
                 <v-card-title class="comment__bottom pt-0 pl-1 pb-0 pr-1">
-                    <span class="grey--text">{{ comment.date }}</span>
+                    <span class="grey--text">{{ $d(new Date(comment.date), 'long') }}</span>
                     <v-spacer/>
-                    <v-btn @click="likeClicked" flat icon color="black">
-                        <v-icon color="black" v-if="!comment.likeComment">
+                    <v-btn
+                        flat
+                        icon
+                        @click="likeClicked"
+                        color="black">
+                        <v-icon color="primary" v-if="searchLike">
+                            favorite
+                        </v-icon>
+                        <v-icon color="black" v-else>
                             favorite_border
                         </v-icon>
-                        <v-icon color="primary" v-else>favorite</v-icon>
                     </v-btn>
                 </v-card-title>
             </v-flex>
@@ -37,11 +43,28 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            userName: this.$store.state.auth.userName
+        };
+    },
+    computed: {
+        searchLike: {
+            get() {
+                let foundLike = this.comment.likes.find(o => {
+                    if (o.user.login === this.userName) {
+                        return true;
+                    }
+                });
+                return !!foundLike;
+            }
+        }
+    },
     methods: {
         likeClicked() {
             const like = {
                 commentId: this.comment.id,
-                updateLike: !this.comment.likeComment
+                updateLike: !this.searchLike
             };
             this.setLikeComment(like);
         },

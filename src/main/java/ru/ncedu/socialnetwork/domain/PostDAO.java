@@ -20,10 +20,10 @@ public class PostDAO {
     @JoinColumn(name = "user_id", nullable = false)
     private UserDAO user;
 
-    @JsonIgnore
-    //@OnDelete
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<CommentDAO> comments;
+//    @JsonIgnore
+//    //@OnDelete
+//    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<CommentDAO> comments;
 
     @Column(name = "date", nullable = false)
     private Date date;
@@ -52,22 +52,13 @@ public class PostDAO {
 //    )
     private List<LikePostDAO> likes = new ArrayList<>();
 
-    public void addLike(LikePostDAO like) {
-        this.getLikes().add(like);
-    }
-
-    public void removeLike(LikePostDAO like) {
-        this.getLikes().remove(like);
-    }
-
     public PostDAO() {
 
     }
 
-    public PostDAO(UserDAO user, List<CommentDAO> comments, Date date,
+    public PostDAO(UserDAO user, Date date,
                    PostTypeDAO type, String content, List<LikePostDAO> likes) {
         this.user = user;
-        this.comments = comments;
         this.date = date;
         this.type = type;
         this.content = content;
@@ -90,13 +81,13 @@ public class PostDAO {
         this.user = user;
     }
 
-    public List<CommentDAO> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentDAO> comments) {
-        this.comments = comments;
-    }
+//    public List<CommentDAO> getComments() {
+//        return comments;
+//    }
+//
+//    public void setComments(List<CommentDAO> comments) {
+//        this.comments = comments;
+//    }
 
     public Date getDate() {
         return date;
@@ -137,7 +128,6 @@ public class PostDAO {
         PostDAO postDAO = (PostDAO) o;
         return getPostId() == postDAO.getPostId() &&
                 Objects.equals(getUser(), postDAO.getUser()) &&
-                Objects.equals(getComments(), postDAO.getComments()) &&
                 Objects.equals(getDate(), postDAO.getDate()) &&
                 Objects.equals(getType(), postDAO.getType()) &&
                 Objects.equals(getContent(), postDAO.getContent()) &&

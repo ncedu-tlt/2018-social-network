@@ -1,7 +1,6 @@
 package ru.ncedu.socialnetwork.api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import ru.ncedu.socialnetwork.domain.CommentDAO;
 import ru.ncedu.socialnetwork.domain.LikePostDAO;
 
 import java.util.Date;
@@ -16,20 +15,11 @@ public class PostDTO {
     private String content;
     private Object user;
 
-    private boolean like;
     private List<LikePostDAO> likes;
-    private List<CommentDAO> comments;
+    //private List<CommentDAO> comments;
 
     public PostDTO() {
 
-    }
-
-    public boolean isLike() {
-        return like;
-    }
-
-    public void setLike(boolean like) {
-        this.like = like;
     }
 
     public long getId() {
@@ -80,11 +70,11 @@ public class PostDTO {
         this.user = user;
     }
 
-    public List<CommentDAO> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentDAO> comments) {
-        this.comments = comments;
-    }
+//    public List<CommentDAO> getComments() {
+//        return comments;
+//    }
+//
+//    public void setComments(List<CommentDAO> comments) {
+//        this.comments = comments;
+//    }
 }

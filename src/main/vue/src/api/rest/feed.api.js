@@ -4,6 +4,10 @@ export function getPosts() {
     return client.get('/posts');
 }
 
+export function getComments() {
+    return client.get('/comments');
+}
+
 export function addComment(comment) {
     return client.post('/comments', comment);
 }

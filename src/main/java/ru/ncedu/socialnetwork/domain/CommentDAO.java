@@ -1,17 +1,14 @@
 package ru.ncedu.socialnetwork.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.CreatedDate;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "comments")
-@JsonIgnoreProperties(
-        value = {"date"},
-        allowGetters = true
-)
 public class CommentDAO {
     @Id
     @Column(name = "comment_id")
@@ -25,14 +22,15 @@ public class CommentDAO {
     @Column
     private String content;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date", nullable = false)
-    @CreatedDate
     private Date date;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Column(name = "like_comment")
-    private boolean likeComment;
+    private List<LikeCommentDAO> likes = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name = "post_id")
     private PostDAO post;
@@ -73,12 +71,12 @@ public class CommentDAO {
         this.date = date;
     }
 
-    public boolean isLikeComment() {
-        return likeComment;
+    public List<LikeCommentDAO> getLikes() {
+        return likes;
     }
 
-    public void setLikeComment(boolean likeComment) {
-        this.likeComment = likeComment;
+    public void setLikes(List<LikeCommentDAO> likes) {
+        this.likes = likes;
     }
 
     public PostDAO getPost() {

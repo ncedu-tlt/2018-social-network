@@ -37,7 +37,7 @@ public class LikePostDTO {
         this.postId = postId;
     }
 
-    public boolean getLikeValue() {
+    public boolean isLikeValue() {
         return likeValue;
     }
 

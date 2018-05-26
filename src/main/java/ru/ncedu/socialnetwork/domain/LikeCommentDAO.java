@@ -8,7 +8,7 @@ public class LikeCommentDAO {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int likeCommentId;
+    private long likeCommentId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -18,18 +18,15 @@ public class LikeCommentDAO {
     @JoinColumn(name = "comment_id")
     private CommentDAO comment;
 
-    @Column
-    private String likeValue;
-
     public LikeCommentDAO() {
 
     }
 
-    public int getLikeCommentId() {
+    public long getLikeCommentId() {
         return likeCommentId;
     }
 
-    public void setLikeCommentId(int likeCommentId) {
+    public void setLikeCommentId(long likeCommentId) {
         this.likeCommentId = likeCommentId;
     }
 
@@ -47,13 +44,5 @@ public class LikeCommentDAO {
 
     public void setComment(CommentDAO comment) {
         this.comment = comment;
-    }
-
-    public String getLikeValue() {
-        return likeValue;
-    }
-
-    public void setLikeValue(String likeValue) {
-        this.likeValue = likeValue;
     }
 }

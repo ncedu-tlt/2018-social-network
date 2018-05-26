@@ -7,7 +7,7 @@
             </v-dialog>
         </v-flex>
         <v-flex class="mx-auto" v-for="post in posts" :key="post.id">
-            <Post :post="post" />
+            <Post :post="post" :comments="comments"/>
         </v-flex>
     </v-layout>
 </template>
@@ -29,11 +29,13 @@ export default {
     },
     computed: {
         ...mapState('feed', [
-            'posts'
+            'posts',
+            'comments'
         ])
     },
     mounted() {
         this.$store.dispatch('feed/getPosts');
+        this.$store.dispatch('feed/getComments');
     },
     methods: {
         cancelClicked() {
