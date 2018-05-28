@@ -1,3 +1,4 @@
+import {getFriends, addFriend, removeFriend} from '../../api/rest/friends.api';
 
 const state = {
     friends: []
@@ -12,17 +13,37 @@ const getters = {
 const mutations = {
     updateFriends(state, updatedFriends) {
         state.friends = updatedFriends;
+    },
+    removeFriend(state, friendId) {
+        removeFriend(friendId);
+        state.isDelete = true;
+    },
+    addFriend(state, friend) {
+        console.log(friend);
+        addFriend(friend);
     }
 };
 
 const actions = {
-    async updateFriends({ commit }) {
-        const updatedFriends = boilerplate.getFriends();
+    async getFriends({ commit }) {
+        const response = await getFriends();
+        const updatedFriends = response.data;
         commit('updateFriends', updatedFriends);
+    },
+    async addFriend({ commit }, friend) {
+        commit('addFriend', friend);
+    },
+    async removeFriend({ commit, state }, friend) {
+        await commit('removeFriend', friend);
+        let updatedFriends;
+        updatedFriends = state.friends.filter(function (element) {
+            return friend.Id !== element.friendId.id;
+        });
+        await await commit('updateFriends', updatedFriends);
     }
 };
 
-const boilerplate = {
+/* const boilerplate = {
     getFriends() {
         return [
             {
@@ -76,7 +97,7 @@ const boilerplate = {
             }
         ];
     }
-};
+}; */
 
 export default {
     namespaced: true,

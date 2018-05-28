@@ -8,7 +8,7 @@
                 </v-flex>
             </v-layout>
         </v-card>
-        <v-card v-for="friend in filterFriends(computedFriends, nameFilter)" :key="friend.id" class="mt-1">
+        <v-card v-for="friend in filterFriends(computedFriends, nameFilter)" :key="friend.name" class="mt-1">
             <v-container>
                 <v-layout row wrap>
                     <v-badge right overlap bottom color="transparent">
@@ -27,20 +27,14 @@
                             <v-card-actions>
                                 <v-menu open-on-hover offset-y>
                                     <v-icon large slot="activator">more_horiz</v-icon>
-                                    <v-card>
-                                        <v-list>
-                                            <v-list-tile>
-                                                <v-btn flat color="primary">
-                                                    <v-icon class="pr-2">message</v-icon>
-                                                    написать
-                                                </v-btn>
-                                                <v-btn flat color="error">
-                                                    <v-icon class="pr-2">delete</v-icon>
-                                                    удалить
-                                                </v-btn>
-                                            </v-list-tile>
-                                        </v-list>
-                                    </v-card>
+                                    <v-btn flat color="primary">
+                                        <v-icon class="pr-2">message</v-icon>
+                                        написать
+                                    </v-btn>
+                                    <v-btn flat color="error" @click="removeFriend(friend.friendId)">
+                                        <v-icon class="pr-2">delete</v-icon>
+                                        удалить
+                                    </v-btn>
                                 </v-menu>
                             </v-card-actions>
                         </v-flex>
@@ -56,9 +50,14 @@
 
 export default {
     name: 'Friend',
+    props: {
+        friends: {
+            type: Array,
+            required: true
+        }
+    },
     data() {
         return {
-            friends: this.$store.state.friends.friends,
             nameFilter: '',
             searchVisible: false
         };
@@ -67,7 +66,10 @@ export default {
         computedFriends() {
             return this.friends.map(function (friend) {
                 return {
-                    id: friend.id,
+                    friendId: {
+                        Id: friend.friendId.id,
+                        userId: friend.friendId.userId
+                    },
                     name: friend.name,
                     avatar: friend.avatar,
                     login: friend.login,
@@ -75,9 +77,6 @@ export default {
                 };
             });
         }
-    },
-    mounted() {
-        this.$store.dispatch('friends/updateFriends');
     },
     methods: {
         filterFriends(computedFriends, nameFilter) {
@@ -88,6 +87,9 @@ export default {
                     return friend;
                 }
             });
+        },
+        removeFriend(friend) {
+            this.$store.dispatch('friends/removeFriend', friend);
         }
     }
 };
