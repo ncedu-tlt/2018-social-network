@@ -1,7 +1,8 @@
 import {getFriends, addFriend, removeFriend} from '../../api/rest/friends.api';
 
 const state = {
-    friends: []
+    friends: [],
+    isRemoved: false
 };
 
 const getters = {
@@ -16,11 +17,12 @@ const mutations = {
     },
     removeFriend(state, friendId) {
         removeFriend(friendId);
-        state.isDelete = true;
     },
     addFriend(state, friend) {
-        console.log(friend);
         addFriend(friend);
+    },
+    setRemoved(state) {
+        state.isRemoved = !state.isRemoved;
     }
 };
 
@@ -33,13 +35,18 @@ const actions = {
     async addFriend({ commit }, friend) {
         commit('addFriend', friend);
     },
-    async removeFriend({ commit, state }, friend) {
-        await commit('removeFriend', friend);
-        let updatedFriends;
-        updatedFriends = state.friends.filter(function (element) {
-            return friend.Id !== element.friendId.id;
+    removeFriend({ commit, state }, friend) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                commit('removeFriend', friend);
+                let updatedFriends;
+                updatedFriends = state.friends.filter(function (element) {
+                    return friend.Id !== element.friendId.id;
+                });
+                commit('updateFriends', updatedFriends);
+                resolve(commit('setRemoved'));
+            }, 500);
         });
-        await await commit('updateFriends', updatedFriends);
     }
 };
 

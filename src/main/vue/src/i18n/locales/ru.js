@@ -38,5 +38,6 @@ export default {
     'cancel': 'Отменить',
     'settings.confirm_delete_account': 'Введите DELETE ACCOUNT для подтверждения.',
     'immersible_action': 'Данное действие необратимо',
-    'account_remove': 'Ваш аккаунт успешно удален!'
+    'account_remove': 'Ваш аккаунт успешно удален!',
+    'friend_remove': 'Друг удален!'
 };

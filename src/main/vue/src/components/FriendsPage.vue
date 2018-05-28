@@ -1,7 +1,10 @@
 <template>
     <v-container>
         <friend :friends="friends"/>
-        <v-btn @click="addFriend" >Добавить друга</v-btn>
+        <v-btn @click="addFriend" color="success">Добавить друга</v-btn>
+        <v-snackbar right :timeout="5000" v-model="isRemoved" color="error">
+            <strong>{{ $t('friend_remove') }} </strong>
+        </v-snackbar>
     </v-container>
 </template>
 
@@ -14,12 +17,20 @@ export default {
     components: {Friend},
     data() {
         return {
-            friendDelete: this.isDelete
+            friendDelete: this.$store.state.friends.isRemoved
         };
     },
     computed: {
         friends() {
             return this.$store.state.friends.friends;
+        },
+        isRemoved: {
+            get() {
+                return this.$store.state.friends.isRemoved;
+            },
+            set() {
+                this.$store.commit('friends/setRemoved');
+            }
         }
     },
     mounted() {

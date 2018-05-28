@@ -23,7 +23,7 @@
                         <v-flex xs4 inline-flex>
                             <v-card-title class="body-2">{{ friend.name }}</v-card-title>
                         </v-flex>
-                        <v-flex d-flex xs1>
+                        <v-flex d-flex xs1 class="mr-2">
                             <v-card-actions>
                                 <v-menu open-on-hover offset-y>
                                     <v-icon large slot="activator">more_horiz</v-icon>
