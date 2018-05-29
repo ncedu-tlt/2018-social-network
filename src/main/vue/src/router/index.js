@@ -2,10 +2,11 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import AuthPage from '@/components/AuthPage';
 import ProjectsPage from '@/components/ProjectsPage';
+import store from '@/store';
+import Settings from '@/components/Settings';
 import FeedPage from '@/components/FeedPage';
 import ChatPage from '@/components/ChatPage';
 import ProfilePage from '@/components/ProfilePage';
-import store from '@/store';
 
 Vue.use(Router);
 
@@ -17,7 +18,7 @@ const router = new Router({
             component: AuthPage,
             beforeEnter: async (to, from, next) => {
                 await store.dispatch('auth/checkAuth');
-                if (store.state.auth.authed) {
+                if (store.state.auth.userName) {
                     next('/feed');
                 } else {
                     next();
@@ -30,9 +31,14 @@ const router = new Router({
             component: ProjectsPage
         },
         {
-            path: '/feed',
-            name: 'FeedPage',
-            component: FeedPage
+            path: '/',
+            redirect: '/feed',
+            name: 'Root'
+        },
+        {
+            path: '/settings',
+            name: 'Settings',
+            component: Settings
         },
         {
             path: '/chat/:id?',
@@ -41,14 +47,14 @@ const router = new Router({
             props: true
         },
         {
+            path: '/feed',
+            name: 'FeedPage',
+            component: FeedPage
+        },
+        {
             path: '/user/name',
             name: 'ProfilePage',
             component: ProfilePage
-        },
-        {
-            path: '/',
-            redirect: '/feed',
-            name: 'Root'
         }
     ]
 });

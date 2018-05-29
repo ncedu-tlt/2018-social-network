@@ -7,6 +7,7 @@
             />
             <AddChat/>
         </v-toolbar>
+        <v-divider/>
         <v-list class="scroll-y" two-line>
             <template v-for="(chat, index) in filteredChats">
                 <v-list-tile avatar :key="chat.id" @click="$router.push(`/chat/${chat.id}`)">
@@ -16,7 +17,7 @@
                     <v-list-tile-content>
                         <v-list-tile-sub-title>{{ $d(chat.dateMsg, 'long') }}</v-list-tile-sub-title>
                         <v-list-tile-title v-html="chat.name"/>
-                        <v-list-tile-action-text v-html="chat.previewMsg"/>
+                        <v-list-tile-action-text v-html="chat.messages.length > 0 ? chat.messages[chat.messages.length-1].body : $t('chat.created')"/>
                     </v-list-tile-content>
                 </v-list-tile>
                 <!-- eslint-disable-next-line vue/valid-v-for -->

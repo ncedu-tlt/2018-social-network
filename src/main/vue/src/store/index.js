@@ -6,6 +6,7 @@ import projects from '@/store/modules/projects';
 import feed from '@/store/modules/feed';
 import chats from '@/store/modules/chats';
 import friends from '@/store/modules/friends';
+import settings from '@/store/modules/settings';
 import profile from '@/store/modules/profile';
 
 Vue.use(Vuex);
@@ -20,7 +21,8 @@ export default new Vuex.Store({
         feed,
         chats,
         friends,
-        profile
+        profile,
+        settings
     },
     strict: debug
 });
