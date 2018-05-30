@@ -10,7 +10,7 @@
     >
         <v-list subheader>
             <v-list class="pa-0">
-                <v-list-tile avatar class="secondary">
+                <v-list-tile avatar class="secondary" :to="{ name: 'ProfilePage', params: {userName: auth }}">
                     <v-list-tile-avatar>
                         <img :src="userData.avatar">
                     </v-list-tile-avatar>

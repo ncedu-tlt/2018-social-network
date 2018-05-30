@@ -1,11 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import store from '@/store';
 import AuthPage from '@/components/AuthPage';
 import ProjectsPage from '@/components/ProjectsPage';
-import store from '@/store';
 import Settings from '@/components/Settings';
-import ChatPage from '@/components/ChatPage';
 import FeedPage from '@/components/FeedPage';
+import ChatPage from '@/components/ChatPage';
+import ProfilePage from '@/components/ProfilePage';
 
 Vue.use(Router);
 
@@ -49,6 +50,11 @@ const router = new Router({
             path: '/feed',
             name: 'FeedPage',
             component: FeedPage
+        },
+        {
+            path: '/user/:userName',
+            name: 'ProfilePage',
+            component: ProfilePage
         }
     ]
 });
