@@ -22,26 +22,34 @@ public class FriendsController {
     private UserRepository userRepository;
 
     @GetMapping
-    public List<FriendsDAO> getAll(@AuthenticationPrincipal UserDAO userDAO){
+    public List<UserDAO> getAll(@AuthenticationPrincipal UserDAO userDAO){
 
         List<FriendsDAO> friendsDAO = new ArrayList<>();
-        if(friendsRepository.findAll().isEmpty()) {
-            friendsDAO.add(new FriendsDAO(new FriendId(userDAO.getUserId(), 0), "https://pbs.twimg.com/profile_images/787106179482869760/CwwG2e2M_400x400.jpg", "Vladimir Tryapochkin", userDAO.getLogin(), true));
-            friendsDAO.add(new FriendsDAO(new FriendId(userDAO.getUserId(), 1), "https://avatarfiles.alphacoders.com/101/101019.jpg", "Ruslan Kirpichev", userDAO.getLogin(), false));
-            friendsDAO.add(new FriendsDAO(new FriendId(userDAO.getUserId(), 2), "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5BjsOEx8xm62e7l8cDptKshlPEj32WAVGdC0G4bo-FaSu-n8M", "Anatoluy Kolpakov", "Login hardcode", true));
-            friendsDAO.add(new FriendsDAO(new FriendId(userDAO.getUserId(), 3), "https://avatarfiles.alphacoders.com/774/77499.jpg", "Vasily Nemoy", userDAO.getLogin(), true));
-            friendsDAO.add(new FriendsDAO(new FriendId(userDAO.getUserId(), 4), "https://avatarko.ru/img/kartinka/4/uzhasy_kloun_3127.jpg", "Pavel Stropal'", userDAO.getLogin(), false));
 
+        if (friendsRepository.findAll().isEmpty()) {
+            friendsDAO.add(new FriendsDAO(new FriendId(userDAO.getUserId(), 2), false));
+            friendsDAO.add(new FriendsDAO(new FriendId(userDAO.getUserId(), 3), true));
+            friendsDAO.add(new FriendsDAO(new FriendId(userDAO.getUserId(), 894), true));
             friendsRepository.save(friendsDAO);
+            friendsDAO.clear();
         }
-        return friendsRepository.findAllByFriendIdUserId(userDAO.getUserId());
+
+        List<FriendsDAO> oldFriends = friendsRepository.findAll();
+
+        List<UserDAO> friendList = new ArrayList<>();
+        for (FriendsDAO userElement: oldFriends) {
+            UserDAO friend = userRepository.findByUserId(userElement.getFriendId().getId());
+            if(friend != null) {
+                friendList.add(friend);
+            }
+        }
+
+        return friendList;
     }
 
     @PostMapping(value = "{name}")
     public void addFriend(@AuthenticationPrincipal UserDAO userDAO, @PathVariable String name) {
         UserDAO newFriend = userRepository.findByLogin(name);
-        FriendsDAO newFriendDAO = new FriendsDAO(new FriendId(userDAO.getUserId(), newFriend.getUserId()), newFriend.getImagePath(), newFriend.getName(), newFriend.getLogin(), false);
-        friendsRepository.save(newFriendDAO);
 
     }
 
