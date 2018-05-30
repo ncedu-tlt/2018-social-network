@@ -52,7 +52,7 @@ const router = new Router({
             component: FeedPage
         },
         {
-            path: '/user/name',
+            path: '/user/:userName',
             name: 'ProfilePage',
             component: ProfilePage
         }
