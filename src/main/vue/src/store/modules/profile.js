@@ -4,7 +4,8 @@ const state = {
         languages: ['Java', 'PHP', 'Ruby'],
         technologies: ['Spring', 'Hibernate'],
         placeOfWork: 'Some company',
-        job: 'Software engineer'
+        job: 'Software engineer',
+        isFriend: true
     }
 };
 

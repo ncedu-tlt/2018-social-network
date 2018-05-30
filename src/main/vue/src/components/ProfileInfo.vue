@@ -7,6 +7,7 @@
                 src="https://vuetifyjs.com/static/doc-images/cards/docks.jpg"
             >
                 <v-btn
+                    v-if="profile.name != userName"
                     color="deep-purple darken-4"
                     dark
                     absolute
@@ -17,6 +18,7 @@
                     <v-icon dark>add</v-icon>
                 </v-btn>
                 <v-btn
+                    v-if="profile.name != userName"
                     color="deep-purple darken-4"
                     dark
                     absolute
@@ -72,16 +74,28 @@
             </v-list>
         </v-card>
         <v-card class="card-width mt-3">
-            <v-card-text>
-                <h2 class="title primary--text darken-3">Place of work</h2>
-                <p class="body-1 primary--text darken-0">{{ profile.placeOfWork }}</p>
-            </v-card-text>
+            <v-list subheader>
+                <v-subheader class="title primary--text darken-3">
+                    Place of work
+                </v-subheader>
+                <v-list-tile>
+                    <v-list-tile-content>
+                        <v-list-tile-title class="body-1 primary--text darken-0">{{ profile.placeOfWork }}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+            </v-list>
         </v-card>
         <v-card class="card-width mt-3">
-            <v-card-text>
-                <h2 class="title primary--text darken-3">Job</h2>
-                <p class="body-1 primary--text darken-0">{{ profile.job }}</p>
-            </v-card-text>
+            <v-list subheader>
+                <v-subheader class="title primary--text darken-3">
+                    Job
+                </v-subheader>
+                <v-list-tile>
+                    <v-list-tile-content>
+                        <v-list-tile-title class="body-1 primary--text darken-0">{{ profile.job }}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+            </v-list>
         </v-card>
     </v-layout>
 </template>
