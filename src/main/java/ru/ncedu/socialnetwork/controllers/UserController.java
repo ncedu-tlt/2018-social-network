@@ -36,6 +36,11 @@ public class UserController {
         return user;
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public UserDAO getUser(@PathVariable("id") int id) {
+        return userRepository.findByUserId(id);
+    }
+
     @RequestMapping("/{userName}/repos")
     public List<ProjectDTO> getProjects(@PathVariable("userName") String userName) {
         return projectsService.getProjects(userName);

@@ -1,4 +1,5 @@
-import { getCurrentUser } from '@/api/rest/user.api';
+import { getCurrentUser, getUser } from '@/api/rest/user.api';
+import { addChat, getChats } from '@/api/rest/chat.api';
 
 const state = {
     chats: [],
@@ -13,7 +14,7 @@ const getters = {
         return state.chats.find(chat => chat.id.toString() === id);
     },
     getParticipantById: (state) => (id) => {
-        return state.participants.find(p => p.id === id);
+        return state.participants.find(p => p.userId === id);
     }
 };
 
@@ -34,10 +35,13 @@ const mutations = {
 
 const actions = {
     async updateChats({ commit }) {
-        const updatedChats = boilerplate.getChats();
+        const authResponse = await getChats();
+        const updatedChats = authResponse.data;
         commit('updateChats', updatedChats);
     },
     async addChat({ commit }, people) {
+        const response = await getCurrentUser();
+        const userId = response.data.userId;
         let chat = {
             id: state.chats.length + 1,
             avatar: 'https://octodex.github.com/images/electrocat.png',
@@ -51,6 +55,8 @@ const actions = {
         } else {
             chat.type = 'dialog';
         };
+        chat.participantsId.push(userId);
+        await addChat(chat);
         commit('addChat', chat);
         return chat;
     },
@@ -65,116 +71,14 @@ const actions = {
         };
         commit('addMessage', { chat: payload.chat, msg: message });
     },
-    async updateParticipants({ commit }) {
-        const updatedParticipants = boilerplate.getParticipants();
-        commit('updateParticipants', updatedParticipants);
-    }
-};
-
-const boilerplate = {
-    getMessages(count) {
-        let messages = [];
-        for (let i = 1; i < count; i++) {
-            messages.push({
-                id: i,
-                body: `Message no.${i}`,
-                dateMsg: new Date(),
-                fromId: 1
-            });
+    async updateParticipants({ commit }, payload) {
+        let participants = [];
+        let participantId;
+        for (participantId of payload) {
+            const response = await getUser(participantId);
+            participants.push(response.data);
         }
-        return messages;
-    },
-    getChats() {
-        let chat = [
-            {
-                id: 1,
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                name: 'Andrey Zorin',
-                messages: boilerplate.getMessages(100),
-                dateMsg: new Date(),
-                type: 'dialog',
-                participantsId: [1]
-            },
-            {
-                id: 2,
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                name: 'Conference name',
-                messages: [],
-                dateMsg: new Date(),
-                type: 'conference',
-                participantsId: [1, 2]
-            },
-            {
-                id: 3,
-                avatar: 'https://octodex.github.com/images/Robotocat.png',
-                name: 'Project name',
-                messages: [],
-                dateMsg: new Date(),
-                type: 'project',
-                participantsId: [2, 3]
-            }
-        ];
-        return chat;
-    },
-    getParticipants() {
-        return [
-            {
-                id: 1,
-                name: 'Andrey Zorin',
-                login: 'zorin',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 9,
-                name: 'Artem Kozlov',
-                login: 'tadoma',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 3,
-                name: 'Michail Fedoseev',
-                login: 'fedoseev',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: false
-            },
-            {
-                id: 4,
-                name: 'Nikolai Petrov',
-                login: 'login1',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 5,
-                name: 'Alexandra Sotnikova',
-                login: 'login2',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 6,
-                name: 'Ilya Bokov',
-                login: 'login3',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 7,
-                name: 'Ira Raush',
-                login: 'login4',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 8,
-                name: 'Katya Eliseeva',
-                login: 'login5',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            }
-        ];
+        commit('updateParticipants', participants);
     }
 };
 

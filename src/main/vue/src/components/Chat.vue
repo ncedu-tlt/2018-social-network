@@ -28,14 +28,14 @@
                                         <v-list-tile-title class="your-message" v-html="message.body"/>
                                     </v-list-tile-content>
                                     <v-list-tile-avatar>
-                                        <img :src="getParticipantById(message.fromId).avatar">
+                                        <img :src="getParticipantById(message.fromId).imagePath">
                                     </v-list-tile-avatar>
                                 </v-list-tile>
                             </div>
                             <div v-else :key="message.id">
                                 <v-list-tile avatar :key="message.id">
                                     <v-list-tile-avatar>
-                                        <img :src="getParticipantById(message.fromId).avatar">
+                                        <img :src="getParticipantById(message.fromId).imagePath">
                                     </v-list-tile-avatar>
                                     <v-list-tile-content>
                                         <v-list-tile-sub-title class="caption">{{ $d(message.dateMsg, 'long') }}</v-list-tile-sub-title>
@@ -121,17 +121,20 @@ export default {
         ])
     },
     watch: {
-        chatId: function () {
+        chatId: async function () {
             if (this.chatId === '') this.chat = null;
-            else this.updateChatData();
+            else {
+                await this.updateChatData();
+            }
         }
     },
     async mounted() {
-        this.updateParticipants();
         await this.updateChatData();
     },
     async updated() {
-        if (this.chat) this.offset = this.chat.messages.length * 100;
+        if (this.chat) {
+            this.offset = this.chat.messages.length * 100;
+        }
     },
     methods: {
         ...mapActions('chats', [
@@ -144,6 +147,7 @@ export default {
         async updateChatData() {
             if (this.chatId !== '') {
                 this.chat = await this.getChatById(this.chatId);
+                if (this.chat) await this.updateParticipants(this.chat.participantsId);
             }
         },
         addMessageNClear() {

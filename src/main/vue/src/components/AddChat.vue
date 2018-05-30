@@ -66,6 +66,9 @@ export default {
         ...mapState('friends', [
             'friends'
         ]),
+        ...mapState('auth', [
+            'userId'
+        ]),
         ...mapGetters('chats', [
             'getChatsByParticipantId'
         ]),
@@ -79,6 +82,7 @@ export default {
         selectedFriends: function () {
             this.selectedId = this.selectedFriends.map(friend => friend.id);
             if (this.selectedId.length === 1) {
+                this.selectedId.push(this.userId);
                 this.exist = this.getChatsByParticipantId(this.selectedId).length === 1;
             } else {
                 this.exist = false;
