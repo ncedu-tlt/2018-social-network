@@ -35,10 +35,26 @@ public class PostController {
 
     @GetMapping
     public List<PostDTO> getPosts() {
+        List<PostTypeDAO> postTypes = postTypeRepository.findAll();
+        PostTypeDAO postType;
+
+        if (postTypes.isEmpty()) {
+            List<String> typesList = new ArrayList<>();
+            typesList.add("Commit");
+            typesList.add("Merge Request");
+            typesList.add("Post");
+            typesList.add("Issue");
+
+            for (String type : typesList) {
+                postType = new PostTypeDAO();
+                postType.setType(type);
+                postTypeRepository.save(postType);
+            }
+        }
+
         List<PostDAO> posts = postRepository.findAll();
         List<PostDTO> postDTOList = new ArrayList<>();
         PostDTO postDTO;
-
 
         for (PostDAO post : posts) {
             postDTO = new PostDTO();
