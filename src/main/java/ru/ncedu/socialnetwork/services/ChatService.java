@@ -19,8 +19,7 @@ public class ChatService {
     }
 
     public List<ChatDAO> getChats(@AuthenticationPrincipal UserDAO user) {
-        int id = user.getUserId();
-        return chatRepository.findByParticipantsId(id);
+        return user.getChats();
     }
 
     public ChatDAO getChat(int id) {
@@ -28,6 +27,7 @@ public class ChatService {
     }
 
     public ChatDAO addChat(ChatDAO chat){
+
         return chatRepository.save(chat);
     }
 }

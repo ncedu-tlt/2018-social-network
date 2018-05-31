@@ -1,9 +1,6 @@
 package ru.ncedu.socialnetwork.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -18,13 +15,18 @@ public class MessageDAO {
     @Column(nullable = false)
     private Date dateMsg;
 
-    @Column(nullable = false)
-    private int fromId;
+    @ManyToOne
+    @JoinColumn(name="chat.id", nullable=false)
+    private ChatDAO chat;
+
+    @Embedded
+    @Column(name = "from_id")
+    private FromId fromId;
 
     public MessageDAO() {
     }
 
-    public MessageDAO(int id, String body, Date dateMsg, int fromId) {
+    public MessageDAO(int id, String body, Date dateMsg, FromId fromId) {
         this.id = id;
         this.body = body;
         this.dateMsg = dateMsg;
@@ -55,11 +57,11 @@ public class MessageDAO {
         this.dateMsg = dateMsg;
     }
 
-    public int getFromId() {
+    public FromId getFromId() {
         return fromId;
     }
 
-    public void setFromId(int fromId) {
+    public void setFromId(FromId fromId) {
         this.fromId = fromId;
     }
 }

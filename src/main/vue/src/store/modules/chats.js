@@ -47,7 +47,6 @@ const actions = {
             avatar: 'https://octodex.github.com/images/electrocat.png',
             name: people.map(p => p.name).join(', '),
             messages: [],
-            dateMsg: new Date(),
             participantsId: people.map(p => p.id)
         };
         if (people.length > 1) {

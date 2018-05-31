@@ -1,7 +1,7 @@
 import client from '@/api/rest/client';
 
 export function getChats() {
-    return client.get(`/chat`);
+    return client.get('/chat');
 }
 
 export function getChat(id) {
@@ -9,5 +9,5 @@ export function getChat(id) {
 }
 
 export function addChat(chat) {
-    return client.post(`/chat`, chat);
+    return client.post('/chat', chat);
 }

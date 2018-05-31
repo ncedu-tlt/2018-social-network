@@ -1,29 +1,35 @@
 package ru.ncedu.socialnetwork.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
 @Entity
 @Table(name = "chats")
 public class ChatDAO {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column
     private String avatar;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
-    @ElementCollection
-    private Collection<MessageDAO> messages;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true,
+            mappedBy="chat")
+    private Collection<MessageDAO> messages = new ArrayList<>();
 
-    @Column(nullable = false)
-    private Date dateMsg;
-
-    @ElementCollection
-    private Collection<Integer> participantsId;
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "chats"
+    )
+    private Collection<ParticipantId> participantsId = new ArrayList<>();
 
     @Column(nullable = false)
     private String type;
@@ -31,12 +37,11 @@ public class ChatDAO {
     public ChatDAO() {
     }
 
-    public ChatDAO(int id, String avatar, String name, Collection<MessageDAO> messages, Date dateMsg, Collection<Integer> participantsId, String type) {
+    public ChatDAO(int id, String avatar, String name, Collection<MessageDAO> messages, Collection<ParticipantId> participantsId, String type) {
         this.id = id;
         this.avatar = avatar;
         this.name = name;
         this.messages = messages;
-        this.dateMsg = dateMsg;
         this.participantsId = participantsId;
         this.type = type;
     }
@@ -73,19 +78,11 @@ public class ChatDAO {
         this.messages = messages;
     }
 
-    public Date getDateMsg() {
-        return dateMsg;
-    }
-
-    public void setDateMsg(Date dateMsg) {
-        this.dateMsg = dateMsg;
-    }
-
-    public Collection<Integer> getParticipantsId() {
+    public Collection<ParticipantId> getParticipantsId() {
         return participantsId;
     }
 
-    public void setParticipantsId(Collection<Integer> participantsId) {
+    public void setParticipantsId(Collection<ParticipantId> participantsId) {
         this.participantsId = participantsId;
     }
 
