@@ -23,7 +23,7 @@ public class ChatService {
     }
 
     public ChatDAO getChat(int id) {
-        return chatRepository.findById(id);
+        return chatRepository.findOne(id);
     }
 
     public ChatDAO addChat(ChatDAO chat){

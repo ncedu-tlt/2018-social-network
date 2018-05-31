@@ -7,7 +7,6 @@ import ru.ncedu.socialnetwork.domain.ChatDAO;
 import java.util.List;
 
 @Repository
-public interface ChatRepository extends JpaRepository<ChatDAO, Long> {
-    ChatDAO findById(int id);
+public interface ChatRepository extends JpaRepository<ChatDAO, Integer> {
     List<ChatDAO> findByParticipantsId(int participantId);
 }

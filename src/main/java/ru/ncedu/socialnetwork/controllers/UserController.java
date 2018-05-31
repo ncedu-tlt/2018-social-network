@@ -38,7 +38,7 @@ public class UserController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public UserDAO getUser(@PathVariable("id") int id) {
-        return userRepository.findByUserId(id);
+        return userRepository.findOne(id);
     }
 
     @RequestMapping("/{userName}/repos")
