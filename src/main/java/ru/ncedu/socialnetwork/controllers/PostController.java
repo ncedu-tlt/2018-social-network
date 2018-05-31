@@ -2,10 +2,7 @@ package ru.ncedu.socialnetwork.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.ncedu.socialnetwork.api.models.LikePostDTO;
 import ru.ncedu.socialnetwork.api.models.PostDTO;
 import ru.ncedu.socialnetwork.domain.LikePostDAO;
@@ -36,7 +33,7 @@ public class PostController {
         this.likePostRepository = likePostRepository;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<PostDTO> getPosts() {
         List<PostDAO> posts = postRepository.findAll();
         List<PostDTO> postDTOList = new ArrayList<>();
@@ -59,7 +56,7 @@ public class PostController {
         return postDTOList;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public void createPost(@AuthenticationPrincipal UserDAO user, @RequestBody PostDTO postDTO) {
         PostDAO newPost = new PostDAO();
         PostTypeDAO postType = new PostTypeDAO();

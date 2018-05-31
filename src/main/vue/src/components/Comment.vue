@@ -64,7 +64,7 @@ export default {
         likeClicked() {
             const like = {
                 commentId: this.comment.id,
-                updateLike: !this.searchLike
+                likeValue: !this.searchLike
             };
             this.setLikeComment(like);
         },

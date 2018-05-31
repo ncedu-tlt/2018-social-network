@@ -94,7 +94,8 @@ export default {
     data() {
         return {
             showComments: false,
-            userName: this.$store.state.auth.userName
+            userName: this.$store.state.auth.userName,
+            userId: this.$store.state.auth.userId
         };
     },
     computed: {
@@ -115,8 +116,9 @@ export default {
         },
         likeClicked() {
             const like = {
+                userId: this.userId,
                 postId: this.post.id,
-                updateLike: !this.searchLike
+                likeValue: !this.searchLike
             };
             this.$store.dispatch('feed/setLikePost', like);
         }

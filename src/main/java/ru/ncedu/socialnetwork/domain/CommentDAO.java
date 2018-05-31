@@ -1,6 +1,8 @@
 package ru.ncedu.socialnetwork.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -24,6 +26,15 @@ public class CommentDAO {
 
     @Column(name = "date", nullable = false)
     private Date date;
+
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true,
+            mappedBy = "user"
+    )
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<LikeCommentDAO> likeCommentsDAO;
 
     @JsonIgnore
     @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
