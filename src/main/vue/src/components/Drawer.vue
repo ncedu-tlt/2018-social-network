@@ -10,13 +10,14 @@
     >
         <v-list subheader>
             <v-list class="pa-0">
-                <v-list-tile avatar class="secondary">
+                <v-list-tile avatar class="secondary" :to="{ name: 'ProfilePage', params: {userName: auth }}">
                     <v-list-tile-avatar>
                         <img :src="userData.avatar">
                     </v-list-tile-avatar>
                     <v-list-tile-content>
                         <v-list-tile-title>{{ userData.realName }}</v-list-tile-title>
-                        <v-list-tile-sub-title v-if="userData.organization !== null">{{ userData.organization }}
+                        <v-list-tile-sub-title v-if="userData.organization">
+                            {{ userData.organization }}
                         </v-list-tile-sub-title>
                     </v-list-tile-content>
                     <v-list-tile-action/>
@@ -116,7 +117,7 @@ export default {
             return {
                 realName: this.$store.state.auth.userRealName ? this.$store.state.auth.userRealName : this.$store.state.auth.userName,
                 avatar: this.$store.state.auth.userAvatar ? this.$store.state.auth.userAvatar : 'https://pbs.twimg.com/profile_images/787106179482869760/CwwG2e2M_400x400.jpg',
-                organization: this.$store.state.auth.userOrganisation ? this.$store.state.auth.userOrganisation : null
+                organization: this.$store.state.auth.userOrganization ? this.$store.state.auth.userOrganization : null
             };
         },
         isMobile() {
