@@ -1,50 +1,27 @@
-package ru.ncedu.socialnetwork.domain;
+package ru.ncedu.socialnetwork.models;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import ru.ncedu.socialnetwork.domain.MessageDAO;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Entity
-@Table(name = "chats")
-public class ChatDAO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class ChatDTO {
     private int id;
-
-    @Column
     private String avatar;
-
-    @Column(nullable = false)
     private String name;
-
-    @OneToMany(
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.REMOVE,
-            orphanRemoval = true,
-            mappedBy="chat")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Collection<MessageDAO> messages = new ArrayList<>();
-
-    @ManyToMany(
-            mappedBy = "chats"
-    )
-    private Collection<UserDAO> participants = new ArrayList<>();
-
-    @Column(nullable = false)
+    private Collection<Integer> participantsId = new ArrayList<>();
     private String type;
 
-    public ChatDAO() {
+    public ChatDTO() {
     }
 
-    public ChatDAO(int id, String avatar, String name, Collection<MessageDAO> messages, Collection<UserDAO> participants, String type) {
+    public ChatDTO(int id, String avatar, String name, Collection<MessageDAO> messages, Collection<Integer> participantsId, String type) {
         this.id = id;
         this.avatar = avatar;
         this.name = name;
         this.messages = messages;
-        this.participants = participants;
+        this.participantsId = participantsId;
         this.type = type;
     }
 
@@ -80,12 +57,12 @@ public class ChatDAO {
         this.messages = messages;
     }
 
-    public Collection<UserDAO> getParticipants() {
-        return participants;
+    public Collection<Integer> getParticipantsId() {
+        return participantsId;
     }
 
-    public void setParticipants(Collection<UserDAO> participants) {
-        this.participants = participants;
+    public void setParticipantsId(Collection<Integer> participantsId) {
+        this.participantsId = participantsId;
     }
 
     public String getType() {

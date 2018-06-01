@@ -1,7 +1,6 @@
 package ru.ncedu.socialnetwork.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import ru.ncedu.socialnetwork.domain.ChatDAO;
 import ru.ncedu.socialnetwork.domain.UserDAO;
@@ -18,8 +17,8 @@ public class ChatService {
         this.chatRepository = chatRepository;
     }
 
-    public List<ChatDAO> getChats(@AuthenticationPrincipal UserDAO user) {
-        return user.getChats();
+    public List<ChatDAO> getChats(UserDAO user) {
+         return chatRepository.findAll();
     }
 
     public ChatDAO getChat(int id) {
@@ -27,7 +26,11 @@ public class ChatService {
     }
 
     public ChatDAO addChat(ChatDAO chat){
-
-        return chatRepository.save(chat);
+        if(chatRepository.findOne(chat.getId()) != null){
+            return chat;
+        }
+        else {
+            return chatRepository.save(chat);
+        }
     }
 }

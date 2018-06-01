@@ -36,17 +36,30 @@ public class UserDAO {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<SettingsDAO> settingsDAO;
 
-    @OneToMany(
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.REMOVE,
-            orphanRemoval = true,
-            mappedBy = "id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne(mappedBy = "chat", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @JsonIgnore
+    private MessageDAO messages;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "User_Chat",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "chat_id") }
+    )
     @JsonIgnore
     private List<ChatDAO> chats = new ArrayList<>();
 
     public List<ChatDAO> getChats() {
         return chats;
+    }
+
+    public MessageDAO getMessages() {
+        return messages;
+    }
+
+    public void setMessages(MessageDAO messages) {
+        this.messages = messages;
     }
 
     public void setChats(List<ChatDAO> chats) {

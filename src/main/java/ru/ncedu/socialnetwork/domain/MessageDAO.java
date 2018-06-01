@@ -19,18 +19,34 @@ public class MessageDAO {
     @JoinColumn(name="chat.id", nullable=false)
     private ChatDAO chat;
 
-    @Embedded
-    @Column(name = "from_id")
-    private FromId fromId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user.id")
+    private UserDAO user;
 
     public MessageDAO() {
     }
 
-    public MessageDAO(int id, String body, Date dateMsg, FromId fromId) {
+    public MessageDAO(int id, String body, Date dateMsg, UserDAO user) {
         this.id = id;
         this.body = body;
         this.dateMsg = dateMsg;
-        this.fromId = fromId;
+        this.user = user;
+    }
+
+    public ChatDAO getChat() {
+        return chat;
+    }
+
+    public void setChat(ChatDAO chat) {
+        this.chat = chat;
+    }
+
+    public UserDAO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDAO user) {
+        this.user = user;
     }
 
     public int getId() {
@@ -57,11 +73,11 @@ public class MessageDAO {
         this.dateMsg = dateMsg;
     }
 
-    public FromId getFromId() {
-        return fromId;
+    public UserDAO getFromId() {
+        return user;
     }
 
-    public void setFromId(FromId fromId) {
-        this.fromId = fromId;
+    public void setFromId(UserDAO user) {
+        this.user = user;
     }
 }

@@ -43,16 +43,7 @@ const actions = {
         const response = await getCurrentUser();
         const userId = response.data.userId;
         let chat = {
-            id: state.chats.length + 1,
-            avatar: 'https://octodex.github.com/images/electrocat.png',
-            name: people.map(p => p.name).join(', '),
-            messages: [],
             participantsId: people.map(p => p.id)
-        };
-        if (people.length > 1) {
-            chat.type = 'conference';
-        } else {
-            chat.type = 'dialog';
         };
         chat.participantsId.push(userId);
         await addChat(chat);
