@@ -94,15 +94,14 @@ export default {
     data() {
         return {
             showComments: false,
-            userName: this.$store.state.auth.userName,
-            userId: this.$store.state.auth.userId
+            userId: Number(this.$store.state.auth.userId)
         };
     },
     computed: {
         searchLike: {
             get() {
                 let foundLike = this.post.likes.find(o => {
-                    if (o.user.login === this.userName) {
+                    if (o.user.userId === this.userId) {
                         return true;
                     }
                 });

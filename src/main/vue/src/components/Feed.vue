@@ -6,7 +6,7 @@
                 <PostCreate @cancelClicked="cancelClicked"/>
             </v-dialog>
         </v-flex>
-        <v-flex class="mx-auto" v-for="post in posts" :key="post.id">
+        <v-flex class="mx-auto" v-for="post in computedPosts" :key="post.id">
             <Post :post="post" :comments="comments"/>
         </v-flex>
     </v-layout>
@@ -31,7 +31,15 @@ export default {
         ...mapState('feed', [
             'posts',
             'comments'
-        ])
+        ]),
+        computedPosts() {
+            return this.posts.filter(function (el) {
+                return el;
+            }).sort(function (first, second) {
+                if (first.date < second.date) return 1;
+                else return 0;
+            });
+        }
     },
     mounted() {
         this.$store.dispatch('feed/getPosts');

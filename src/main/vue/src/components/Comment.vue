@@ -45,14 +45,14 @@ export default {
     },
     data() {
         return {
-            userName: this.$store.state.auth.userName
+            userId: Number(this.$store.state.auth.userId)
         };
     },
     computed: {
         searchLike: {
             get() {
                 let foundLike = this.comment.likes.find(o => {
-                    if (o.user.login === this.userName) {
+                    if (o.user.userId === this.userId) {
                         return true;
                     }
                 });
