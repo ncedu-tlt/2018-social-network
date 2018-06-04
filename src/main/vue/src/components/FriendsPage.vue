@@ -39,8 +39,9 @@ export default {
     methods: {
         addFriend() {
             let testMan = {
-                userId: 2,
-                name: 'IvanNeplokhov'
+                userId: 3,
+                name: 'Vasya',
+                login: 'Vasya'
             };
             this.$store.dispatch('friends/addFriend', testMan);
         }

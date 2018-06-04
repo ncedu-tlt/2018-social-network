@@ -4,8 +4,8 @@ export function getFriends() {
     return client.get('/friends');
 }
 export function addFriend(friend) {
-    return client.post(`/friends/${friend.name}`, friend);
+    return client.post(`/friends/${friend.login}`, friend.login);
 }
 export function removeFriend(friend) {
-    return client.delete(`friends/${friend.Id}`, friend.Id);
+    return client.delete(`friends/${friend.userId}`, friend);
 }

@@ -15,8 +15,8 @@ const mutations = {
     updateFriends(state, updatedFriends) {
         state.friends = updatedFriends;
     },
-    removeFriend(state, friendId) {
-        removeFriend(friendId);
+    removeFriend(state, friend) {
+        removeFriend(friend);
     },
     addFriend(state, friend) {
         addFriend(friend);
@@ -41,7 +41,7 @@ const actions = {
                 commit('removeFriend', friend);
                 let updatedFriends;
                 updatedFriends = state.friends.filter(function (element) {
-                    return friend.Id !== element.friendId.id;
+                    return friend.userId !== element.userId;
                 });
                 commit('updateFriends', updatedFriends);
                 resolve(commit('setRemoved'));

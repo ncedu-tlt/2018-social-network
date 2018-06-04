@@ -27,7 +27,7 @@ public class FriendsController {
         List<FriendsDAO> friendsDAO = new ArrayList<>();
 
         if (friendsRepository.findAll().isEmpty()) {
-            friendsDAO.add(new FriendsDAO(new FriendId(userDAO.getUserId(), 2), false));
+            friendsDAO.add(new FriendsDAO(new FriendId(userDAO.getUserId(), 1215), false));
             friendsDAO.add(new FriendsDAO(new FriendId(userDAO.getUserId(), 3), true));
             friendsDAO.add(new FriendsDAO(new FriendId(userDAO.getUserId(), 894), true));
             friendsRepository.save(friendsDAO);
@@ -47,9 +47,12 @@ public class FriendsController {
         return friendList;
     }
 
-    @PostMapping(value = "{name}")
-    public void addFriend(@AuthenticationPrincipal UserDAO userDAO, @PathVariable String name) {
-        UserDAO newFriend = userRepository.findByLogin(name);
+    @PostMapping(value = "{login}")
+    public void addFriend(@AuthenticationPrincipal UserDAO userDAO, @PathVariable String login) {
+        UserDAO newFriend = userRepository.findByLogin(login);
+        if(newFriend != null){
+            friendsRepository.save(new FriendsDAO(new FriendId(userDAO.getUserId(), newFriend.getUserId()), true));
+        }
 
     }
 

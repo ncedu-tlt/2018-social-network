@@ -27,14 +27,16 @@
                             <v-card-actions>
                                 <v-menu open-on-hover offset-y>
                                     <v-icon large slot="activator">more_horiz</v-icon>
-                                    <v-btn flat color="primary">
-                                        <v-icon class="pr-2">message</v-icon>
-                                        написать
-                                    </v-btn>
-                                    <v-btn flat color="error" @click="removeFriend(friend.friendId)">
-                                        <v-icon class="pr-2">delete</v-icon>
-                                        удалить
-                                    </v-btn>
+                                    <v-list>
+                                        <v-btn flat color="primary">
+                                            <v-icon class="pr-2">message</v-icon>
+                                            написать
+                                        </v-btn>
+                                        <v-btn flat color="error" @click="removeFriend(friend)">
+                                            <v-icon class="pr-2">delete</v-icon>
+                                            удалить
+                                        </v-btn>
+                                    </v-list>
                                 </v-menu>
                             </v-card-actions>
                         </v-flex>
@@ -66,14 +68,10 @@ export default {
         computedFriends() {
             return this.friends.map(function (friend) {
                 return {
-                    friendId: {
-                        Id: friend.friendId.id,
-                        userId: friend.friendId.userId
-                    },
                     name: friend.name,
-                    avatar: friend.avatar,
+                    avatar: friend.imagePath,
                     login: friend.login,
-                    online: friend.online
+                    userId: friend.userId
                 };
             });
         }
