@@ -82,8 +82,8 @@ export default {
         selectedFriends: function () {
             this.selectedId = this.selectedFriends.map(friend => friend.id);
             if (this.selectedId.length === 1) {
-                this.selectedId.push(this.userId);
-                this.exist = this.getChatsByParticipantId(this.selectedId).length === 1;
+                this.selectedId.unshift(parseInt(this.userId));
+                this.exist = this.getChatsByParticipantId(this.selectedId).length >= 1;
             } else {
                 this.exist = false;
             }
@@ -110,7 +110,7 @@ export default {
             this.$router.push(`/chat/${newChat.id}`);
         },
         openChat() {
-            let chatId = this.getChatsByParticipantId(this.selectedId).map(chat => chat.id);
+            let chatId = this.getChatsByParticipantId(this.selectedId)[0][1];
             this.dialog = false;
             this.$router.push(`/chat/${chatId}`);
         }

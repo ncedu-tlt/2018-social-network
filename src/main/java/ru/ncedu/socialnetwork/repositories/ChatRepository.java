@@ -6,5 +6,4 @@ import ru.ncedu.socialnetwork.domain.ChatDAO;
 
 @Repository
 public interface ChatRepository extends JpaRepository<ChatDAO, Integer> {
-
 }

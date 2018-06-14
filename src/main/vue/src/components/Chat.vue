@@ -147,7 +147,7 @@ export default {
         async updateChatData() {
             if (this.chatId !== '') {
                 this.chat = await this.getChatById(this.chatId);
-                if (this.chat) await this.updateParticipants(this.chat.participantsId);
+                if (this.chat) await this.updateParticipants(this.chat.participants);
             }
         },
         addMessageNClear() {

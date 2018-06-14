@@ -28,8 +28,11 @@ public class ChatDAO {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Collection<MessageDAO> messages = new ArrayList<>();
 
-    @ManyToMany(
-            mappedBy = "chats"
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "Chat_User",
+            joinColumns = { @JoinColumn(name = "chat_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") }
     )
     private Collection<UserDAO> participants = new ArrayList<>();
 

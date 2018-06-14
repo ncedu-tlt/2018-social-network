@@ -26,11 +26,6 @@ public class ChatService {
     }
 
     public ChatDAO addChat(ChatDAO chat){
-        if(chatRepository.findOne(chat.getId()) != null){
-            return chat;
-        }
-        else {
-            return chatRepository.save(chat);
-        }
+        return chatRepository.save(chat);
     }
 }

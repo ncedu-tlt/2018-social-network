@@ -40,12 +40,10 @@ public class UserDAO {
             fetch = FetchType.LAZY)
     @JsonIgnore
     private MessageDAO messages;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "User_Chat",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "chat_id") }
+    @ManyToMany(
+            mappedBy = "participants",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.MERGE
     )
     @JsonIgnore
     private List<ChatDAO> chats = new ArrayList<>();

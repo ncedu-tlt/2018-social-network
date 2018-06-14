@@ -39,7 +39,6 @@ public class ChatController {
     @RequestMapping(method = RequestMethod.POST)
     public ChatDAO addChat(@AuthenticationPrincipal UserDAO user, @RequestBody ChatDTO chat){
         ChatDAO chatDAO = new ChatDAO();
-        Collection<Integer> participantsIDCollection = new ArrayList<>();
         Collection<UserDAO> participantsCollection = new ArrayList<>();
 
         if(chat.getParticipantsId().size()==2){
@@ -60,7 +59,7 @@ public class ChatController {
             chatDAO.setType("Conference");
             chatDAO.setAvatar("https://octodex.github.com/images/electrocat.png");
             chatDAO.setMessages(chat.getMessages());
-            for(int participantId:chat.getParticipantsId()){
+            for(int participantId : chat.getParticipantsId()){
                 UserDAO participant = userRepository.findOne(participantId);
                 participantsCollection.add(participant);
                 nameBuilder.append(participant.getName());

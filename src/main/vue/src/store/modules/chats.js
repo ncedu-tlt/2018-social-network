@@ -8,7 +8,13 @@ const state = {
 
 const getters = {
     getChatsByParticipantId: (state) => (id) => {
-        return state.chats.filter(chat => chat.participantsId.toString() === id.toString());
+        if (state.chats.length === 0) {
+            return [];
+        } else {
+            let participantsChat = state.chats.reduce(
+                (accumulator, current) => [...accumulator, [current.participants.map(p => p.userId), current.id]], 0);
+            return participantsChat.filter(item => item[0].toString() === id.toString());
+        }
     },
     getChatById: (state) => (id) => {
         return state.chats.find(chat => chat.id.toString() === id);
@@ -39,7 +45,7 @@ const actions = {
         const updatedChats = authResponse.data;
         commit('updateChats', updatedChats);
     },
-    async addChat({ commit }, people) {
+    async addChat({ commit, dispatch }, people) {
         const response = await getCurrentUser();
         const userId = response.data.userId;
         let chat = {
@@ -47,8 +53,8 @@ const actions = {
         };
         chat.participantsId.push(userId);
         await addChat(chat);
-        commit('addChat', chat);
-        return chat;
+        await dispatch('updateChats');
+        return state.chats[state.chats.length - 1];
     },
     async addMessage({ commit }, payload) {
         const response = await getCurrentUser();
@@ -63,9 +69,8 @@ const actions = {
     },
     async updateParticipants({ commit }, payload) {
         let participants = [];
-        let participantId;
-        for (participantId of payload) {
-            const response = await getUser(participantId);
+        for (let participant of payload) {
+            const response = await getUser(participant.userId);
             participants.push(response.data);
         }
         commit('updateParticipants', participants);
