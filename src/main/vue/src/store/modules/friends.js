@@ -1,6 +1,8 @@
+import {getFriends, addFriend, removeFriend} from '../../api/rest/friends.api';
 
 const state = {
-    friends: []
+    friends: [],
+    isRemoved: false
 };
 
 const getters = {
@@ -12,17 +14,43 @@ const getters = {
 const mutations = {
     updateFriends(state, updatedFriends) {
         state.friends = updatedFriends;
+    },
+    removeFriend(state, friend) {
+        removeFriend(friend);
+    },
+    addFriend(state, friend) {
+        addFriend(friend);
+    },
+    setRemoved(state) {
+        state.isRemoved = !state.isRemoved;
     }
 };
 
 const actions = {
-    async updateFriends({ commit }) {
-        const updatedFriends = boilerplate.getFriends();
+    async getFriends({ commit }) {
+        const response = await getFriends();
+        const updatedFriends = response.data;
         commit('updateFriends', updatedFriends);
+    },
+    async addFriend({ commit }, friend) {
+        commit('addFriend', friend);
+    },
+    removeFriend({ commit, state }, friend) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                commit('removeFriend', friend);
+                let updatedFriends;
+                updatedFriends = state.friends.filter(function (element) {
+                    return friend.userId !== element.userId;
+                });
+                commit('updateFriends', updatedFriends);
+                resolve(commit('setRemoved'));
+            }, 500);
+        });
     }
 };
 
-const boilerplate = {
+/* const boilerplate = {
     getFriends() {
         return [
             {
@@ -76,7 +104,7 @@ const boilerplate = {
             }
         ];
     }
-};
+}; */
 
 export default {
     namespaced: true,

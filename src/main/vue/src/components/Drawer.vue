@@ -56,7 +56,7 @@
                     </v-list-tile>
                 </v-flex>
                 <v-flex>
-                    <v-list-tile @click="updateDrawerVisible(false)">
+                    <v-list-tile @click="updateDrawerVisible(false)" :to="{name: 'FriendsPage'}">
                         <v-list-tile-action>
                             <v-icon>contacts</v-icon>
                         </v-list-tile-action>

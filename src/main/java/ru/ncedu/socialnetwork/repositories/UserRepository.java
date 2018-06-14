@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface UserRepository extends CrudRepository<UserDAO, Long> {
     UserDAO findByLogin(String login);
+    UserDAO findByUserId(int userId);
 
 }
