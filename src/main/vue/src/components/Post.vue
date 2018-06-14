@@ -1,9 +1,9 @@
 <template>
-    <v-container>
-        <v-card class="mx-auto">
+    <div>
+        <v-card class="mt-4">
             <v-layout>
                 <v-avatar :size="70" class="primary ma-2">
-                    <img :src="post.user.avatar">
+                    <img :src="post.user.imagePath">
                 </v-avatar>
                 <v-flex>
                     <div class="post__title pt-2 pr-1">
@@ -29,18 +29,26 @@
                         </v-chip>
                     </div>
                     <v-card-title class="pt-0 pl-1 pb-1 pr-1">
-                        <span class="grey--text">{{ $d(post.date, 'long') }}</span>
+                        <span class="grey--text">
+                            {{ $d(new Date(post.date), 'long') }}
+                        </span>
                     </v-card-title>
                     <v-card-title class="pt-0 pl-1 pb-0 pr-1">
                         {{ post.content }}
                     </v-card-title>
                     <v-card-title class="pt-0 pl-1 pb-0 pr-1">
                         <v-spacer/>
-                        <v-btn @click="likeClicked" flat icon color="black">
-                            <v-icon color="black" v-if="!post.like">
+                        <v-btn
+                            flat
+                            icon
+                            @click="likeClicked"
+                            color="black">
+                            <v-icon color="primary" v-if="searchLike">
+                                favorite
+                            </v-icon>
+                            <v-icon color="black" v-else>
                                 favorite_border
                             </v-icon>
-                            <v-icon color="primary" v-else>favorite</v-icon>
                         </v-btn>
                         <v-btn flat icon color="black" @click="commentClicked">
                             <v-icon>comment</v-icon>
@@ -54,19 +62,18 @@
         </v-card>
         <v-slide-y-transition>
             <div v-if="showComments">
-                <v-flex v-for="comment in post.comments" :key="comment.id">
-                    <Comment :comment="comment"/>
+                <v-flex v-for="comment in comments" :key="comment.id">
+                    <Comment v-if="comment.postId === post.id" :comment="comment"/>
                 </v-flex>
                 <CommentAdd :post-id="post.id"/>
             </div>
         </v-slide-y-transition>
-    </v-container>
+    </div>
 </template>
 
 <script>
 import Comment from '@/components/Comment';
 import CommentAdd from '@/components/CommentAdd';
-import {mapActions} from 'vuex';
 
 export default {
     name: 'Post',
@@ -78,12 +85,29 @@ export default {
         post: {
             type: Object,
             required: true
+        },
+        comments: {
+            type: Array,
+            required: true
         }
     },
     data() {
         return {
-            showComments: false
+            showComments: false,
+            userId: Number(this.$store.state.auth.userId)
         };
+    },
+    computed: {
+        searchLike: {
+            get() {
+                let foundLike = this.post.likes.find(o => {
+                    if (o.user.userId === this.userId) {
+                        return true;
+                    }
+                });
+                return !!foundLike;
+            }
+        }
     },
     methods: {
         commentClicked() {
@@ -91,27 +115,26 @@ export default {
         },
         likeClicked() {
             const like = {
+                userId: this.userId,
                 postId: this.post.id,
-                updateLike: !this.post.like
+                likeValue: !this.searchLike
             };
-            this.setLikePost(like);
-        },
-        ...mapActions('feed', [
-            'setLikePost'
-        ])
+            this.$store.dispatch('feed/setLikePost', like);
+        }
     }
 };
 </script>
 
 <style scoped>
     .card {
-        max-width: 600px;
-        min-width: 350px;
-        min-height: 100px;
+        width: 600px;
+        max-width: 100%;
     }
+
     .avatar {
         width: 100px;
     }
+
     .post__title {
         align-items: center;
         display: flex;

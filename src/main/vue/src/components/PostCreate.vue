@@ -1,5 +1,8 @@
 <template>
-    <v-card class="mx-auto mt-1" flat>
+    <v-card class="mx-auto">
+        <v-card-title class="primary--text pa-2">
+            {{ $t('create new post') }}
+        </v-card-title>
         <v-form @submit.prevent="validateBeforeSubmit">
             <v-text-field
                 v-model="text"
@@ -13,9 +16,9 @@
             />
             <v-card-actions>
                 <v-spacer/>
-                <v-btn flat class="primary--text" @click="clear">{{ $t('clear') }}</v-btn>
+                <v-btn flat class="primary--text" @click="cancel">{{ $t('cancel') }}</v-btn>
                 <v-btn round class="white--text primary" type="submit">
-                    {{ $t('add comment') }}
+                    {{ $t('create post') }}
                 </v-btn>
             </v-card-actions>
         </v-form>
@@ -23,18 +26,10 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex';
-
 export default {
-    name: 'CommentAdd',
+    name: 'PostCreate',
     $_veeValidate: {
         validator: 'new'
-    },
-    props: {
-        postId: {
-            type: Number,
-            required: true
-        }
     },
     data() {
         return {
@@ -46,23 +41,20 @@ export default {
         validateBeforeSubmit() {
             this.$validator.validateAll().then((result) => {
                 if (result) {
-                    const comment = {
-                        postId: this.postId,
-                        content: this.text,
-                        likeComment: false
+                    const post = {
+                        type: 'Post',
+                        content: this.text
                     };
-                    this.sendComment(comment);
-                    this.clear();
+                    this.$store.dispatch('feed/createPost', post);
+                    this.cancel();
                 }
             });
         },
-        clear() {
+        cancel() {
             this.text = '';
             this.$validator.reset();
-        },
-        ...mapActions('feed', [
-            'sendComment'
-        ])
+            this.$emit('cancelClicked');
+        }
     }
 };
 </script>

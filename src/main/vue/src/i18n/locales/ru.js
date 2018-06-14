@@ -10,6 +10,8 @@ export default {
     'logout': 'Выход',
     'clear': 'Очистить',
     'add comment': 'Отправить',
+    'create post': 'Создать пост',
+    'create new post': 'Создать новый пост',
     'post.type.post': 'Пост',
     'post.type.commit': 'Коммит',
     'post.type.mergeRequest': 'Запрос слияния',
