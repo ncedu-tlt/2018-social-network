@@ -4,6 +4,9 @@ import index from '../../i18n/index';
 const state = {
     userName: localStorage.getItem('userName'),
     userId: localStorage.getItem('userId'),
+    userAvatar: localStorage.getItem('userAvatar'),
+    userRealName: localStorage.getItem('userRealName'),
+    userOrganization: localStorage.getItem('userOrganisation'),
     removeUser: false
 };
 
@@ -16,9 +19,15 @@ const mutations = {
         if (payload !== null) {
             state.userName = payload.userName;
             state.userId = payload.userId;
+            state.userRealName = payload.userRealName;
+            state.userAvatar = payload.userAvatar;
+            state.userOrganization = payload.userOrganization;
         } else {
             state.userName = null;
             state.userId = null;
+            state.userRealName = null;
+            state.userAvatar = null;
+            state.userOrganization = null;
         }
     },
     setRemove(state) {
@@ -38,7 +47,12 @@ const actions = {
         if (authResponse.data) {
             localStorage.setItem('userName', authResponse.data.login);
             localStorage.setItem('userId', authResponse.data.userId);
-            commit('setAuth', { userName: authResponse.data.login, userId: authResponse.data.userId });
+            localStorage.setItem('userAvatar', authResponse.data.imagePath);
+            localStorage.setItem('userRealName', authResponse.data.name);
+            if (authResponse.data.organization) {
+                localStorage.setItem('userOrganisation', authResponse.data.organization);
+            }
+            commit('setAuth', { userName: authResponse.data.login, userId: authResponse.data.userId, userRealName: authResponse.data.name, userAvatar: authResponse.data.imagePath, userOrganization: authResponse.data.organization });
 
             const settingsResponse = await getSettings();
             const language = settingsResponse.data.settingUnits.filter(language => language.settingsId.name === 'settings.language');

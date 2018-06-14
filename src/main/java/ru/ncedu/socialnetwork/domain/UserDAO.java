@@ -36,6 +36,17 @@ public class UserDAO {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<SettingsDAO> settingsDAO;
 
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true,
+            mappedBy = "user"
+    )
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<PostDAO> postsDAO;
+
+
+
     @OneToOne(mappedBy = "chat", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     @JsonIgnore

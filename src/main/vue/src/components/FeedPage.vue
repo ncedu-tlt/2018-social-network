@@ -1,7 +1,5 @@
 <template>
-    <v-layout>
-        <Feed class="mx-auto"/>
-    </v-layout>
+    <Feed class="mx-auto" />
 </template>
 
 <script>
