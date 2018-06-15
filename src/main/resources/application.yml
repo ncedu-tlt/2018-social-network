@@ -10,7 +10,7 @@ spring:
         url: ${DATABASE_URL}
     jpa:
         hibernate:
-            ddl-auto: update
+            ddl-auto: create-drop
     profiles:
         active: '@springProfile@'
 

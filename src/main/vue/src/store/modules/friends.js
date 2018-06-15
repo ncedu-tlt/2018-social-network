@@ -26,51 +26,16 @@ const boilerplate = {
     getFriends() {
         return [
             {
-                id: 1,
+                id: 2000,
                 name: 'Andrey Zorin',
                 login: 'zorin',
                 avatar: 'https://octodex.github.com/images/electrocat.png',
                 online: true
             },
             {
-                id: 2,
-                name: 'Michail Fedoseev',
-                login: 'fedoseev',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: false
-            },
-            {
-                id: 3,
-                name: 'Nikolai Petrov',
-                login: 'login1',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 4,
+                id: 3000,
                 name: 'Alexandra Sotnikova',
-                login: 'login2',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 5,
-                name: 'Ilya Bokov',
-                login: 'login3',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 6,
-                name: 'Ira Raush',
-                login: 'login4',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 7,
-                name: 'Katya Eliseeva',
-                login: 'login5',
+                login: 'sotn',
                 avatar: 'https://octodex.github.com/images/electrocat.png',
                 online: true
             }

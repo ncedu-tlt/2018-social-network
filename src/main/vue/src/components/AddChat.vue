@@ -82,7 +82,7 @@ export default {
         selectedFriends: function () {
             this.selectedId = this.selectedFriends.map(friend => friend.id);
             if (this.selectedId.length === 1) {
-                this.selectedId.unshift(parseInt(this.userId));
+                this.selectedId.push(parseInt(this.userId));
                 this.exist = this.getChatsByParticipantId(this.selectedId).length >= 1;
             } else {
                 this.exist = false;
