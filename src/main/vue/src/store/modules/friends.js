@@ -1,3 +1,4 @@
+import { getUsers } from '@/api/rest/user.api';
 
 const state = {
     friends: []
@@ -16,30 +17,13 @@ const mutations = {
 };
 
 const actions = {
-    async updateFriends({ commit }) {
-        const updatedFriends = boilerplate.getFriends();
-        commit('updateFriends', updatedFriends);
-    }
-};
+    async updateFriends({ commit, rootState }) {
+        const response = await getUsers();
+        const users = response.data;
+        const toDelete = new Set([parseInt(rootState.auth.userId)]);
+        const updatedFriends = users.filter(obj => !toDelete.has(obj.userId));
 
-const boilerplate = {
-    getFriends() {
-        return [
-            {
-                id: 1,
-                name: 'Andrey Zorin',
-                login: 'zorin',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 2,
-                name: 'Alexandra Sotnikova',
-                login: 'sotn',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            }
-        ];
+        commit('updateFriends', updatedFriends);
     }
 };
 

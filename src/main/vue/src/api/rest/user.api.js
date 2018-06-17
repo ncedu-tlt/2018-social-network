@@ -21,6 +21,10 @@ export function getCurrentUser() {
     return client.get('/user');
 }
 
+export function getUsers() {
+    return client.get('/user/all');
+}
+
 export function getUser(id) {
     return client.get(`/user/${id}`);
 }

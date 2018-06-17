@@ -49,7 +49,7 @@ const actions = {
         const response = await getCurrentUser();
         const userId = response.data.userId;
         let chat = {
-            participantsId: people.map(p => p.id)
+            participantsId: people.map(p => p.userId)
         };
         chat.participantsId.push(userId);
         await addChat(chat);
