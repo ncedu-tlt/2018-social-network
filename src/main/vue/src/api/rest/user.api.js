@@ -20,6 +20,14 @@ export function getProjects(userName) {
 export function getCurrentUser() {
     return client.get('/user');
 }
+
+export function getUsers() {
+    return client.get('/user/all');
+}
+
+export function getUser(id) {
+    return client.get(`/user/${id}`);
+}
 /**
  * Returns nothing, call for destroying current auth session
  * @returns {AxiosPromise<any>}

@@ -4,10 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.ncedu.socialnetwork.domain.UserDAO;
 
-import java.util.List;
-
 @Repository
-public interface UserRepository extends CrudRepository<UserDAO, Long> {
+public interface UserRepository extends CrudRepository<UserDAO, Integer> {
     UserDAO findByLogin(String login);
-
 }

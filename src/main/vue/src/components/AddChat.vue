@@ -14,10 +14,10 @@
             </v-card-actions>
             <v-card-text>
                 <template v-for="(friend, index) in filteredFriends">
-                    <v-list :key="friend.id">
+                    <v-list :key="friend.userId">
                         <v-list-tile avatar>
                             <v-list-tile-avatar>
-                                <img :src="friend.avatar">
+                                <img :src="friend.imagePath">
                             </v-list-tile-avatar>
                             <v-list-tile-content>
                                 <v-list-tile-sub-title>{{ friend.online? $t('friend.status.online'):$t('friend.status.offline') }}</v-list-tile-sub-title>
@@ -66,6 +66,9 @@ export default {
         ...mapState('friends', [
             'friends'
         ]),
+        ...mapState('auth', [
+            'userId'
+        ]),
         ...mapGetters('chats', [
             'getChatsByParticipantId'
         ]),
@@ -77,9 +80,10 @@ export default {
     },
     watch: {
         selectedFriends: function () {
-            this.selectedId = this.selectedFriends.map(friend => friend.id);
+            this.selectedId = this.selectedFriends.map(friend => friend.userId);
             if (this.selectedId.length === 1) {
-                this.exist = this.getChatsByParticipantId(this.selectedId).length === 1;
+                this.selectedId.push(parseInt(this.userId));
+                this.exist = this.getChatsByParticipantId(this.selectedId).length >= 1;
             } else {
                 this.exist = false;
             }
@@ -106,7 +110,7 @@ export default {
             this.$router.push(`/chat/${newChat.id}`);
         },
         openChat() {
-            let chatId = this.getChatsByParticipantId(this.selectedId).map(chat => chat.id);
+            let chatId = this.getChatsByParticipantId(this.selectedId)[0][1];
             this.dialog = false;
             this.$router.push(`/chat/${chatId}`);
         }
