@@ -6,4 +6,5 @@ import ru.ncedu.socialnetwork.domain.UserDAO;
 
 public interface PostRepository extends JpaRepository<PostDAO, Long> {
     PostDAO findPostDAOByPostIdAndUser(long postId, UserDAO user);
+    PostDAO findPostDAOByPostId(long postId);
 }
