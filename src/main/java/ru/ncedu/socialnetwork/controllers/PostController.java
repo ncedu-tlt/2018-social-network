@@ -94,7 +94,7 @@ public class PostController {
 
     @RequestMapping("/likes")
     public void updatePostLike(@AuthenticationPrincipal UserDAO user, @RequestBody LikePostDTO likePostDTO) {
-        PostDAO post = postRepository.findPostDAOByPostIdAndUser(likePostDTO.getPostId(), user);
+        PostDAO post = postRepository.findOne(likePostDTO.getPostId());
         LikePostDAO like = likePostRepository.findLikePostDAOByPostAndUser(post, user);
 
         if (like != null && !likePostDTO.isLikeValue()) {
