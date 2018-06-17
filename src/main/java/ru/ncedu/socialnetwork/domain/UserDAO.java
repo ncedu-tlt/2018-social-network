@@ -1,10 +1,11 @@
 package ru.ncedu.socialnetwork.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,14 +14,12 @@ public class UserDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
     private int userId;
 
     @Column(nullable = false, unique = true)
     private String login;
 
-    @Column
-    @NotEmpty(message = "Please provide your name")
+    @Column(nullable = false)
     private String name;
 
     @Column
@@ -33,8 +32,7 @@ public class UserDAO {
             fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE,
             orphanRemoval = true,
-            mappedBy = "settingsId.userId"
-    )
+            mappedBy = "settingsId.userId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<SettingsDAO> settingsDAO;
 
@@ -46,6 +44,36 @@ public class UserDAO {
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<PostDAO> postsDAO;
+
+
+
+    @OneToOne(mappedBy = "chat", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @JsonIgnore
+    private MessageDAO messages;
+    @ManyToMany(
+            mappedBy = "participants",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.MERGE
+    )
+    @JsonIgnore
+    private List<ChatDAO> chats = new ArrayList<>();
+
+    public List<ChatDAO> getChats() {
+        return chats;
+    }
+
+    public MessageDAO getMessages() {
+        return messages;
+    }
+
+    public void setMessages(MessageDAO messages) {
+        this.messages = messages;
+    }
+
+    public void setChats(List<ChatDAO> chats) {
+        this.chats = chats;
+    }
 
     public UserDAO() {}
 

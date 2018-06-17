@@ -1,3 +1,4 @@
+import { getUsers } from '@/api/rest/user.api';
 
 const state = {
     friends: []
@@ -16,65 +17,13 @@ const mutations = {
 };
 
 const actions = {
-    async updateFriends({ commit }) {
-        const updatedFriends = boilerplate.getFriends();
-        commit('updateFriends', updatedFriends);
-    }
-};
+    async updateFriends({ commit, rootState }) {
+        const response = await getUsers();
+        const users = response.data;
+        const toDelete = new Set([parseInt(rootState.auth.userId)]);
+        const updatedFriends = users.filter(obj => !toDelete.has(obj.userId));
 
-const boilerplate = {
-    getFriends() {
-        return [
-            {
-                id: 1,
-                name: 'Andrey Zorin',
-                login: 'zorin',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 3,
-                name: 'Michail Fedoseev',
-                login: 'fedoseev',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: false
-            },
-            {
-                id: 4,
-                name: 'Nikolai Petrov',
-                login: 'login1',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 5,
-                name: 'Alexandra Sotnikova',
-                login: 'login2',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 6,
-                name: 'Ilya Bokov',
-                login: 'login3',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 7,
-                name: 'Ira Raush',
-                login: 'login4',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            },
-            {
-                id: 8,
-                name: 'Katya Eliseeva',
-                login: 'login5',
-                avatar: 'https://octodex.github.com/images/electrocat.png',
-                online: true
-            }
-        ];
+        commit('updateFriends', updatedFriends);
     }
 };
 

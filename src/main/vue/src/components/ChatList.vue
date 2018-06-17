@@ -15,7 +15,7 @@
                         <img :src="chat.avatar">
                     </v-list-tile-avatar>
                     <v-list-tile-content>
-                        <v-list-tile-sub-title>{{ $d(chat.dateMsg, 'long') }}</v-list-tile-sub-title>
+                        <v-list-tile-sub-title>{{ chat.messages.length > 0 ? $d(chat.messages[chat.messages.length-1].dateMsg, 'long') : '' }}</v-list-tile-sub-title>
                         <v-list-tile-title v-html="chat.name"/>
                         <v-list-tile-action-text v-html="chat.messages.length > 0 ? chat.messages[chat.messages.length-1].body : $t('chat.created')"/>
                     </v-list-tile-content>

@@ -12,6 +12,7 @@ import ru.ncedu.socialnetwork.domain.UserDAO;
 import ru.ncedu.socialnetwork.repositories.SettingsRepository;
 import ru.ncedu.socialnetwork.repositories.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -34,6 +35,18 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET)
     public UserDAO getUser(@AuthenticationPrincipal UserDAO user){
         return user;
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public List<UserDAO> getUsers() {
+        List<UserDAO> target = new ArrayList<>();
+        userRepository.findAll().forEach(target::add);
+        return target;
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public UserDAO getUser(@PathVariable("id") int id) {
+        return userRepository.findOne(id);
     }
 
     @RequestMapping("/{userName}/repos")
