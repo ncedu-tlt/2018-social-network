@@ -26,14 +26,14 @@ const boilerplate = {
     getFriends() {
         return [
             {
-                id: 2000,
+                id: 1,
                 name: 'Andrey Zorin',
                 login: 'zorin',
                 avatar: 'https://octodex.github.com/images/electrocat.png',
                 online: true
             },
             {
-                id: 3000,
+                id: 2,
                 name: 'Alexandra Sotnikova',
                 login: 'sotn',
                 avatar: 'https://octodex.github.com/images/electrocat.png',

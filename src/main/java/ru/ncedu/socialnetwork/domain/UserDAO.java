@@ -13,7 +13,6 @@ import java.util.List;
 public class UserDAO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
 
     @Column(nullable = false, unique = true)
