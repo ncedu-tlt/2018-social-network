@@ -29,7 +29,7 @@ public class SettingsController {
         List<SettingsDAO> settingUnitList = new ArrayList<>();
 
 
-        if(!settingsRepository.findAll().isEmpty()){
+        if(!settingsRepository.findBySettingsIdUserId(user.getUserId()).isEmpty()){
             settingUnitList.addAll(settingsRepository.findBySettingsIdUserId(user.getUserId()));
         } else {
             settingUnitList.add(new SettingsDAO(new SettingsId(user.getUserId(), SHOW_LANGUAGE), "true"));
