@@ -30,7 +30,7 @@
                 </v-btn>
                 <v-layout align-center column class="avatar-position">
                     <v-avatar size="145px">
-                        <img src="https://vuetifyjs.com/static/doc-images/john.jpg">
+                        <img :src="profile.userAvatar">
                     </v-avatar>
                 </v-layout>
             </v-card-media>
@@ -43,7 +43,7 @@
                 </a>
             </v-layout>
         </v-card>
-        <v-card class="card-width mt-3">
+        <v-card class="card-width mt-3" v-if="settings.showLanguages">
             <v-list subheader>
                 <v-subheader class="title primary--text darken-3">
                     Languages
@@ -101,12 +101,17 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-export default {
+    import {mapState} from 'vuex';
+
+    export default {
     name: 'ProfileInfo',
     computed: {
-        ...mapState('profile', ['profile']),
+        ...mapState('profile', ['profile', 'settings']),
         ...mapState('auth', ['userName'])
+    },
+    mounted() {
+        this.$store.dispatch('profile/getCurrentUserData');
+        this.$store.dispatch('profile/getCurrentUserSettings');
     }
 };
 </script>

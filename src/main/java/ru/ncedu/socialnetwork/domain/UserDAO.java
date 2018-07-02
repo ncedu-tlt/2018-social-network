@@ -14,6 +14,7 @@ public class UserDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
     private int userId;
 
     @Column(nullable = false, unique = true)
@@ -45,12 +46,19 @@ public class UserDAO {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<PostDAO> postsDAO;
 
-
+    @OneToOne(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.REMOVE,
+            mappedBy = "user"
+    )
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ProfileDAO profileDAO;
 
     @OneToOne(mappedBy = "chat", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     @JsonIgnore
     private MessageDAO messages;
+
     @ManyToMany(
             mappedBy = "participants",
             fetch = FetchType.LAZY,
