@@ -11,7 +11,7 @@ const state = {
         placeOfWork: '',
         job: ''
     },
-    settings: {
+    profileSettings: {
         showLanguages: true,
         showTechnologies: true,
         showPlaceOfWork: true,
@@ -32,7 +32,7 @@ const mutations = {
     },
     setUserSettings(state, values) {
         if (values !== null) {
-            state.userSettings.showLanguages = values.showLanguages;
+            state.profileSettings.showLanguages = values.showLanguages;
         }
     }
 };

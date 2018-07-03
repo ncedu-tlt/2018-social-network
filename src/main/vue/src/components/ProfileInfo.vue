@@ -43,7 +43,7 @@
                 </a>
             </v-layout>
         </v-card>
-        <v-card class="card-width mt-3" v-if="settings.showLanguages">
+        <v-card class="card-width mt-3" v-if="profileSettings.showLanguages">
             <v-list subheader>
                 <v-subheader class="title primary--text darken-3">
                     Languages
@@ -101,12 +101,12 @@
 </template>
 
 <script>
-    import {mapState} from 'vuex';
+import {mapState} from 'vuex';
 
-    export default {
+export default {
     name: 'ProfileInfo',
     computed: {
-        ...mapState('profile', ['profile', 'settings']),
+        ...mapState('profile', ['profile', 'profileSettings']),
         ...mapState('auth', ['userName'])
     },
     mounted() {
