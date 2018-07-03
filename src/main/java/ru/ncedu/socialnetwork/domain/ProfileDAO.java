@@ -96,9 +96,9 @@ public class ProfileDAO {
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
-        if(obj instanceof ProfileId) {
-            ProfileId profileIdObject = (ProfileId) obj;
-            return profileIdObject.getProfileId() == profileId;
+        if(obj instanceof ProfileDAO) {
+            ProfileDAO profileObject = (ProfileDAO) obj;
+            return profileObject.getProfileId() == profileId;
         }
         return false;
     }
