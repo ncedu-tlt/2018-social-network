@@ -3,9 +3,12 @@ package ru.ncedu.socialnetwork.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import ru.ncedu.socialnetwork.enumerations.Languages;
+import ru.ncedu.socialnetwork.enumerations.Technologies;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -29,6 +32,22 @@ public class UserDAO {
     @Column
     private String organization;
 
+    @JsonIgnore
+    @ElementCollection(targetClass = Languages.class)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "languages")
+    private Collection<Languages> languages;
+
+    @JsonIgnore
+    @ElementCollection(targetClass = Technologies.class)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "technologies")
+    private Collection<Technologies> technologies;
+
+    @Column(name = "job")
+    private String job;
+
+    @JsonIgnore
     @OneToMany(
             fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE,
@@ -37,7 +56,8 @@ public class UserDAO {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<SettingsDAO> settingsDAO;
 
-    @OneToMany(
+    @JsonIgnore
+        @OneToMany(
             fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE,
             orphanRemoval = true,
@@ -45,14 +65,6 @@ public class UserDAO {
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<PostDAO> postsDAO;
-
-    @OneToOne(
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.REMOVE,
-            mappedBy = "user"
-    )
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private ProfileDAO profileDAO;
 
     @OneToOne(mappedBy = "chat", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
@@ -123,5 +135,45 @@ public class UserDAO {
 
     public void setOrganization(String organization) {
         this.organization = organization;
+    }
+
+    public Collection<Languages> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(Collection<Languages> languages) {
+        this.languages = languages;
+    }
+
+    public Collection<Technologies> getTechnologies() {
+        return technologies;
+    }
+
+    public void setTechnologies(Collection<Technologies> technologies) {
+        this.technologies = technologies;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public List<SettingsDAO> getSettingsDAO() {
+        return settingsDAO;
+    }
+
+    public void setSettingsDAO(List<SettingsDAO> settingsDAO) {
+        this.settingsDAO = settingsDAO;
+    }
+
+    public List<PostDAO> getPostsDAO() {
+        return postsDAO;
+    }
+
+    public void setPostsDAO(List<PostDAO> postsDAO) {
+        this.postsDAO = postsDAO;
     }
 }
