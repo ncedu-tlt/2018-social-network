@@ -1,15 +1,15 @@
 package ru.ncedu.socialnetwork.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import ru.ncedu.socialnetwork.enumerations.Languages;
 import ru.ncedu.socialnetwork.enumerations.Technologies;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -32,19 +32,19 @@ public class UserDAO {
     @Column
     private String organization;
 
-    @JsonIgnore
     @ElementCollection(targetClass = Languages.class)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @Enumerated(EnumType.STRING)
-    @Column(name = "languages")
-    private Collection<Languages> languages;
+    @Column
+    private Set<Languages> languages = new LinkedHashSet<>();
 
-    @JsonIgnore
     @ElementCollection(targetClass = Technologies.class)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @Enumerated(EnumType.STRING)
-    @Column(name = "technologies")
-    private Collection<Technologies> technologies;
+    @Column
+    private Set<Technologies> technologies = new LinkedHashSet<>();
 
-    @Column(name = "job")
+    @Column
     private String job;
 
     @JsonIgnore
@@ -141,7 +141,7 @@ public class UserDAO {
         return languages;
     }
 
-    public void setLanguages(Collection<Languages> languages) {
+    public void setLanguages(Set<Languages> languages) {
         this.languages = languages;
     }
 
@@ -149,7 +149,7 @@ public class UserDAO {
         return technologies;
     }
 
-    public void setTechnologies(Collection<Technologies> technologies) {
+    public void setTechnologies(Set<Technologies> technologies) {
         this.technologies = technologies;
     }
 

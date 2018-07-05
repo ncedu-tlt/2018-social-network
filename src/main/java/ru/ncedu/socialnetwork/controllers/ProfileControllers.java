@@ -26,6 +26,7 @@ public class ProfileControllers {
         List<SettingsDAO> settings = settingsRepository.findBySettingsIdUserId(user.getUserId());
         ProfileDTO profileDTO = new ProfileDTO();
 
+
         profileDTO.setName(user.getName());
         profileDTO.setImagePath(user.getImagePath());
         profileDTO.setLanguages(user.getLanguages());
