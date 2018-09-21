@@ -1,12 +1,15 @@
 package ru.ncedu.socialnetwork.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import ru.ncedu.socialnetwork.enumerations.Languages;
+import ru.ncedu.socialnetwork.enumerations.Technologies;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -14,6 +17,7 @@ public class UserDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
     private int userId;
 
     @Column(nullable = false, unique = true)
@@ -28,6 +32,22 @@ public class UserDAO {
     @Column
     private String organization;
 
+    @ElementCollection(targetClass = Languages.class)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Enumerated(EnumType.STRING)
+    @Column
+    private Set<Languages> languages = new LinkedHashSet<>();
+
+    @ElementCollection(targetClass = Technologies.class)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Enumerated(EnumType.STRING)
+    @Column
+    private Set<Technologies> technologies = new LinkedHashSet<>();
+
+    @Column
+    private String job;
+
+    @JsonIgnore
     @OneToMany(
             fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE,
@@ -36,7 +56,8 @@ public class UserDAO {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<SettingsDAO> settingsDAO;
 
-    @OneToMany(
+    @JsonIgnore
+        @OneToMany(
             fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE,
             orphanRemoval = true,
@@ -45,12 +66,11 @@ public class UserDAO {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<PostDAO> postsDAO;
 
-
-
     @OneToOne(mappedBy = "chat", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     @JsonIgnore
     private MessageDAO messages;
+
     @ManyToMany(
             mappedBy = "participants",
             fetch = FetchType.LAZY,
@@ -115,5 +135,45 @@ public class UserDAO {
 
     public void setOrganization(String organization) {
         this.organization = organization;
+    }
+
+    public Collection<Languages> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(Set<Languages> languages) {
+        this.languages = languages;
+    }
+
+    public Collection<Technologies> getTechnologies() {
+        return technologies;
+    }
+
+    public void setTechnologies(Set<Technologies> technologies) {
+        this.technologies = technologies;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public List<SettingsDAO> getSettingsDAO() {
+        return settingsDAO;
+    }
+
+    public void setSettingsDAO(List<SettingsDAO> settingsDAO) {
+        this.settingsDAO = settingsDAO;
+    }
+
+    public List<PostDAO> getPostsDAO() {
+        return postsDAO;
+    }
+
+    public void setPostsDAO(List<PostDAO> postsDAO) {
+        this.postsDAO = postsDAO;
     }
 }

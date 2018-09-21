@@ -1,15 +1,29 @@
+import {getProfile} from '@/api/rest/profile.api';
+
 const state = {
-    profile: {
-        name: 'IngerGodal',
-        languages: ['Java', 'PHP', 'Ruby'],
-        technologies: ['Spring', 'Hibernate'],
-        placeOfWork: 'Some company',
-        job: 'Software engineer',
-        isFriend: true
+    profile: {}
+};
+
+const mutations = {
+    setUserProfileData(state, data) {
+        if (data !== null) {
+            state.profile = data;
+        }
+    }
+};
+
+const actions = {
+    async getCurrentUserData({ commit }) {
+        const response = await getProfile();
+        if (response.data) {
+            commit('setUserProfileData', response.data);
+        }
     }
 };
 
 export default {
     namespaced: true,
-    state
+    state,
+    actions,
+    mutations
 };

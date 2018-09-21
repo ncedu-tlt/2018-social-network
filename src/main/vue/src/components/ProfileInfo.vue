@@ -30,7 +30,7 @@
                 </v-btn>
                 <v-layout align-center column class="avatar-position">
                     <v-avatar size="145px">
-                        <img src="https://vuetifyjs.com/static/doc-images/john.jpg">
+                        <img :src="profile.imagePath">
                     </v-avatar>
                 </v-layout>
             </v-card-media>
@@ -38,12 +38,9 @@
                 <h1 class="display-2 primary--text darken-4">
                     {{ profile.name }}
                 </h1>
-                <a class="subheading primary--text darken-0">
-                    View profile on GitHub
-                </a>
             </v-layout>
         </v-card>
-        <v-card class="card-width mt-3">
+        <v-card class="card-width mt-3" v-if="profile.showLanguages && profile.languages.length !== 0">
             <v-list subheader>
                 <v-subheader class="title primary--text darken-3">
                     Languages
@@ -58,7 +55,7 @@
                 </v-list-tile>
             </v-list>
         </v-card>
-        <v-card class="card-width mt-3">
+        <v-card class="card-width mt-3" v-if="profile.showTechnologies && profile.technologies.length !== 0">
             <v-list subheader>
                 <v-subheader class="title primary--text darken-3">
                     Preferred technologies
@@ -73,7 +70,7 @@
                 </v-list-tile>
             </v-list>
         </v-card>
-        <v-card class="card-width mt-3">
+        <v-card class="card-width mt-3" v-if="profile.showPlaceOfWork && profile.placeOfWork">
             <v-list subheader>
                 <v-subheader class="title primary--text darken-3">
                     Place of work
@@ -85,7 +82,7 @@
                 </v-list-tile>
             </v-list>
         </v-card>
-        <v-card class="card-width mt-3">
+        <v-card class="card-width mt-3" v-if="profile.showJob && profile.job">
             <v-list subheader>
                 <v-subheader class="title primary--text darken-3">
                     Job
@@ -101,12 +98,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import {mapState} from 'vuex';
+
 export default {
     name: 'ProfileInfo',
     computed: {
         ...mapState('profile', ['profile']),
         ...mapState('auth', ['userName'])
+    },
+    mounted() {
+        this.$store.dispatch('profile/getCurrentUserData');
     }
 };
 </script>
